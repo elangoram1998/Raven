@@ -1,0 +1,14 @@
+{
+  "name": "raven-server",
+  "version": "1.0.0",
+  "description": "Social Media Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "social_media"
+  ],
+  "author": "Elango Ramar",
+  "license": "ISC"
+}
