@@ -56,6 +56,44 @@ const userSchema = new mongoose.Schema({
 },
     { timestamps: true, });
 
+
+userSchema.pre('save', async function (next) {
+    const user = this;
+    if (user.isModified('password')) {
+        user.password = await bcrypt.hash(user.password, 8);
+    }
+    next();
+});
+
+userSchema.statics.findUserByCredentials = async function (username, password) {
+    const user = await User.findOne({ username });
+    if (!user) {
+        throw new Error('Account is not available');
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+        throw new Error('Username/Password is incorrect');
+    }
+    return user;
+}
+
+userSchema.methods.generateToken = async function () {
+    const user = this;
+    const token = await jwt.sign({ _id: user._id.toString() }, config.get('tokenKey'));
+    user.tokens = user.tokens.concat({ token });
+    await user.save();
+    return token;
+}
+
+userSchema.methods.toJSON = function () {
+    const user = this;
+    const userObject = user.toObject();
+    delete userObject.password;
+    delete userObject.tokens;
+
+    return userObject;
+}
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = {

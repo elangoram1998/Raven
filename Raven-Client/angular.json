@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "Raven-Client"
+  "defaultProject": "Raven-Client",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

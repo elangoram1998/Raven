@@ -32,7 +32,7 @@ export class SignUpComponent implements OnInit {
     this.authService.signUp(this.signUpForm.value).subscribe(
       success => {
         this.toastr.success('Account created', 'Please sign in to the application');
-        this.router.navigate(['/signIn']);
+        this.router.navigate(['/SignIn']);
       },
       error => {
         console.log(error);
