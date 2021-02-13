@@ -9,22 +9,16 @@ import {
 } from '@ngrx/store';
 import { User } from 'src/app/model/user';
 import { environment } from '../../../environments/environment';
-import { login } from '../auth.actions';
+import { login } from '../actions/auth.actions';
 
 export const authFeatureKey = 'auth';
 
 export interface AuthState {
-  user: User
+  user?: User
 }
 
 export const initialState: AuthState = {
-  user: {
-    _id: "",
-    username: "",
-    email: "",
-    profile_type: "",
-    user_type: "",
-  }
+  user: undefined
 }
 
 export const authReducers = createReducer(

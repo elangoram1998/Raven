@@ -18,8 +18,9 @@ import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { authReducers } from './auth/reducers';
-import { AuthEffects } from './auth/auth.effects';
+import { AuthEffects } from './auth/effects/auth.effects';
+import { UserDataEffects } from './auth/effects/user-data.effects';
+import { MyChatRoomEffects } from './auth/effects/my-chat-room.effects';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,7 @@ import { AuthEffects } from './auth/auth.effects';
       stateKey: 'router',
       routerState: RouterState.Minimal
     }),
-    EffectsModule.forRoot([AuthEffects])
+    EffectsModule.forRoot([AuthEffects, UserDataEffects, MyChatRoomEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
