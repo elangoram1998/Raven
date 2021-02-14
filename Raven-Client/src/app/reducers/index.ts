@@ -19,7 +19,7 @@ export const reducers: ActionReducerMap<AppState> = {
   router: routerReducer,
   auth: authReducers,
   userData: userDataReducers,
-  myChatRoom: myChatRoomReducers
+  myChatRoom: myChatRoomReducers,
 };
 
 

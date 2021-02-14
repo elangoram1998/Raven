@@ -3,11 +3,10 @@ const { uniqueArray, excludeMyFriends } = require('../utils/uniqueArray');
 
 const getFriendSuggestion = async (req, res) => {
     try {
-        const toBeExcluded = req.user.followings;
+        const toBeExcluded = req.userData.followings;
         toBeExcluded.push(req.user._id);
         const users = await User.find().select('_id username avatar');
-        const friendSuggestion = [];
-        friendSuggestion = excludeMyFriends(toBeExcluded, users);
+        const friendSuggestion = excludeMyFriends(toBeExcluded, users);
         res.status(200).send(friendSuggestion);
     }
     catch (e) {

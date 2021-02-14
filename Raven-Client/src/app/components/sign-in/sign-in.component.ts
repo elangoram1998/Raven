@@ -41,7 +41,7 @@ export class SignInComponent implements OnInit {
         const user = res['user'];
         const userData = res['userData'];
         const myChatRooms = res['userData'].my_chat_rooms;
-        localStorage.setItem('token', JSON.stringify(res['token']));
+        localStorage.setItem('token', res['token']);
         this.store.dispatch(login({ user }));
         this.store.dispatch(loadUserData({ userData }));
         this.store.dispatch(loadMyChatRoomss({ myChatRooms }));

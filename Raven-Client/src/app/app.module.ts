@@ -27,7 +27,7 @@ import { MyChatRoomEffects } from './auth/effects/my-chat-room.effects';
     AppComponent,
     PageNotFoundComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,

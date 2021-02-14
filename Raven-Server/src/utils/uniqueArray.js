@@ -1,7 +1,7 @@
 
 const uniqueArray = (toBeNewArray, excludeArray) => {
     excludeArray.forEach(profile => {
-        if (!toBeNewArray.inclueds(profile._id)) {
+        if (!toBeNewArray.includes(profile._id)) {
             toBeNewArray.push(profile);
         }
     });
@@ -11,7 +11,7 @@ const uniqueArray = (toBeNewArray, excludeArray) => {
 const excludeMyFriends = (myFriends, allUsers) => {
     const newArray = [];
     allUsers.forEach(user => {
-        if (!myFriends.inclueds(user._id)) {
+        if (!myFriends.includes(user._id)) {
             newArray.push(user);
         }
     });

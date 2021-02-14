@@ -39,16 +39,14 @@ const postSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-const Post = mongoose.model('Post', postSchema);
-
-postSchema.statics.getMyFeed = async function (usersArray) {
+postSchema.statics.getMyFeeds = async function (usersArray) {
     const feed = await Post.find({
         'user_id': {
             $in: usersArray
         },
         'createdAt': {
             $gte: moment().startOf('day').toDate(),
-            $lte: moment.defaultFormat()
+            $lte: moment().format()
         }
     }).populate({
         path: 'user_id',
@@ -57,6 +55,8 @@ postSchema.statics.getMyFeed = async function (usersArray) {
 
     return feed;
 }
+
+const Post = mongoose.model('Post', postSchema);
 
 module.exports = {
     postSchema,
