@@ -9,22 +9,17 @@ import {
 } from '@ngrx/store';
 import { UserData } from 'src/app/model/user-data';
 import { environment } from '../../../environments/environment';
+import { logout } from '../actions/auth.actions';
 import { loadUserData } from '../actions/user-data.actions';
 
 export const authFeatureKey = 'auth';
 
 export interface UserDataState {
-    userData: UserData
+    userData?: UserData
 }
 
 export const initialState: UserDataState = {
-    userData: {
-        user_id: "",
-        followers: [""],
-        followings: [""],
-        liked_post: [""],
-        saved_post: [""]
-    }
+    userData: undefined
 }
 
 export const userDataReducers = createReducer(
@@ -32,6 +27,11 @@ export const userDataReducers = createReducer(
     on(loadUserData, (state, action) => {
         return {
             userData: action.userData
+        }
+    }),
+    on(logout, (state, action) => {
+        return {
+            userData: undefined
         }
     })
 )

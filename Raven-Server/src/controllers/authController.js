@@ -42,6 +42,18 @@ const login = async (req, res) => {
     }
 }
 
+const logout = async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter(token => token.token != req.token);
+        await req.user.save();
+        res.status(200).send(true);
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).send(e);
+    }
+}
+
 const test = async (req, res) => {
     try {
 
@@ -54,5 +66,6 @@ const test = async (req, res) => {
 
 module.exports = {
     register,
-    login
+    login,
+    logout
 }

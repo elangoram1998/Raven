@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from 'src/app/model/post';
+import { CommonUtils } from 'src/app/utils/common';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,13 +10,10 @@ import { environment } from 'src/environments/environment';
 })
 export class PostService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private common: CommonUtils) { }
 
   getMyFeed(): Observable<Post[]> {
-    const token = localStorage.getItem('token')
-    const headers = new HttpHeaders({
-      "authorization": "Bearer " + token
-    })
+    const headers = this.common.headers;
     return this.http.get<Post[]>(environment.myFeed, { headers })
   }
 

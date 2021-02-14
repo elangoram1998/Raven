@@ -10,6 +10,7 @@ import {
 import { MyChatRoom } from 'src/app/model/my-chat-room';
 import { UserData } from 'src/app/model/user-data';
 import { environment } from '../../../environments/environment';
+import { logout } from '../actions/auth.actions';
 import { loadMyChatRoomss } from '../actions/my-chat-rooms.actions';
 import { loadUserData } from '../actions/user-data.actions';
 
@@ -28,6 +29,11 @@ export const myChatRoomReducers = createReducer(
     on(loadMyChatRoomss, (state, action) => {
         return {
             myChatRoom: action.myChatRooms
+        }
+    }),
+    on(logout, (state, action) => {
+        return {
+            myChatRoom: []
         }
     })
 )

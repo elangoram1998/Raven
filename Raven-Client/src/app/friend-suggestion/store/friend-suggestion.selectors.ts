@@ -6,5 +6,5 @@ export const selectFSstate = createFeatureSelector<FState>("friendSuggestion");
 
 export const areFSLoaded = createSelector(
     selectFSstate,
-    state => state.allSuggestionsLoaded
+    state => state.allFriendSuggestionsLoaded
 )

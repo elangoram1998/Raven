@@ -7,7 +7,8 @@ export const environment = {
   signUp: 'api/auth/register',
   signIn: 'api/auth/login',
   friendSuggestion: 'api/friendSuggestion/getFriendSuggestion',
-  myFeed: 'api/post/getMyFeed'
+  myFeed: 'api/post/getMyFeed',
+  logout: 'api/auth/logout',
 };
 
 /*
