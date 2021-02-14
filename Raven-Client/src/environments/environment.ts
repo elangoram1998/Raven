@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   signUp: 'api/auth/register',
-  signIn: 'api/auth/login'
+  signIn: 'api/auth/login',
+  friendSuggestion: 'api/friendSuggestion/getFriendSuggestion',
+  myFeed: 'api/post/getMyFeed'
 };
 
 /*

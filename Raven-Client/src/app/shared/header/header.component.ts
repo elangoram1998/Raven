@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectAvatar } from 'src/app/auth/selectors/user.selectors';
+import { AppState } from 'src/app/reducers';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  avatarUrl!: Observable<string | undefined>;
+
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
+    this.avatarUrl = this.store.pipe(select(selectAvatar));
   }
 
 }

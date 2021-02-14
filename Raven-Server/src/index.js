@@ -6,6 +6,8 @@ const chalk = require('chalk');
 //sub modules
 require('./database/mongoDB');
 const authRouter = require('./routes/authRoute');
+const friendSuggestionRouter = require('./routes/suggestionRoute');
+const postRouter = require('./routes/postRoute');
 
 const app = express();
 const success = chalk.underline.green.bold;
@@ -15,6 +17,8 @@ app.use(cors({
 }));
 
 app.use('/api/auth', authRouter);
+app.use('/api/post', postRouter);
+app.use('/api/friendSuggestion', friendSuggestionRouter);
 
 const PORT = process.env.PORT || config.get('server.port');
 

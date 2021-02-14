@@ -36,10 +36,8 @@ export class SignInComponent implements OnInit {
   });
 
   signInUser() {
-    console.log(this.signInForm.value);
     this.authService.signIn(this.signInForm.value).pipe(
       tap((res: any) => {
-        console.log(res);
         const user = res['user'];
         const userData = res['userData'];
         const myChatRooms = res['userData'].my_chat_rooms;
