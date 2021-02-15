@@ -4,12 +4,15 @@
 
 export const environment = {
   production: false,
+  ENT_POINT: 'http://localhost:3000',
   signUp: 'api/auth/register',
   signIn: 'api/auth/login',
   friendSuggestion: 'api/friendSuggestion/getFriendSuggestion',
   myFeed: 'api/post/getMyFeed',
   logout: 'api/auth/logout',
-  addFriend: 'api/friendSuggestion/addFriend'
+  addFriend: 'api/friendSuggestion/addFriend',
+  loadMyNotifications: 'api/notification/myNotifications',
+
 };
 
 /*
