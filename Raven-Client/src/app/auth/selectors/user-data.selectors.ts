@@ -1,4 +1,10 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserData } from 'src/app/model/user-data';
+import { UserDataState } from '../reducers/userdata.reducer';
 
-export const selectUserData=createFeatureSelector<UserData>('userData');
+export const selectMyUserData = createFeatureSelector<UserDataState>('userData');
+
+export const selectUserData = createSelector(
+    selectMyUserData,
+    data => data.userData
+)

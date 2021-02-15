@@ -1,3 +1,4 @@
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import {
     ActionReducer,
     ActionReducerMap,
@@ -11,31 +12,26 @@ import { MyChatRoom } from 'src/app/model/my-chat-room';
 import { UserData } from 'src/app/model/user-data';
 import { environment } from '../../../environments/environment';
 import { logout } from '../actions/auth.actions';
-import { loadMyChatRoomss } from '../actions/my-chat-rooms.actions';
+import { addNewChatRoom, loadMyChatRoomss } from '../actions/my-chat-rooms.actions';
 import { loadUserData } from '../actions/user-data.actions';
 
 export const authFeatureKey = 'auth';
 
-export interface MyChatRoomState {
+export interface MyChatRoomState extends EntityState<MyChatRoom> {
     myChatRoom: MyChatRoom[]
 }
 
-export const initialState: MyChatRoomState = {
-    myChatRoom: []
-}
+export const adapter = createEntityAdapter<MyChatRoom>({
+    selectId: (chatRoom: MyChatRoom) => chatRoom.user_id
+})
+
+export const initialState = adapter.getInitialState();
 
 export const myChatRoomReducers = createReducer(
     initialState,
-    on(loadMyChatRoomss, (state, action) => {
-        return {
-            myChatRoom: action.myChatRooms
-        }
-    }),
-    on(logout, (state, action) => {
-        return {
-            myChatRoom: []
-        }
-    })
+    on(loadMyChatRoomss, (state, action) => adapter.addMany(action.myChatRooms, state)),
+    on(logout, (state, action) => adapter.removeAll(state)),
+    on(addNewChatRoom, (state, action) => adapter.addOne(action.newRoom, state))
 )
 
 

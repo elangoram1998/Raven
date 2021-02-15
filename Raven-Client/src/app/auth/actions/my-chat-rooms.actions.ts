@@ -6,6 +6,11 @@ export const loadMyChatRoomss = createAction(
   props<{ myChatRooms: MyChatRoom[] }>()
 );
 
+export const addNewChatRoom = createAction(
+  '[New Chat Room] Add ChatRoom',
+  props<{ newRoom: MyChatRoom }>()
+)
+
 
 
 

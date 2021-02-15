@@ -16,11 +16,18 @@ import { addFollowing, loadUserData } from '../actions/user-data.actions';
 export const authFeatureKey = 'auth';
 
 export interface UserDataState {
-    userData?: UserData
+    userData: UserData
 }
 
 export const initialState: UserDataState = {
-    userData: undefined
+    userData: {
+        user_id: "",
+        bio: "",
+        followers: [""],
+        followings: [""],
+        liked_post: [""],
+        saved_post: [""],
+    }
 }
 
 export const userDataReducers = createReducer(
@@ -32,12 +39,19 @@ export const userDataReducers = createReducer(
     }),
     on(logout, (state, action) => {
         return {
-            userData: undefined
+            userData: {
+                user_id: "",
+                bio: "",
+                followers: [""],
+                followings: [""],
+                liked_post: [""],
+                saved_post: [""],
+            }
         }
     }),
     on(addFollowing, (state, action) => {
         return {
-            userData: action.update
+            userData: action.userData
         }
     })
 )

@@ -28,17 +28,22 @@ export class FriendSuggestionComponent implements OnInit {
     this.friendSuggestions$ = this.store.pipe(select(selectAllFS));
     this.store.pipe(select(selectUserData)).subscribe(
       data => {
-        this.userData = data;
+        this.userData = { ...data };
+        console.log(data)
       }
     )
   }
 
   addFriend(userId: string) {
     console.log(userId);
-    this.updateUserData = { ...this.userData };
-    this.updateUserData.followings.push(userId);
+    this.updateUserData = this.userData;
+    console.log(this.userData);
+    //this.userData.followings.push(userId);
+    console.log(this.userData.user_id)
+    this.userData.followings = Object.assign([], this.userData.followings);
+    this.userData.followings.push(userId);
     this.store.dispatch(removeFriendSuggestion({ id: userId }));
-    this.store.dispatch(addFollowing({ update: this.updateUserData }));
+    this.store.dispatch(addFollowing({ userData: this.userData }));
   }
 
   public scrollRight(): void {

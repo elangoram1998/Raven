@@ -9,6 +9,7 @@ export const environment = {
   friendSuggestion: 'api/friendSuggestion/getFriendSuggestion',
   myFeed: 'api/post/getMyFeed',
   logout: 'api/auth/logout',
+  addFriend: 'api/friendSuggestion/addFriend'
 };
 
 /*

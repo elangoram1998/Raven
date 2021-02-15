@@ -9,7 +9,7 @@ export const loadUserData = createAction(
 
 export const addFollowing = createAction(
   '[Start Follow] Pushin Followings',
-  props<{ update: UserData }>()
+  props<{ userData: UserData }>()
 )
 
 

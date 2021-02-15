@@ -32,7 +32,19 @@ const addFriend = async (req, res) => {
                 room_id: chat_room._id
             });
             await req.userData.save();
+            return res.status(200).json({
+                isMutualFriend: true,
+                payload: {
+                    user_id: req.body.id,
+                    room_id: chat_room._id
+                }
+            })
         }
+        res.status(200).json({
+            isMutualFriend: false,
+            payload: {}
+        })
+
     }
     catch (e) {
         console.log(e);
