@@ -5,6 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromFriendSuggestion from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { FriendSuggestionEffects } from './store/friend-suggestion.effects';
+import { MaterialModule } from '../material/material/material.module';
 
 
 
@@ -14,6 +15,7 @@ import { FriendSuggestionEffects } from './store/friend-suggestion.effects';
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     StoreModule.forFeature(fromFriendSuggestion.friendSuggestionFeatureKey, fromFriendSuggestion.friendSuggestionReducer, { metaReducers: fromFriendSuggestion.metaReducers }),
     EffectsModule.forFeature([FriendSuggestionEffects])
   ],

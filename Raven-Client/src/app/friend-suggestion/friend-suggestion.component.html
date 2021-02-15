@@ -1,1 +1,30 @@
-<p>friend-suggestion works!</p>
+<mat-card class="item-card">
+    <mat-card-header>
+        <mat-card-title>People you may know</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div id="arrow-btn" style="float: left">
+            <button id="pn-btn" mat-icon-button style="background-color: #8b00dd;color: white;" (click)="scrollLeft()">
+                <mat-icon id="arrow-icon">arrow_back_ios</mat-icon>
+            </button>
+        </div>
+        <div #widgetsContent class="middle">
+            <div *ngFor="let user of friendSuggestions$ | async" class="info-widget">
+                <div class="card">
+                    <img [src]="user.avatar" height="130" alt="Avatar">
+                    <div class="card-body">
+                        <h5 class="card-title">{{user.username}}</h5>
+                        <button (click)="addFriend(user._id)" mat-raised-button color="warn">Follow
+                            <mat-icon>person_add_alt_1</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="arrow-btn" style="float: right">
+            <button id="pn-btn" mat-icon-button style="background-color: #8b00dd;color: white;" (click)="scrollRight()">
+                <mat-icon id="arrow-icon">arrow_forward_ios</mat-icon>
+            </button>
+        </div>
+    </mat-card-content>
+</mat-card>

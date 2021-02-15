@@ -7,10 +7,11 @@ import {
     MetaReducer,
     on
 } from '@ngrx/store';
+import { removeFriendSuggestion } from 'src/app/friend-suggestion/store/friend-suggestion.actions';
 import { UserData } from 'src/app/model/user-data';
 import { environment } from '../../../environments/environment';
 import { logout } from '../actions/auth.actions';
-import { loadUserData } from '../actions/user-data.actions';
+import { addFollowing, loadUserData } from '../actions/user-data.actions';
 
 export const authFeatureKey = 'auth';
 
@@ -32,6 +33,11 @@ export const userDataReducers = createReducer(
     on(logout, (state, action) => {
         return {
             userData: undefined
+        }
+    }),
+    on(addFollowing, (state, action) => {
+        return {
+            userData: action.update
         }
     })
 )

@@ -1,0 +1,31 @@
+.item-card{
+    height: 23em;
+}
+
+#arrow-btn{
+  margin-top: 70px;
+}
+
+#pn-btn{
+    background-image: linear-gradient(to top, #b3ffab 0%, #12fff7 100%);
+}
+
+#arrow-icon{
+    color: black;
+}
+
+.middle {
+    float: left;
+    width: 80%;
+    // overflow: auto;
+    overflow-x: hidden;
+    /*will change this to hidden later to deny scolling to user*/
+    white-space: nowrap;
+  }
+.info-widget {
+    //width: 31.75%;
+    width: 40%;
+    margin: 0 5px 0 5px;
+    // border: 1px solid black;
+    display: inline-block;
+  }

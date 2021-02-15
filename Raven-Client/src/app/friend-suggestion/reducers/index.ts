@@ -11,7 +11,7 @@ import {
 import { logout } from 'src/app/auth/actions/auth.actions';
 import { FriendSuggestion } from 'src/app/model/friend-suggestion';
 import { environment } from '../../../environments/environment';
-import { allSuggestionsLoaded } from '../store/friend-suggestion.actions';
+import { allSuggestionsLoaded, removeFriendSuggestion } from '../store/friend-suggestion.actions';
 
 export const friendSuggestionFeatureKey = 'friendSuggestion';
 
@@ -30,8 +30,10 @@ export const initialState = adapter.getInitialState({
 export const friendSuggestionReducer = createReducer(
   initialState,
   on(allSuggestionsLoaded, (state, action) => adapter.addMany(action.suggestions, { ...state, allFriendSuggestionsLoaded: true })),
-  on(logout, (state, action) => adapter.removeAll({ ...state, allFriendSuggestionsLoaded: false }))
+  on(logout, (state, action) => adapter.removeAll({ ...state, allFriendSuggestionsLoaded: false })),
+  on(removeFriendSuggestion, (state, action) => adapter.removeOne(action.id, state))
 )
 
+export const { selectAll } = adapter.getSelectors();
 
 export const metaReducers: MetaReducer<FState>[] = !environment.production ? [] : [];

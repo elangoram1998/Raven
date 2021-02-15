@@ -10,6 +10,11 @@ export const allSuggestionsLoaded = createAction(
   props<{ suggestions: FriendSuggestion[] }>()
 );
 
+export const removeFriendSuggestion = createAction(
+  '[Friend Added] New Friend',
+  props<{ id: string }>()
+)
+
 
 
 

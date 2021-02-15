@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from '../material/material/material.module';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 
@@ -12,6 +13,7 @@ import { MaterialModule } from '../material/material/material.module';
   imports: [
     CommonModule,
     MaterialModule,
+    //AppRoutingModule
   ],
   exports: [
     HeaderComponent
