@@ -32,6 +32,7 @@ const addFriend = async (req, res) => {
         });
         await notification.save();
         global.io.emit(`${req.body.id}-myNotification`, {
+            _id: notification._id,
             user_id: req.user._id,
             avatar: req.user.avatar,
             username: req.user.username

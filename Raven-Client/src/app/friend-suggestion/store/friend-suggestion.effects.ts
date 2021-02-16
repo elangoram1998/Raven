@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { concatMap, map, tap } from 'rxjs/operators';
 import { addNewChatRoom } from 'src/app/auth/actions/my-chat-rooms.actions';
 import { AddFriendRes } from 'src/app/model/add-friend-res';
+import { AppState } from 'src/app/reducers';
 import { FSService } from '../services/fs.service';
 import { allSuggestionsLoaded, loadFriendSuggestions, removeFriendSuggestion } from './friend-suggestion.actions';
 
@@ -25,7 +27,8 @@ export class FriendSuggestionEffects {
       concatMap(action => this.fsHttpService.addFriend(action.id).pipe(
         map(res => {
           if (res.isMutualFriend) {
-            addNewChatRoom({ newRoom: res.payload })
+            console.log("result: " + res.payload.room_id);
+            this.store.dispatch(addNewChatRoom({ newRoom: res.payload }));
           }
           return action;
         })
@@ -33,6 +36,8 @@ export class FriendSuggestionEffects {
     ), { dispatch: false }
   )
 
-  constructor(private actions$: Actions, private fsHttpService: FSService) { }
+  constructor(private actions$: Actions,
+    private fsHttpService: FSService,
+    private store: Store<AppState>) { }
 
 }

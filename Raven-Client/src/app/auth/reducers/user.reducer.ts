@@ -11,8 +11,6 @@ import { User } from 'src/app/model/user';
 import { environment } from '../../../environments/environment';
 import { login, logout } from '../actions/auth.actions';
 
-export const authFeatureKey = 'auth';
-
 export interface AuthState {
   user?: User
 }

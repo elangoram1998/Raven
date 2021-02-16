@@ -15,10 +15,8 @@ import { logout } from '../actions/auth.actions';
 import { addNewChatRoom, loadMyChatRoomss } from '../actions/my-chat-rooms.actions';
 import { loadUserData } from '../actions/user-data.actions';
 
-export const authFeatureKey = 'auth';
 
 export interface MyChatRoomState extends EntityState<MyChatRoom> {
-    myChatRoom: MyChatRoom[]
 }
 
 export const adapter = createEntityAdapter<MyChatRoom>({
@@ -31,7 +29,10 @@ export const myChatRoomReducers = createReducer(
     initialState,
     on(loadMyChatRoomss, (state, action) => adapter.addMany(action.myChatRooms, state)),
     on(logout, (state, action) => adapter.removeAll(state)),
-    on(addNewChatRoom, (state, action) => adapter.addOne(action.newRoom, state))
+    on(addNewChatRoom, (state, action) => {
+        console.log(action.type + " " + action.newRoom);
+        return adapter.addOne(action.newRoom, state)
+    })
 )
 
 

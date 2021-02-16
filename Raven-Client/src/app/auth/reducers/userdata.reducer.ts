@@ -13,7 +13,6 @@ import { environment } from '../../../environments/environment';
 import { logout } from '../actions/auth.actions';
 import { addFollowing, loadUserData } from '../actions/user-data.actions';
 
-export const authFeatureKey = 'auth';
 
 export interface UserDataState {
     userData: UserData

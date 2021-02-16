@@ -3,7 +3,9 @@ import { select, Store } from '@ngrx/store';
 import { filter, first, tap } from 'rxjs/operators';
 import { loadFriendSuggestions } from 'src/app/friend-suggestion/store/friend-suggestion.actions';
 import { areFSLoaded } from 'src/app/friend-suggestion/store/friend-suggestion.selectors';
-import { loadNotifications } from 'src/app/notification/store/notification.actions';
+import { NotificationModel } from 'src/app/model/notification';
+import { NotificationService } from 'src/app/notification/services/notification.service';
+import { addNewNotification, loadNotifications } from 'src/app/notification/store/notification.actions';
 import { areNotificationsLoaded } from 'src/app/notification/store/notification.selectors';
 import { AppState } from 'src/app/reducers';
 
@@ -14,7 +16,8 @@ import { AppState } from 'src/app/reducers';
 })
 export class MainLayoutComponent implements OnInit {
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>,
+    private notifyService: NotificationService) { }
 
   ngOnInit(): void {
 
@@ -32,6 +35,16 @@ export class MainLayoutComponent implements OnInit {
         if (!loaded) {
           this.store.dispatch(loadNotifications());
         }
+      }
+    )
+
+    this.notifyService.liveNotification().subscribe(
+      (notification: NotificationModel) => {
+        console.log(notification);
+        this.store.dispatch(addNewNotification({ notification }));
+      },
+      (error: any) => {
+        console.log(error);
       }
     )
   }
