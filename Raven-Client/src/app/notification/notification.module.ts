@@ -10,7 +10,7 @@ import { NotificationEffects } from './store/notification.effects';
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forFeature(fromNotification.notificationFeatureKey, fromNotification.reducers, { metaReducers: fromNotification.metaReducers }),
+    StoreModule.forFeature(fromNotification.notificationFeatureKey, fromNotification.notifyReducer, { metaReducers: fromNotification.metaReducers }),
     EffectsModule.forFeature([NotificationEffects])
   ]
 })

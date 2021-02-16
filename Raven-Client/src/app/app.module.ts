@@ -21,6 +21,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AuthEffects } from './auth/effects/auth.effects';
 import { UserDataEffects } from './auth/effects/user-data.effects';
 import { MyChatRoomEffects } from './auth/effects/my-chat-room.effects';
+import { NotificationModule } from './notification/notification.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MyChatRoomEffects } from './auth/effects/my-chat-room.effects';
     BrowserAnimationsModule,
     MaterialModule,
     MainLayoutModule,
+    NotificationModule,
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot({
