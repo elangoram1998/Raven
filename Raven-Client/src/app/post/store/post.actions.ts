@@ -1,3 +1,4 @@
+import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
 import { Post } from 'src/app/model/post';
 
@@ -13,7 +14,12 @@ export const allPostLoaded = createAction(
 export const addNewPost = createAction(
   '[New Post] Add New',
   props<{ post: Post }>()
-)
+);
+
+export const postUpdated = createAction(
+  '[Liked Post] Post Updated',
+  props<{ update: Update<Post> }>()
+);
 
 
 

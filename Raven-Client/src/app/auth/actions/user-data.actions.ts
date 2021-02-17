@@ -10,6 +10,11 @@ export const loadUserData = createAction(
 export const updateUserData = createAction(
   '[Start Follow] Pushin Followings',
   props<{ userData: UserData }>()
+);
+
+export const updateMyUserData = createAction(
+  '[Update UserData] Update',
+  props<{ userData: UserData }>()
 )
 
 

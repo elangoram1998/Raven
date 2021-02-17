@@ -12,8 +12,9 @@ export const environment = {
   logout: 'api/auth/logout',
   addFriend: 'api/friendSuggestion/addFriend',
   loadMyNotifications: 'api/notification/myNotifications',
-  newPost: 'api/post/newPost'
-
+  newPost: 'api/post/newPost',
+  updatePost: 'api/post/updatePost',
+  updateUserData: 'api/user/updateUserData'
 };
 
 /*

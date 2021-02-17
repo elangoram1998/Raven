@@ -11,7 +11,7 @@ import {
 import { logout } from 'src/app/auth/actions/auth.actions';
 import { Post } from 'src/app/model/post';
 import { environment } from '../../../environments/environment';
-import { addNewPost, allPostLoaded } from '../store/post.actions';
+import { addNewPost, allPostLoaded, postUpdated } from '../store/post.actions';
 
 export const postFeatureKey = 'post';
 
@@ -31,7 +31,8 @@ export const postReducer = createReducer(
   initialState,
   on(allPostLoaded, (state, action) => adapter.addMany(action.posts, { ...state, arePostLoaded: true })),
   on(logout, (state, action) => adapter.removeAll({ ...state, arePostLoaded: false })),
-  on(addNewPost, (state, action) => adapter.addOne(action.post, state))
+  on(addNewPost, (state, action) => adapter.addOne(action.post, state)),
+  on(postUpdated, (state, action) => adapter.updateOne(action.update, state))
 )
 
 export const { selectAll } = adapter.getSelectors();

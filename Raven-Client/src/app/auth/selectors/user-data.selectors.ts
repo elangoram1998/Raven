@@ -8,3 +8,13 @@ export const selectUserData = createSelector(
     selectMyUserData,
     data => data.userData
 )
+
+export const selectMyLikedPosts = createSelector(
+    selectUserData,
+    (data) => data.liked_post
+)
+
+export const selectMySavedPosts = createSelector(
+    selectUserData,
+    (data) => data.saved_post
+)

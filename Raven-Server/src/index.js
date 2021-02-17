@@ -11,6 +11,7 @@ const authRouter = require('./routes/authRoute');
 const friendSuggestionRouter = require('./routes/suggestionRoute');
 const postRouter = require('./routes/postRoute');
 const notificationRouter = require('./routes/notificationRoute');
+const userRouter = require('./routes/userRoute');
 const WebSocket = require('./utils/WebSocket');
 
 const app = express();
@@ -32,6 +33,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/post', postRouter);
 app.use('/api/friendSuggestion', friendSuggestionRouter);
 app.use('/api/notification', notificationRouter);
+app.use('/api/user', userRouter);
 
 const PORT = process.env.PORT || config.get('server.port');
 

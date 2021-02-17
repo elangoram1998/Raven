@@ -9,6 +9,13 @@
         {{post.caption}}
     </mat-card-content>
     <mat-card-actions>
-        
+        <mat-card-subtitle>
+            {{post.total_likes}} Likes
+        </mat-card-subtitle>
+        <button mat-icon-button (click)="likeImage()">
+            <mat-icon [ngStyle]="post.isMyLikedPost?{'color':'red'}:{}">
+                {{post.isMyLikedPost?'favorite':'favorite_border'}}
+            </mat-icon>
+        </button>
     </mat-card-actions>
 </mat-card>

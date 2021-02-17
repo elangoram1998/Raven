@@ -46,7 +46,25 @@ const newPost = async (req, res) => {
     }
 }
 
+const updatePost = async (req, res) => {
+    try {
+        console.log(req.body);
+        const changes = req.body.changes;
+        const post = await Post.findById({ _id: req.body._id });
+        post.total_likes = changes.total_likes;
+        await post.save();
+        res.status(200).json({
+            success: "post updated successfully"
+        });
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).send(e);
+    }
+}
+
 module.exports = {
     getMyFeed,
-    newPost
+    newPost,
+    updatePost
 }

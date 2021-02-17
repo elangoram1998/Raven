@@ -22,6 +22,10 @@ const userDataSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
     }],
+    saved_post:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post'
+    }],
     my_chat_rooms: [{
         user_id: {
             type: mongoose.Schema.Types.ObjectId,

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Post } from 'src/app/model/post';
 import { CommonUtils } from 'src/app/utils/common';
 import { environment } from 'src/environments/environment';
@@ -14,12 +15,31 @@ export class PostService {
 
   getMyFeed(): Observable<Post[]> {
     const headers = this.common.headers;
-    return this.http.get<Post[]>(environment.myFeed, { headers })
+    return this.http.get<Post[]>(environment.myFeed, { headers }).pipe(
+      map(res => {
+        res.forEach(post => {
+          post.isMyLikedPost = this.common.IsLiked(post._id);
+          post.isMySavedPost = this.common.isSaved(post._id);
+        });
+        return res;
+      })
+    )
   }
 
   newPost(fd: FormData): Observable<Post> {
     const headers = this.common.headers;
-    return this.http.post<Post>(environment.newPost, fd, { headers });
+    return this.http.post<Post>(environment.newPost, fd, { headers }).pipe(
+      map(res => {
+        res.isMyLikedPost = this.common.IsLiked(res._id);
+        res.isMySavedPost = this.common.isSaved(res._id);
+        return res;
+      })
+    )
+  }
+
+  updatePost(id: any, update: any) {
+    const headers = this.common.headers;
+    return this.http.post<Post>(environment.updatePost, { _id: id, changes: update }, { headers });
   }
 
 }

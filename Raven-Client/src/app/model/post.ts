@@ -10,5 +10,7 @@ export interface Post {
     storage_url: string,
     total_likes: number,
     total_comments: number,
+    isMyLikedPost: boolean,
+    isMySavedPost: boolean,
     createdAt: Date
 }

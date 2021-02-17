@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Auth } from '../model/auth';
+import { UserData } from '../model/user-data';
 import { CommonUtils } from '../utils/common';
 
 @Injectable({

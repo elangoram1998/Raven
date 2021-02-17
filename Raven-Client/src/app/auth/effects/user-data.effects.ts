@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { tap } from 'rxjs/operators';
-import { loadUserData, updateUserData } from '../actions/user-data.actions';
+import { concatMap, tap } from 'rxjs/operators';
+import { UserService } from 'src/app/services/user.service';
+import { loadUserData, updateMyUserData, updateUserData } from '../actions/user-data.actions';
+import { AuthService } from '../auth.service';
 
 
 
@@ -27,8 +29,20 @@ export class UserDataEffects {
       })
     ),
     { dispatch: false }
-  )
+  );
 
-  constructor(private actions$: Actions) { }
+  updateMyUserData$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateMyUserData),
+      tap(action => {
+        localStorage.removeItem('userData');
+        localStorage.setItem('userData', JSON.stringify(action.userData));
+      }),
+      concatMap(action => this.userService.updateUserData(action.userData))
+    ),
+    { dispatch: false }
+  );
+
+  constructor(private actions$: Actions, private userService: UserService) { }
 
 }
