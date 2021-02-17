@@ -5,7 +5,7 @@ const upload = require('../middlewares/multer');
 const router = express.Router();
 
 router
-    .get('/getMyFeed', auth, upload, getMyFeed)
-    .post('/newPost', auth, newPost)
+    .get('/getMyFeed', auth, getMyFeed)
+    .post('/newPost', auth, upload, newPost)
 
 module.exports = router;

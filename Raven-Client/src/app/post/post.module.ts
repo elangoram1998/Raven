@@ -7,10 +7,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { PostEffects } from './post.effects';
 import { ImageCardComponent } from './components/image-card/image-card.component';
 import { MaterialModule } from '../material/material/material.module';
+import { FromNowPipe } from '../pipes/from-now.pipe';
 
 
 @NgModule({
-  declarations: [PostComponent, ImageCardComponent],
+  declarations: [PostComponent, ImageCardComponent, FromNowPipe],
   imports: [
     CommonModule,
     MaterialModule,

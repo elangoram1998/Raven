@@ -9,26 +9,28 @@
     </div>
 </div>
 <mat-dialog-content>
-    <input type="file" style="display: none;" #selectImg name="post" accept="image/.jpg,image/.jpeg,image/.png"
-        (change)="onChange($event)">
-    <button type="button" (click)="selectImg.click()" mat-button>
-        <img src="../../../../assets/image-icon.png" width="35" height="35" alt="">
-        Select image
-    </button>
-    <input type="file" style="display: none;" #selectVid name="post" accept="video/*" (change)="onChange($event)">
-    <button type="button" (click)="selectVid.click()" mat-button>
-        <img src="../../../../assets/video.png" width="30" height="30" alt="">
-        Select Video
-    </button>
-    <img  *ngIf="isImage && imageUrl" [src]="imageUrl" alt="post image">
-    <video width="440" height="340" *ngIf="!isImage && imageUrl" controls>
-        <source [src]="imageUrl">
-    </video>
-    <mat-form-field>
-        <mat-label>Caption...</mat-label>
-        <textarea matInput formControlName="caption" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
-    </mat-form-field>
+    <form [formGroup]="postForm" (ngSubmit)="postMedia()">
+        <input type="file" style="display: none;" #selectImg name="post" accept="image/.jpg,image/.jpeg,image/.png"
+            (change)="onChange($event)">
+        <button type="button" (click)="selectImg.click()" mat-button>
+            <img src="../../../../assets/image-icon.png" width="35" height="35" alt="">
+            Select image
+        </button>
+        <input type="file" style="display: none;" #selectVid name="post" accept="video/*" (change)="onChange($event)">
+        <button type="button" (click)="selectVid.click()" mat-button>
+            <img src="../../../../assets/video.png" width="30" height="30" alt="">
+            Select Video
+        </button>
+        <img *ngIf="isImage && imageUrl" [src]="imageUrl" alt="post image">
+        <video width="440" height="340" *ngIf="!isImage && imageUrl" controls>
+            <source [src]="imageUrl">
+        </video>
+        <mat-form-field>
+            <mat-label>Caption...</mat-label>
+            <textarea matInput formControlName="caption" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+    </form>
 </mat-dialog-content>
 <mat-dialog-actions>
     <button [disabled]="postForm.invalid" (click)="postMedia()" type="submit" mat-raised-button id="post-btn"

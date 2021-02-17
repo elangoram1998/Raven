@@ -11,6 +11,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { MyFeedComponent } from './components/my-feed/my-feed.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { PostDialogComponent } from './components/post-dialog/post-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export const homeRoutes: Routes = [
   {
@@ -29,6 +30,7 @@ export const homeRoutes: Routes = [
 @NgModule({
   declarations: [MainLayoutComponent, MyFeedComponent, NewPostComponent, PostDialogComponent],
   imports: [
+    ReactiveFormsModule,
     FriendSuggestionModule,
     PostModule,
     CommonModule,
