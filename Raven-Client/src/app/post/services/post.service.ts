@@ -17,4 +17,9 @@ export class PostService {
     return this.http.get<Post[]>(environment.myFeed, { headers })
   }
 
+  newPost(fd: FormData): Observable<Post> {
+    const headers = this.common.headers;
+    return this.http.post<Post>(environment.newPost, fd, { headers });
+  }
+
 }

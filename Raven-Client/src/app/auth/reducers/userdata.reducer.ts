@@ -11,7 +11,7 @@ import { removeFriendSuggestion } from 'src/app/friend-suggestion/store/friend-s
 import { UserData } from 'src/app/model/user-data';
 import { environment } from '../../../environments/environment';
 import { logout } from '../actions/auth.actions';
-import { addFollowing, loadUserData } from '../actions/user-data.actions';
+import { loadUserData, updateUserData } from '../actions/user-data.actions';
 
 
 export interface UserDataState {
@@ -48,7 +48,7 @@ export const userDataReducers = createReducer(
             }
         }
     }),
-    on(addFollowing, (state, action) => {
+    on(updateUserData, (state, action) => {
         return {
             userData: action.userData
         }

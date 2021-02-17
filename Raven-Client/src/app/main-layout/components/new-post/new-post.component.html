@@ -3,8 +3,8 @@
         <div mat-card-avatar>
             <img [src]="myAvatar$ | async" width="45" height="45" class="avatar-img" alt="my avatar">
         </div>
-        <input type="text" class="input-box" placeholder="What's on your mind..">
-        <button id="post-btn" class="ml-4" mat-raised-button>
+        <input (click)="openDialog()" type="text" class="input-box" placeholder="What's on your mind..">
+        <button  id="post-btn" class="ml-4" mat-raised-button>
             New Post
         </button>
     </mat-card-header>

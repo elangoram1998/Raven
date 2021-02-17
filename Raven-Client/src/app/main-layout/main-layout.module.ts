@@ -10,6 +10,7 @@ import { PostModule } from '../post/post.module';
 import { AppRoutingModule } from '../app-routing.module';
 import { MyFeedComponent } from './components/my-feed/my-feed.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
+import { PostDialogComponent } from './components/post-dialog/post-dialog.component';
 
 export const homeRoutes: Routes = [
   {
@@ -26,7 +27,7 @@ export const homeRoutes: Routes = [
 ]
 
 @NgModule({
-  declarations: [MainLayoutComponent, MyFeedComponent, NewPostComponent],
+  declarations: [MainLayoutComponent, MyFeedComponent, NewPostComponent, PostDialogComponent],
   imports: [
     FriendSuggestionModule,
     PostModule,

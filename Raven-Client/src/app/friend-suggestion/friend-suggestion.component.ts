@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { addFollowing } from '../auth/actions/user-data.actions';
+import { updateUserData } from '../auth/actions/user-data.actions';
 import { selectUserData } from '../auth/selectors/user-data.selectors';
 import { FriendSuggestion } from '../model/friend-suggestion';
 import { UserData } from '../model/user-data';
@@ -19,7 +19,6 @@ export class FriendSuggestionComponent implements OnInit {
   @ViewChild('widgetsContent', { read: ElementRef })
   public widgetsContent!: ElementRef<any>;
   friendSuggestions$!: Observable<FriendSuggestion[]>;
-  updateUserData!: UserData;
   userData!: UserData;
 
   constructor(private store: Store<AppState>) { }
@@ -36,14 +35,10 @@ export class FriendSuggestionComponent implements OnInit {
 
   addFriend(userId: string) {
     console.log(userId);
-    this.updateUserData = this.userData;
-    console.log(this.userData);
-    //this.userData.followings.push(userId);
-    console.log(this.userData.user_id)
     this.userData.followings = Object.assign([], this.userData.followings);
     this.userData.followings.push(userId);
     this.store.dispatch(removeFriendSuggestion({ id: userId }));
-    this.store.dispatch(addFollowing({ userData: this.userData }));
+    this.store.dispatch(updateUserData({ userData: this.userData }));
   }
 
   public scrollRight(): void {

@@ -3,6 +3,7 @@ const { UserData } = require('../model/user_data_collection');
 const { ChatRoom } = require('../model/chat_room');
 const { Notification } = require('../model/notification_collection');
 const { uniqueArray, excludeMyFriends } = require('../utils/uniqueArray');
+const { sendChatRoom, sendFollow, sendNotification } = require('../utils/realTimeData');
 
 const getFriendSuggestion = async (req, res) => {
     try {
@@ -31,12 +32,14 @@ const addFriend = async (req, res) => {
             receiver: req.body.id
         });
         await notification.save();
-        global.io.emit(`${req.body.id}-myNotification`, {
+
+        sendNotification(req.body.id, {
             _id: notification._id,
             user_id: req.user._id,
             avatar: req.user.avatar,
             username: req.user.username
         });
+        sendFollow(req.body.id, req.user._id);
 
         if (req.userData.followers.includes(req.body.id)) {
             const chat_room = new ChatRoom({});
@@ -46,6 +49,16 @@ const addFriend = async (req, res) => {
                 room_id: chat_room._id
             });
             await req.userData.save();
+            myFollowing.my_chat_rooms.push({
+                user_id: req.user._id,
+                room_id: chat_room._id
+            });
+            await myFollowing.save();
+
+            sendChatRoom(req.body.id, {
+                user_id: req.user._id,
+                room_id: chat_room._id
+            });
 
             return res.status(200).json({
                 isMutualFriend: true,

@@ -18,7 +18,7 @@ const postSchema = new mongoose.Schema({
     media_type: {
         type: String,
         required: true,
-        enum: ['image', 'video']
+        enum: ['jpg', 'jpeg', 'png', 'mp4']
     },
     aws_key_name: {
         type: String,

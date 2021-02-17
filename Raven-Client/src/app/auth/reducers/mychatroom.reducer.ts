@@ -29,10 +29,7 @@ export const myChatRoomReducers = createReducer(
     initialState,
     on(loadMyChatRoomss, (state, action) => adapter.addMany(action.myChatRooms, state)),
     on(logout, (state, action) => adapter.removeAll(state)),
-    on(addNewChatRoom, (state, action) => {
-        console.log(action.type + " " + action.newRoom);
-        return adapter.addOne(action.newRoom, state)
-    })
+    on(addNewChatRoom, (state, action) => adapter.addOne(action.newRoom, state)),
 )
 
 

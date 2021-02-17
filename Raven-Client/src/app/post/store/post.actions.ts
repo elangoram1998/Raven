@@ -10,6 +10,11 @@ export const allPostLoaded = createAction(
   props<{ posts: Post[] }>()
 );
 
+export const addNewPost = createAction(
+  '[New Post] Add New',
+  props<{ post: Post }>()
+)
+
 
 
 

@@ -1,1 +1,3 @@
-<p>post works!</p>
+<div *ngFor="let post of loadMyFeeds$ | async">
+    <app-image-card [post]="post"></app-image-card>
+</div>
