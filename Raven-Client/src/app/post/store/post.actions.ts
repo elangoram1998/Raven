@@ -21,6 +21,10 @@ export const postUpdated = createAction(
   props<{ update: Update<Post> }>()
 );
 
+export const updateClientPost = createAction(
+  '[Post Update] Comment Status Updated',
+  props<{ update: Update<Post> }>()
+)
 
 
 

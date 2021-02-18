@@ -20,6 +20,7 @@ export class PostService {
         res.forEach(post => {
           post.isMyLikedPost = this.common.IsLiked(post._id);
           post.isMySavedPost = this.common.isSaved(post._id);
+          post.isMyCommentLoaded = false;
         });
         return res;
       })
@@ -32,6 +33,7 @@ export class PostService {
       map(res => {
         res.isMyLikedPost = this.common.IsLiked(res._id);
         res.isMySavedPost = this.common.isSaved(res._id);
+        res.isMyCommentLoaded = false;
         return res;
       })
     )

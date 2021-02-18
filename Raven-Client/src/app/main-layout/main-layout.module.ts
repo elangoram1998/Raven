@@ -12,6 +12,7 @@ import { MyFeedComponent } from './components/my-feed/my-feed.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { PostDialogComponent } from './components/post-dialog/post-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommentModule } from '../comment/comment.module';
 
 export const homeRoutes: Routes = [
   {
@@ -33,6 +34,7 @@ export const homeRoutes: Routes = [
     ReactiveFormsModule,
     FriendSuggestionModule,
     PostModule,
+    CommentModule,
     CommonModule,
     SharedModule,
     MaterialModule,

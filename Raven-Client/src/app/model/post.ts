@@ -12,5 +12,6 @@ export interface Post {
     total_comments: number,
     isMyLikedPost: boolean,
     isMySavedPost: boolean,
+    isMyCommentLoaded: boolean,
     createdAt: Date
 }

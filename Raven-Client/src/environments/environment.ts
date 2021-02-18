@@ -14,7 +14,8 @@ export const environment = {
   loadMyNotifications: 'api/notification/myNotifications',
   newPost: 'api/post/newPost',
   updatePost: 'api/post/updatePost',
-  updateUserData: 'api/user/updateUserData'
+  updateUserData: 'api/user/updateUserData',
+  getAllPostComments: 'api/comment/getPostComments'
 };
 
 /*

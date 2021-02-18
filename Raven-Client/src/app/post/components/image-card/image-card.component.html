@@ -26,13 +26,15 @@
         <mat-divider></mat-divider>
     </mat-card-actions>
     <mat-accordion>
-        <mat-expansion-panel>
+        <mat-expansion-panel (opened)="displayComments()">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                  <b>{{post.total_comments}}  Comments</b>
+                    <b>{{post.total_comments}} Comments</b>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <p>i am currently open</p>
+            <div *ngFor="let commentSet of comments">
+                <app-comment-set [commentSet]="commentSet"></app-comment-set>
+            </div>
         </mat-expansion-panel>
     </mat-accordion>
     <mat-form-field appearance="outline">

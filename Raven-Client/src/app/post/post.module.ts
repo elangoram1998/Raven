@@ -8,10 +8,11 @@ import { PostEffects } from './post.effects';
 import { ImageCardComponent } from './components/image-card/image-card.component';
 import { MaterialModule } from '../material/material/material.module';
 import { FromNowPipe } from '../pipes/from-now.pipe';
+import { CommentSetComponent } from './components/comment-set/comment-set.component';
 
 
 @NgModule({
-  declarations: [PostComponent, ImageCardComponent, FromNowPipe],
+  declarations: [PostComponent, ImageCardComponent, FromNowPipe, CommentSetComponent],
   imports: [
     CommonModule,
     MaterialModule,
