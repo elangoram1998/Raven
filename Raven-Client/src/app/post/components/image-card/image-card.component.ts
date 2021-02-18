@@ -49,10 +49,28 @@ export class ImageCardComponent implements OnInit {
       ...this.post,
       ...this.changes
     }
-    // const updatedUserData = {
-    //   ...this.userData,
-    //   ...this.userDataChanges
-    // }
+    const update: Update<Post> = {
+      id: this.post._id,
+      changes: updatedPost
+    }
+    this.store.dispatch(postUpdated({ update }));
+    this.store.dispatch(updateMyUserData({ userData: this.userData }));
+  }
+
+  saveImage() {
+    this.changes.isMySavedPost = !this.changes.isMySavedPost;
+    this.userData.saved_post = Object.assign([], this.userData.saved_post);
+    if (this.changes.isMySavedPost) {
+      this.userData.saved_post.push(this.post._id);
+    }
+    else {
+      const index = this.userData.saved_post.indexOf(this.post._id);
+      this.userData.saved_post.splice(index, 1);
+    }
+    const updatedPost = {
+      ...this.post,
+      ...this.changes
+    }
     const update: Update<Post> = {
       id: this.post._id,
       changes: updatedPost

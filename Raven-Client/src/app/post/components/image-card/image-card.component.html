@@ -12,10 +12,31 @@
         <mat-card-subtitle>
             {{post.total_likes}} Likes
         </mat-card-subtitle>
-        <button mat-icon-button (click)="likeImage()">
-            <mat-icon [ngStyle]="post.isMyLikedPost?{'color':'red'}:{}">
+        <mat-divider></mat-divider>
+        <button class="ml-5 mr-3" mat-icon-button (click)="likeImage()">
+            <mat-icon class="icon-size mr-2" [ngStyle]="post.isMyLikedPost?{'color':'red'}:{}">
                 {{post.isMyLikedPost?'favorite':'favorite_border'}}
-            </mat-icon>
+            </mat-icon> Like
         </button>
+        <button class="ml-5" mat-icon-button (click)="saveImage()">
+            <mat-icon class="icon-size mr-2" [ngStyle]="post.isMySavedPost?{'color':'#FFFF00'}:{}">
+                {{post.isMySavedPost?'bookmark':'bookmark_border'}}
+            </mat-icon> Save
+        </button>
+        <mat-divider></mat-divider>
     </mat-card-actions>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <b>{{post.total_comments}}  Comments</b>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>i am currently open</p>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <mat-form-field appearance="outline">
+        <mat-label>Add Comment</mat-label>
+        <input matInput>
+    </mat-form-field>
 </mat-card>
