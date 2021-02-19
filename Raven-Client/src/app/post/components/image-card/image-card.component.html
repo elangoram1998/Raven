@@ -1,4 +1,4 @@
-<mat-card class="item-card mt-4 mb-4">
+<mat-card class="item-card mt-4">
     <mat-card-header>
         <img [src]="post.user_id.avatar" mat-card-avatar alt="">
         <mat-card-title>{{post.user_id.username}}</mat-card-title>
@@ -25,20 +25,25 @@
         </button>
         <mat-divider></mat-divider>
     </mat-card-actions>
-    <mat-accordion>
-        <mat-expansion-panel (opened)="displayComments()">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <b>{{post.total_comments}} Comments</b>
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div *ngFor="let commentSet of comments">
-                <app-comment-set [commentSet]="commentSet"></app-comment-set>
-            </div>
-        </mat-expansion-panel>
-    </mat-accordion>
-    <mat-form-field appearance="outline">
-        <mat-label>Add Comment</mat-label>
-        <input matInput>
-    </mat-form-field>
+</mat-card>
+<mat-accordion class="mb-0">
+    <mat-expansion-panel (opened)="displayComments()">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <b>{{post.total_comments}} Comments</b>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div *ngFor="let commentSet of comments">
+            <app-comment-set (addedReply)="updateTotalComment()" [commentSet]="commentSet"></app-comment-set>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
+<mat-card class="mb-4">
+    <form [formGroup]="commentForm" (ngSubmit)="addComment()" class="form-inline">
+        <mat-form-field appearance="outline">
+            <mat-label>Add Comment</mat-label>
+            <textarea matInput formControlName="text" placeholder="Add a comment.."></textarea>
+        </mat-form-field>
+        <button type="submit" [disabled]="commentForm.invalid" mat-raised-button color="warn">Send</button>
+    </form>
 </mat-card>

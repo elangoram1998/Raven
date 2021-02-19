@@ -1,0 +1,22 @@
+<mat-card class="mb-3">
+    <mat-card-header>
+        <img [src]="commentSet.comment.user_id.avatar" mat-card-avatar alt="">
+        <mat-card-title>{{commentSet.comment.user_id.username}}</mat-card-title>
+        <mat-card-subtitle>{{commentSet.comment.createdAt | fromNow}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        {{commentSet.comment.text}}
+    </mat-card-content>
+    <mat-card-actions>
+        <a (click)="addReply()">reply</a>
+    </mat-card-actions>
+</mat-card>
+<mat-card class="mb-3" *ngIf="replyAdded">
+    <form [formGroup]="replyForm" (ngSubmit)="addReplyComment()">
+        <mat-form-field>
+            <textarea placeholder="write a reply.." matInput formControlName="text" required></textarea>
+        </mat-form-field>
+        <button [disabled]="replyForm.invalid" mat-raised-button color="warn">Post</button>
+        <a (click)="cancelReply()">cancel</a>
+    </form>
+</mat-card>

@@ -5,7 +5,7 @@ const { Post } = require('../model/post_collection');
 const getMyComments = async (req, res) => {
     try {
         const post_id = req.query.pId;
-        const comments = await Comment.find({ post_id }).populate({
+        const comments = await CommentSet.find({ post_id }).populate({
             path: 'comment.user_id',
             select: '_id username avatar'
         }).populate({
@@ -22,7 +22,24 @@ const getMyComments = async (req, res) => {
 
 const addComment = async (req, res) => {
     try {
-
+        const comment = new Comment({
+            user_id: req.user._id,
+            text: req.body.text
+        });
+        await comment.save();
+        const commentSet = new CommentSet({
+            post_id: req.body.postId,
+            comment: comment
+        });
+        await commentSet.save();
+        const post = await Post.findById({ _id: req.body.postId });
+        post.total_comments += 1;
+        await post.save();
+        const response = await CommentSet.findById({ _id: commentSet._id }).populate({
+            path: 'comment.user_id',
+            select: '_id username avatar'
+        })
+        res.status(200).send(response);
     }
     catch (e) {
         console.log(e);
@@ -32,7 +49,22 @@ const addComment = async (req, res) => {
 
 const addReply = async (req, res) => {
     try {
-
+        const comment = new Comment({
+            user_id: req.user._id,
+            text: req.body.text
+        });
+        await comment.save();
+        const commentSet = await CommentSet.findById({ _id: req.body.commentSetId });
+        commentSet.replys.push(comment);
+        await commentSet.save();
+        const post = await Post.findById({ _id: req.body.postId });
+        post.total_comments += 1;
+        await post.save();
+        const response = await Comment.findById({ _id: comment._id }).populate({
+            path: 'user_id',
+            select: '_id username avatar'
+        })
+        res.status(200).send(response);
     }
     catch (e) {
         console.log(e);

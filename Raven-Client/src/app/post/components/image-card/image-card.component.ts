@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroupDirective, Validators } from '@angular/forms';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { noop, Observable } from 'rxjs';
@@ -6,13 +7,14 @@ import { map, tap } from 'rxjs/operators';
 import { updateMyUserData } from 'src/app/auth/actions/user-data.actions';
 import { selectUserData } from 'src/app/auth/selectors/user-data.selectors';
 import { CommentService } from 'src/app/comment/services/comment.service';
-import { loadComments } from 'src/app/comment/store/comment.actions';
+import { insertComment, loadComments } from 'src/app/comment/store/comment.actions';
 import { loadAllComments } from 'src/app/comment/store/comment.selectors';
 import { CommentSet } from 'src/app/model/comment-set';
 import { Post } from 'src/app/model/post';
 import { UserData } from 'src/app/model/user-data';
 import { AppState } from 'src/app/reducers';
 import { postUpdated, updateClientPost } from '../../store/post.actions';
+import { selectPostById } from '../../store/post.selectors';
 
 @Component({
   selector: 'app-image-card',
@@ -22,23 +24,38 @@ import { postUpdated, updateClientPost } from '../../store/post.actions';
 export class ImageCardComponent implements OnInit {
 
   @Input() post!: Post;
+  @ViewChild(FormGroupDirective)
+  formGroupDirective!: FormGroupDirective;
   userData!: UserData;
   changes!: Post;
   userDataChanges!: UserData;
   comments!: CommentSet[];
 
   constructor(private store: Store<AppState>,
-    private commentService: CommentService) { }
+    private commentService: CommentService,
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.changes = {
-      ...this.post
-    }
+    this.store.pipe(select(selectPostById, { id: this.post._id })).subscribe(
+      post => {
+        this.changes = {
+          ...post
+        }
+      }
+    )
     this.store.pipe(select(selectUserData)).subscribe(
       data => {
         this.userData = { ...data }
       }
     );
+  }
+
+  commentForm = this.fb.group({
+    text: ['', Validators.required]
+  });
+
+  get Text() {
+    return this.commentForm.get('text');
   }
 
   likeImage() {
@@ -92,19 +109,18 @@ export class ImageCardComponent implements OnInit {
       tap(comments => {
         console.log(comments)
         if (!this.post.isMyCommentLoaded) {
+          console.log("is comments loaded: " + this.post.isMyCommentLoaded);
           this.loadPostComments();
-          if (comments.length > 0) {
-            this.changes.isMyCommentLoaded = true;
-            const updatedPost = {
-              ...this.post,
-              ...this.changes
-            }
-            const update: Update<Post> = {
-              id: this.post._id,
-              changes: updatedPost
-            }
-            this.store.dispatch(updateClientPost({ update }));
+          this.changes.isMyCommentLoaded = true;
+          const updatedPost = {
+            ...this.post,
+            ...this.changes
           }
+          const update: Update<Post> = {
+            id: this.post._id,
+            changes: updatedPost
+          }
+          this.store.dispatch(updateClientPost({ update }));
         }
       }),
       map(comments => comments.filter(comment => comment.post_id == this.post._id))
@@ -112,6 +128,38 @@ export class ImageCardComponent implements OnInit {
       this.comments = res;
     })
     console.log(this.comments);
+  }
+
+  addComment() {
+    console.log(this.Text?.value);
+    this.commentService.addComment(this.post._id, this.Text?.value).pipe(
+      tap(commentSet => {
+        console.log("commentset: " + commentSet);
+        this.updateTotalComment();
+        this.store.dispatch(insertComment({ commentSet }));
+      })
+    ).subscribe(
+      noop,
+      error => {
+        console.log(error);
+      }
+    )
+    if (this.commentForm.valid) {
+      setTimeout(() => this.formGroupDirective.resetForm(), 0)
+    }
+  }
+
+  updateTotalComment() {
+    this.changes.total_comments += 1;
+    const updatedPost = {
+      ...this.post,
+      ...this.changes
+    }
+    const update: Update<Post> = {
+      id: this.post._id,
+      changes: updatedPost
+    }
+    this.store.dispatch(updateClientPost({ update }));
   }
 
 

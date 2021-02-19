@@ -9,6 +9,7 @@ import { ImageCardComponent } from './components/image-card/image-card.component
 import { MaterialModule } from '../material/material/material.module';
 import { FromNowPipe } from '../pipes/from-now.pipe';
 import { CommentSetComponent } from './components/comment-set/comment-set.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { CommentSetComponent } from './components/comment-set/comment-set.compon
   imports: [
     CommonModule,
     MaterialModule,
+    ReactiveFormsModule,
     StoreModule.forFeature(fromPost.postFeatureKey, fromPost.postReducer, { metaReducers: fromPost.metaReducers }),
     EffectsModule.forFeature([PostEffects]),
   ],
