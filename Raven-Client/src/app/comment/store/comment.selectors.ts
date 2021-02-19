@@ -12,3 +12,8 @@ export const selectCommentById = createSelector(
     loadAllComments,
     (comments: any[], props: { id: string; }) => comments.find(comment => comment._id === props.id)
 );
+
+export const selectCommentsByPostId = createSelector(
+    loadAllComments,
+    (comments: any[], props: { id: string; }) => comments.filter(comment => comment.post_id === props.id)
+)

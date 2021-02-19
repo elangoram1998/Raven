@@ -7,5 +7,6 @@ export interface CommentModel {
     },
     text: string,
     total_likes: number,
+    isMyLikedComment: boolean,
     createdAt: Date
 }

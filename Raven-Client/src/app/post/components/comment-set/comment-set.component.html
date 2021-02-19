@@ -11,6 +11,21 @@
         <a (click)="addReply()">reply</a>
     </mat-card-actions>
 </mat-card>
+<div *ngIf="commentSet.replys">
+    <mat-card class="ml-3 mb-3" *ngFor="let reply of commentSet.replys">
+        <mat-card-header>
+            <img [src]="reply.user_id.avatar" mat-card-avatar alt="">
+            <mat-card-title>{{reply.user_id.username}}</mat-card-title>
+            <mat-card-subtitle>{{reply.createdAt | fromNow}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            {{reply.text}}
+        </mat-card-content>
+        <mat-card-actions>
+            <a (click)="addReply()">reply</a>
+        </mat-card-actions>
+    </mat-card>
+</div>
 <mat-card class="mb-3" *ngIf="replyAdded">
     <form [formGroup]="replyForm" (ngSubmit)="addReplyComment()">
         <mat-form-field>

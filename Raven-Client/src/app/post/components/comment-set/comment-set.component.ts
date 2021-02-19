@@ -29,7 +29,7 @@ export class CommentSetComponent implements OnInit {
     private store: Store<AppState>) { }
 
   ngOnInit(): void {
-    console.log(this.commentSet);
+    //console.log(this.commentSet);
     this.store.pipe(select(selectCommentById, { id: this.commentSet._id })).subscribe(
       comment => {
         this.changes = { ...comment }

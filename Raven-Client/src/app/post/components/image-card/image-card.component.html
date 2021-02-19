@@ -27,7 +27,7 @@
     </mat-card-actions>
 </mat-card>
 <mat-accordion class="mb-0">
-    <mat-expansion-panel (opened)="displayComments()">
+    <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <b>{{post.total_comments}} Comments</b>
@@ -38,6 +38,16 @@
         </div>
     </mat-expansion-panel>
 </mat-accordion>
+
+<!-- <mat-card>
+    <button mat-button>{{post.total_comments}} Comments</button>
+</mat-card>
+<mat-card *ngIf="showComments">
+    <div *ngFor="let commentSet of comments">
+        <app-comment-set (addedReply)="updateTotalComment()" [commentSet]="commentSet"></app-comment-set>
+    </div>
+</mat-card> -->
+
 <mat-card class="mb-4">
     <form [formGroup]="commentForm" (ngSubmit)="addComment()" class="form-inline">
         <mat-form-field appearance="outline">
