@@ -1,7 +1,7 @@
 import { HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { select, Store } from "@ngrx/store";
-import { selectMyLikedPosts, selectMySavedPosts } from "../auth/selectors/user-data.selectors";
+import { selectMyLikedComments, selectMyLikedPosts, selectMySavedPosts } from "../auth/selectors/user-data.selectors";
 import { AppState } from "../reducers";
 
 @Injectable({
@@ -11,6 +11,7 @@ export class CommonUtils {
 
     myLikedPosts!: string[];
     mySavedPosts!: string[];
+    myLikedComments!: string[];
 
     constructor(private store: Store<AppState>) { }
 
@@ -41,6 +42,18 @@ export class CommonUtils {
             }
         );
         if (this.mySavedPosts.includes(postId)) {
+            return true;
+        }
+        return false;
+    }
+
+    public isLikedComment(commentId: string) {
+        this.store.pipe(select(selectMyLikedComments)).subscribe(
+            comments => {
+                this.myLikedComments = comments;
+            }
+        );
+        if (this.myLikedComments.includes(commentId)) {
             return true;
         }
         return false;

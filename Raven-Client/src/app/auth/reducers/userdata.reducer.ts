@@ -26,6 +26,7 @@ export const initialState: UserDataState = {
         followings: [""],
         liked_post: [""],
         saved_post: [""],
+        liked_comments:[""]
     }
 }
 
@@ -45,6 +46,7 @@ export const userDataReducers = createReducer(
                 followings: [""],
                 liked_post: [""],
                 saved_post: [""],
+                liked_comments:[""]
             }
         }
     }),

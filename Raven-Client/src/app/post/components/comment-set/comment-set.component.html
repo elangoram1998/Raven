@@ -8,7 +8,12 @@
         {{commentSet.comment.text}}
     </mat-card-content>
     <mat-card-actions>
-        <a (click)="addReply()">reply</a>
+        <button class="mr-3" mat-icon-button (click)="likeComment()">
+            <mat-icon class="icon-size mr-2" [ngStyle]="commentSet.comment.isMyLikedComment?{'color':'red'}:{}">
+                {{commentSet.comment.isMyLikedComment?'favorite':'favorite_border'}}
+            </mat-icon> Like
+        </button>
+        <a class="ml-3" (click)="addReply()">reply</a>
     </mat-card-actions>
 </mat-card>
 <div *ngIf="commentSet.replys">
@@ -22,7 +27,12 @@
             {{reply.text}}
         </mat-card-content>
         <mat-card-actions>
-            <a (click)="addReply()">reply</a>
+            <button class="mr-3" mat-icon-button (click)="likeReply(reply._id)">
+                <mat-icon class="icon-size mr-2" [ngStyle]="reply.isMyLikedComment?{'color':'red'}:{}">
+                    {{reply.isMyLikedComment?'favorite':'favorite_border'}}
+                </mat-icon> Like
+            </button>
+            <a class="ml-3" (click)="addReply()">reply</a>
         </mat-card-actions>
     </mat-card>
 </div>

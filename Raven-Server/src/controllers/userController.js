@@ -5,6 +5,7 @@ const updateUserData = async (req, res) => {
         console.log(req.body);
         req.userData.liked_post = req.body.userData.liked_post;
         req.userData.saved_post = req.body.userData.saved_post;
+        req.userData.liked_comments = req.body.userData.liked_comments;
         await req.userData.save();
         res.status(200).json({
             'success': 'UserData Successfully Upadted'

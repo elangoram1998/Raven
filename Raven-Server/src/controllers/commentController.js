@@ -1,17 +1,25 @@
 const { CommentSet } = require('../model/comment_set_collection');
 const { Comment } = require('../model/comment_collection');
 const { Post } = require('../model/post_collection');
+const mongoose = require('mongoose');
 
 const getMyComments = async (req, res) => {
     try {
         const post_id = req.query.pId;
-        const comments = await CommentSet.find({ post_id }).populate({
-            path: 'comment.user_id',
-            select: '_id username avatar'
-        }).populate({
-            path: 'replys.user_id',
-            select: '_id username avatar'
-        });
+        const comments = await CommentSet.find({ post_id })
+            .populate({
+                path: 'comment',
+                populate: {
+                    path: 'user_id',
+                    select: '_id username avatar',
+                }
+            }).populate({
+                path: 'replys',
+                populate: {
+                    path: 'user_id',
+                    select: '_id username avatar',
+                }
+            });
         res.status(200).send(comments);
     }
     catch (e) {
@@ -29,15 +37,18 @@ const addComment = async (req, res) => {
         await comment.save();
         const commentSet = new CommentSet({
             post_id: req.body.postId,
-            comment: comment
+            comment: comment._id
         });
         await commentSet.save();
         const post = await Post.findById({ _id: req.body.postId });
         post.total_comments += 1;
         await post.save();
         const response = await CommentSet.findById({ _id: commentSet._id }).populate({
-            path: 'comment.user_id',
-            select: '_id username avatar'
+            path: 'comment',
+            populate: {
+                path: 'user_id',
+                select: '_id username avatar',
+            }
         })
         res.status(200).send(response);
     }
@@ -55,7 +66,7 @@ const addReply = async (req, res) => {
         });
         await comment.save();
         const commentSet = await CommentSet.findById({ _id: req.body.commentSetId });
-        commentSet.replys.push(comment);
+        commentSet.replys.push(comment._id);
         await commentSet.save();
         const post = await Post.findById({ _id: req.body.postId });
         post.total_comments += 1;
@@ -74,7 +85,12 @@ const addReply = async (req, res) => {
 
 const likeComment = async (req, res) => {
     try {
-
+        const comment = await Comment.findById({ _id: req.body.commentId });
+        comment.total_likes = req.body.totalLikes;
+        await comment.save();
+        res.status(200).json({
+            success: "Comment Liked"
+        });
     }
     catch (e) {
         console.log(e);

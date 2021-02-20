@@ -22,9 +22,13 @@ const userDataSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
     }],
-    saved_post:[{
+    saved_post: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
+    }],
+    liked_comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment'
     }],
     my_chat_rooms: [{
         user_id: {

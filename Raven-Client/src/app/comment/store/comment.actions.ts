@@ -17,5 +17,10 @@ export const updateComment = createAction(
   props<{ update: Update<CommentSet> }>()
 );
 
+export const likeComment = createAction(
+  '[Comment Like] Increment Like Count',
+  props<{ update: Update<CommentSet> }>()
+);
+
 
 

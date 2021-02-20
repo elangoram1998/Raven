@@ -7,8 +7,14 @@ const commentSetSchema = new mongoose.Schema({
         ref: 'Post',
         required: true
     },
-    comment: commentSchema,
-    replys: [commentSchema]
+    comment: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment'
+    },
+    replys: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment'
+    }]
 }, { timestamps: true });
 
 const CommentSet = mongoose.model('CommentSet', commentSetSchema);

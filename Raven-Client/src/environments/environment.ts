@@ -17,7 +17,9 @@ export const environment = {
   updateUserData: 'api/user/updateUserData',
   getAllPostComments: 'api/comment/getPostComments',
   addComment: 'api/comment/addComment',
-  addreply: 'api/comment/addReply'
+  addreply: 'api/comment/addReply',
+  likeComment: 'api/comment/likeComment',
+  likeReply: 'api/comment/LikeReply'
 };
 
 /*
