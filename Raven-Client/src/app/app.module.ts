@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material/material.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MainLayoutModule } from './main-layout/main-layout.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -39,6 +40,7 @@ import { NotificationModule } from './notification/notification.module';
     NotificationModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MDBBootstrapModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-top-center',
