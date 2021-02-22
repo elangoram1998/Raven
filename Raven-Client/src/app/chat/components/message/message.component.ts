@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
@@ -20,6 +20,9 @@ export class MessageComponent implements OnInit {
   myChatRoom!: MyChatRoom;
   msgArray: Message[] = [];
   username: string = "";
+  @ViewChild('scrollframe', { static: false })
+  scrollFrame!: ElementRef;
+  private scrollContainer: any;
 
   constructor(private route: ActivatedRoute,
     private store: Store<AppState>,
@@ -47,6 +50,7 @@ export class MessageComponent implements OnInit {
       res => {
         console.log(res)
         this.msgArray = res;
+        this.scrollToBottom();
       },
       error => {
         console.log(error);
@@ -68,6 +72,20 @@ export class MessageComponent implements OnInit {
         this.username = username || "";
       }
     )
+  }
+
+  ngAfterViewInit() {
+    this.scrollContainer = this.scrollFrame.nativeElement;
+    console.log(this.scrollContainer.scrollHeight);
+  }
+
+  private scrollToBottom(): void {
+    console.log("here")
+    this.scrollContainer.scroll({
+      top: this.scrollContainer.scrollHeight,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 
   sendMessage() {

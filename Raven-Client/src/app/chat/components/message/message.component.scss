@@ -1,11 +1,32 @@
-.toolbar{
-    background-image: linear-gradient(to top, #b3ffab 0%, #12fff7 100%);
+.toolbar {
+  background-image: linear-gradient(to top, #b3ffab 0%, #12fff7 100%);
 }
 
-.send-btn{
-    padding: 20px 20px 20px 0px;
+.send-btn {
+  padding: 20px 20px 20px 0px;
 }
 
-.bottom-fix{
-    margin-top: 510px
+.scroll-list {
+  height: 530px;
+  width: 486px;
+  overflow: auto;
+  //overflow-x: hidden;
 }
+p.letters {
+    word-wrap: break-word;
+}
+.frame {
+    height: 90%;
+    position: absolute;
+    width: 90%;
+    z-index: 100;
+    top: 0;
+    margin-top: 10px;
+    background-color: gray;
+    overflow: scroll;
+  }
+  .item {
+    padding: 120px 50px;
+    margin: 20px;
+    background-color: white;
+  }
