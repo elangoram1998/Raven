@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { selectUserByRoomId } from 'src/app/auth/selectors/my-chat-room.selectors';
+import { selectUserID, selectUsername } from 'src/app/auth/selectors/user.selectors';
+import { Message } from 'src/app/model/message';
 import { MyChatRoom } from 'src/app/model/my-chat-room';
 import { AppState } from 'src/app/reducers';
 import { ChatService } from '../../services/chat.service';
@@ -16,7 +18,8 @@ export class MessageComponent implements OnInit {
 
   roomId!: string;
   myChatRoom!: MyChatRoom;
-  array: string[] = [];
+  msgArray: Message[] = [];
+  username: string = "";
 
   constructor(private route: ActivatedRoute,
     private store: Store<AppState>,
@@ -39,20 +42,37 @@ export class MessageComponent implements OnInit {
     );
     console.log(this.myChatRoom);
     this.chatService.joinRoom(this.roomId);
+
+    this.chatService.getStoredMsg(this.roomId).subscribe(
+      res => {
+        console.log(res)
+        this.msgArray = res;
+      },
+      error => {
+        console.log(error);
+      }
+    )
+
     this.chatService.getMessages().subscribe(
       (res: any) => {
         console.log(res);
-        this.array.push(res);
+        this.msgArray.push(res);
       },
       (error: any) => {
         console.log(error);
+      }
+    );
+
+    this.store.pipe(select(selectUserID)).subscribe(
+      username => {
+        this.username = username || "";
       }
     )
   }
 
   sendMessage() {
     console.log(this.msgForm.get('message')?.value)
-    this.chatService.sendMessage(this.roomId, this.msgForm.get('message')?.value)
+    this.chatService.sendMessage(this.roomId, this.msgForm.get('message')?.value, this.username)
   }
 
 }

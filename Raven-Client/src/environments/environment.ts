@@ -19,7 +19,8 @@ export const environment = {
   addComment: 'api/comment/addComment',
   addreply: 'api/comment/addReply',
   likeComment: 'api/comment/likeComment',
-  likeReply: 'api/comment/LikeReply'
+  likeReply: 'api/comment/LikeReply',
+  loadMessages: 'api/chat/loadMessages'
 };
 
 /*

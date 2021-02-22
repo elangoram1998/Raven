@@ -13,6 +13,7 @@ const postRouter = require('./routes/postRoute');
 const notificationRouter = require('./routes/notificationRoute');
 const userRouter = require('./routes/userRoute');
 const commentRouter = require('./routes/commentRoute');
+const chatRouter = require('./routes/chatRoute');
 const WebSocket = require('./utils/WebSocket');
 
 const app = express();
@@ -36,6 +37,7 @@ app.use('/api/friendSuggestion', friendSuggestionRouter);
 app.use('/api/notification', notificationRouter);
 app.use('/api/user', userRouter);
 app.use('/api/comment', commentRouter);
+app.use('/api/chat', chatRouter);
 
 const PORT = process.env.PORT || config.get('server.port');
 

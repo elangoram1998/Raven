@@ -21,4 +21,9 @@ export const selectAvatar = createSelector(
 export const selectUserID = createSelector(
     selectUser,
     (user) => user?._id
+);
+
+export const selectUsername = createSelector(
+    selectUser,
+    (user) => user?.username
 )
