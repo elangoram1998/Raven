@@ -28,7 +28,11 @@ const login = async (req, res) => {
     try {
         console.log(req.body);
         const user = await User.findUserByCredentials(req.body.username, req.body.password);
-        const userData = await UserData.findOne({ user_id: user._id });
+        const userData = await UserData.findOne({ user_id: user._id }).populate({
+            path: 'my_chat_rooms.user_id',
+            select: '_id username avatar',
+            model: 'User'
+        })
         const token = await user.generateToken();
         res.status(200).json({
             user,

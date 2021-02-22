@@ -1,0 +1,34 @@
+<div class="row chat-page">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <mat-toolbar class="mt-0 toolbar">
+            <img [src]="myChatRoom.user_id.avatar" width="50" height="50" class="avatar-img" alt="">
+            <p class="ml-4"><b>{{myChatRoom.user_id.username}}</b></p>
+        </mat-toolbar>
+        <div *ngFor="let msg of array">
+            <mat-card>
+                <mat-card-content>
+                    {{msg}}
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="bottom-fix">
+            <form [formGroup]="msgForm" (ngSubmit)="sendMessage()">
+                <div class="row">
+                    <div class="col-10">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Message</mat-label>
+                            <input type="text" matInput formControlName="message">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-2 send-btn">
+                        <button type="submit" class="toolbar" mat-icon-button>
+                            <mat-icon>send</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-4"></div>
+</div>

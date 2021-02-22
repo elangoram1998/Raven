@@ -1,18 +1,23 @@
 <mat-toolbar style="background-color: #8b00dd;">
     <img src="../../../assets/Raven-logo-1.png" width="130" height="50" alt="">
-    <img [matMenuTriggerFor]="menu" [src]="avatarUrl | async" width="40" height="40" class="ml-auto" alt="">
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-            <img class="img-icon" src="../../../assets/username.png" width="30" height="30" alt="">
-            My Profile</button>
-        <button mat-menu-item>
-            <img class="img-icon" src="../../../assets/dashboard.png" width="30" height="30" alt="">
-            Dashboard</button>
-        <button mat-menu-item>
-            <img class="img-icon" src="../../../assets/bookmark.png" width="30" height="30" alt="">
-            Saved</button>
-        <button mat-menu-item (click)="signOut()">
-            <img class="img-icon" src="../../../assets/signout.png" width="30" height="30" alt="">
-            Logout</button>
-    </mat-menu>
+    <div class="ml-auto">
+        <button mat-icon-button class="mr-3" (click)="goToChat()">
+            <mat-icon style="color: white;">chat</mat-icon>
+        </button>
+        <img [matMenuTriggerFor]="menu" [src]="avatarUrl | async" width="40" height="40" alt="">
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <img class="img-icon" src="../../../assets/username.png" width="30" height="30" alt="">
+                My Profile</button>
+            <button mat-menu-item>
+                <img class="img-icon" src="../../../assets/dashboard.png" width="30" height="30" alt="">
+                Dashboard</button>
+            <button mat-menu-item>
+                <img class="img-icon" src="../../../assets/bookmark.png" width="30" height="30" alt="">
+                Saved</button>
+            <button mat-menu-item (click)="signOut()">
+                <img class="img-icon" src="../../../assets/signout.png" width="30" height="30" alt="">
+                Logout</button>
+        </mat-menu>
+    </div>
 </mat-toolbar>

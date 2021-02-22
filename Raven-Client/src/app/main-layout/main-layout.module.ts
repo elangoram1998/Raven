@@ -13,6 +13,9 @@ import { NewPostComponent } from './components/new-post/new-post.component';
 import { PostDialogComponent } from './components/post-dialog/post-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommentModule } from '../comment/comment.module';
+import { ChatModule } from '../chat/chat.module';
+import { ChatComponent } from '../chat/components/chat/chat.component';
+import { MessageComponent } from '../chat/components/message/message.component';
 
 export const homeRoutes: Routes = [
   {
@@ -23,7 +26,9 @@ export const homeRoutes: Routes = [
     },
     children: [
       { path: '', redirectTo: 'myFeed', pathMatch: 'full' },
-      { path: 'myFeed', component: MyFeedComponent }
+      { path: 'myFeed', component: MyFeedComponent },
+      { path: 'myFriends', component: ChatComponent },
+      { path: ':id', component: MessageComponent }
     ]
   },
 ]
@@ -34,6 +39,7 @@ export const homeRoutes: Routes = [
     ReactiveFormsModule,
     FriendSuggestionModule,
     PostModule,
+    ChatModule,
     CommentModule,
     CommonModule,
     SharedModule,

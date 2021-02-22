@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { logout } from 'src/app/auth/actions/auth.actions';
@@ -17,11 +18,17 @@ export class HeaderComponent implements OnInit {
   avatarUrl!: Observable<string | undefined>;
   myNotifications$!: Observable<NotificationModel[]>;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.avatarUrl = this.store.pipe(select(selectAvatar));
     this.myNotifications$ = this.store.pipe(select(selectAllNotification));
+  }
+
+  goToChat() {
+    this.router.navigate(['myFriends'], { relativeTo: this.route });
   }
 
   signOut() {

@@ -20,7 +20,7 @@ export interface MyChatRoomState extends EntityState<MyChatRoom> {
 }
 
 export const adapter = createEntityAdapter<MyChatRoom>({
-    selectId: (chatRoom: MyChatRoom) => chatRoom.user_id
+    selectId: (chatRoom: MyChatRoom) => chatRoom.user_id._id
 })
 
 export const initialState = adapter.getInitialState();
@@ -30,7 +30,9 @@ export const myChatRoomReducers = createReducer(
     on(loadMyChatRoomss, (state, action) => adapter.addMany(action.myChatRooms, state)),
     on(logout, (state, action) => adapter.removeAll(state)),
     on(addNewChatRoom, (state, action) => adapter.addOne(action.newRoom, state)),
-)
+);
+
+export const { selectAll } = adapter.getSelectors();
 
 
 export const metaReducers: MetaReducer<MyChatRoomState>[] = !environment.production ? [] : [];
