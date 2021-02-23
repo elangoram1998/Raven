@@ -38,6 +38,10 @@ const userDataSchema = new mongoose.Schema({
         room_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'ChatRoom',
+        },
+        total_seen_messages: {
+            type: Number,
+            default: 0
         }
     }]
 }, { timestamps: true });

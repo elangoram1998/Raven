@@ -1,0 +1,8 @@
+<div class="frame" (scroll)="scrolled($event)" #scrollframe>
+    <div *ngFor="let message of messageList" #item class="item">
+        <p><b>{{message.user_id.username}}</b></p>
+        <p class="letters">
+            {{message.text}}
+        </p>
+    </div>
+</div>

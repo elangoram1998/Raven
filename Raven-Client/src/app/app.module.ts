@@ -23,6 +23,7 @@ import { AuthEffects } from './auth/effects/auth.effects';
 import { UserDataEffects } from './auth/effects/user-data.effects';
 import { MyChatRoomEffects } from './auth/effects/my-chat-room.effects';
 import { NotificationModule } from './notification/notification.module';
+import { ChatModule } from './chat/chat.module';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { NotificationModule } from './notification/notification.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    ChatModule,
     MainLayoutModule,
     NotificationModule,
     ReactiveFormsModule,

@@ -28,7 +28,6 @@ export const homeRoutes: Routes = [
       { path: '', redirectTo: 'myFeed', pathMatch: 'full' },
       { path: 'myFeed', component: MyFeedComponent },
       { path: 'myFriends', component: ChatComponent },
-      { path: ':id', component: MessageComponent }
     ]
   },
 ]
@@ -39,7 +38,6 @@ export const homeRoutes: Routes = [
     ReactiveFormsModule,
     FriendSuggestionModule,
     PostModule,
-    ChatModule,
     CommentModule,
     CommonModule,
     SharedModule,

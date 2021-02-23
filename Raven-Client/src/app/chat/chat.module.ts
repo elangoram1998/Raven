@@ -5,10 +5,11 @@ import { MessageComponent } from './components/message/message.component';
 import { MaterialModule } from '../material/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MessageListComponent } from './components/message-list/message-list.component';
 
 
 @NgModule({
-  declarations: [ChatComponent, MessageComponent],
+  declarations: [ChatComponent, MessageComponent, MessageListComponent],
   imports: [
     ReactiveFormsModule,
     CommonModule,

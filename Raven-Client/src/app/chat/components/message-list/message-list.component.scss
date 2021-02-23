@@ -1,0 +1,16 @@
+.frame{
+    height: 580px;
+    //position: absolute;
+    width: 100%;
+    overflow-y: scroll;
+    //overflow-x: hidden;
+}
+
+.item{
+    padding: 20px;
+    margin: 20px;
+}
+
+p.letters {
+    word-wrap: break-word;
+}

@@ -24,6 +24,14 @@ export class ChatService extends WenSocketService {
     return this.http.get<Message[]>(environment.loadMessages, { params, headers });
   }
 
+  updateMsgCount(count: number, roomId: string) {
+    const headers = this.common.headers;
+    const params = new HttpParams({
+      fromString: `roomId=${roomId}`
+    });
+    return this.http.post(environment.updateMsgSeenCount, { count }, { headers, params });
+  }
+
   joinRoom(roomId: string) {
     this.socket.emit('join', { roomId });
   }

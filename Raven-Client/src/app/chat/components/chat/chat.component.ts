@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit {
   }
 
   goToChat(roomId: string) {
-    this.router.navigate(['/home', roomId])
+    this.router.navigate(['/', roomId])
   }
 
 }

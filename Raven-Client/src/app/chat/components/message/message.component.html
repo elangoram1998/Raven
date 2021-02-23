@@ -1,38 +1,15 @@
-<div class="row chat-page">
+<div class="row" id="chat-page">
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
-        <mat-toolbar class="mt-0 toolbar">
-            <img [src]="myChatRoom.user_id.avatar" width="50" height="50" class="avatar-img" alt="">
-            <p class="ml-4"><b>{{myChatRoom.user_id.username}}</b></p>
-        </mat-toolbar>
-        <!-- <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
-            <dl class="example-dl">
-                <ng-container *cdkVirtualFor="let msg of msgArray">
-                    <dt class="example-dt">{{msg.user_id.username}}</dt>
-                    <dd class="example-dd">{{msg.text}}</dd>
-                </ng-container>
-            </dl>
-        </cdk-virtual-scroll-viewport> -->
-        <div class="scroll-list"  #scrollframe>
-            <div *ngFor="let msg of msgArray">
-                <mat-card>
-                    <mat-card-header>
-                        <h4><b>{{msg.user_id.username}}</b></h4>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <p class="letters">
-                            {{msg.text}}
-                        </p>
-                    </mat-card-content>
-                </mat-card>
-            </div>
+        <div>
+            <mat-toolbar class=" toolbar">
+                <img [src]="myChatRoom.user_id.avatar" width="50" height="50" class="avatar-img" alt="">
+                <p class="ml-4"><b>{{myChatRoom.user_id.username}}</b></p>
+            </mat-toolbar>
         </div>
-<!-- 
-        <div class="frame"  #scrollframe>
-            <div *ngFor="let item of items" class="item" #item>
-                Item
-            </div>
-        </div> -->
+        <div>
+            <app-message-list [messageList]="msgArray"></app-message-list>
+        </div>
         <div>
             <form [formGroup]="msgForm" (ngSubmit)="sendMessage()">
                 <div class="row">
@@ -48,17 +25,6 @@
                         </button>
                     </div>
                 </div>
-
-                <!-- <div class="md-form">
-                    <textarea matInput formControlName="message" type="text" id="form7"
-                        class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
-                    <label for="form7">Send Message</label>
-                </div>
-                <div class="col-2 send-btn">
-                    <button type="submit" class="toolbar" mat-icon-button>
-                        <mat-icon>send</mat-icon>
-                    </button>
-                </div> -->
             </form>
         </div>
     </div>

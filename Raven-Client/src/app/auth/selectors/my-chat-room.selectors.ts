@@ -13,3 +13,12 @@ export const selectUserByRoomId = createSelector(
     selectAllMyChatRooms,
     (myRooms: any[], props: { id: string; }) => myRooms.find(room => room.room_id === props.id)
 );
+
+export const selectSeenMsgCount = createSelector(
+    selectAllMyChatRooms,
+    (rooms: any[], props: { id: string }) => rooms.find(room => {
+        if (room.room_id === props.id) {
+            return room.total_seen_messages;
+        }
+    })
+)

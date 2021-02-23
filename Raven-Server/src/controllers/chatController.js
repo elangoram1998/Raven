@@ -16,6 +16,17 @@ const loadMessages = async (req, res) => {
     }
 }
 
+const updateSeenMsgCount = async (req, res) => {
+    try {
+
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).send(e);
+    }
+}
+
 module.exports = {
-    loadMessages
+    loadMessages,
+    updateSeenMsgCount
 }
