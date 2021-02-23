@@ -21,7 +21,9 @@ export const environment = {
   likeComment: 'api/comment/likeComment',
   likeReply: 'api/comment/LikeReply',
   loadMessages: 'api/chat/loadMessages',
-  updateMsgSeenCount: 'api/chat/updateMsgCount'
+  updateMsgSeenCount: 'api/chat/updateMsgCount',
+  getChatRoomCount: 'api/chat/getChatRoomCount',
+  getAllUpdatedChatRooms: 'api/chat/allUpdatedChatRooms'
 };
 
 /*

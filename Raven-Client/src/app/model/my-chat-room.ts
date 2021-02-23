@@ -5,5 +5,6 @@ export interface MyChatRoom {
         avatar: string
     }
     room_id: string,
-    total_seen_messages: number
+    total_seen_messages: number,
+    unseenMsg: number
 }

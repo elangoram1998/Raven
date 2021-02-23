@@ -42,6 +42,10 @@ const userDataSchema = new mongoose.Schema({
         total_seen_messages: {
             type: Number,
             default: 0
+        },
+        unseenMsg: {
+            type: Number,
+            default: 0
         }
     }]
 }, { timestamps: true });

@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Message } from 'src/app/model/message';
+import { MyChatRoom } from 'src/app/model/my-chat-room';
 import { CommonUtils } from 'src/app/utils/common';
 import { WenSocketService } from 'src/app/utils/wen-socket.service';
 import { environment } from 'src/environments/environment';
@@ -30,6 +31,19 @@ export class ChatService extends WenSocketService {
       fromString: `roomId=${roomId}`
     });
     return this.http.post(environment.updateMsgSeenCount, { count }, { headers, params });
+  }
+
+  chatRoomCount(roomId: string): Observable<string> {
+    const headers = this.common.headers;
+    const params = new HttpParams({
+      fromString: `roomId=${roomId}`
+    });
+    return this.http.get<string>(environment.getChatRoomCount, { headers, params });
+  }
+
+  getUpdatedChatRooms(): Observable<MyChatRoom[]> {
+    const headers = this.common.headers;
+    return this.http.get<MyChatRoom[]>(environment.getAllUpdatedChatRooms, { headers });
   }
 
   joinRoom(roomId: string) {

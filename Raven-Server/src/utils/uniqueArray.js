@@ -1,3 +1,4 @@
+const { ChatRoom } = require('../model/chat_room');
 
 const uniqueArray = (toBeNewArray, excludeArray) => {
     excludeArray.forEach(profile => {
@@ -18,7 +19,14 @@ const excludeMyFriends = (myFriends, allUsers) => {
     return newArray;
 }
 
+const getMessageCount = async (roomId) => {
+    const count = await ChatRoom.findById({ _id: roomId });
+    console.log(count.messages);
+    return count.messages.length
+}
+
 module.exports = {
     uniqueArray,
-    excludeMyFriends
+    excludeMyFriends,
+    getMessageCount
 }

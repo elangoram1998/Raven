@@ -16,6 +16,7 @@ import { CommentModule } from '../comment/comment.module';
 import { ChatModule } from '../chat/chat.module';
 import { ChatComponent } from '../chat/components/chat/chat.component';
 import { MessageComponent } from '../chat/components/message/message.component';
+import { ChatResolver } from './chat.resolver';
 
 export const homeRoutes: Routes = [
   {
@@ -27,7 +28,13 @@ export const homeRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'myFeed', pathMatch: 'full' },
       { path: 'myFeed', component: MyFeedComponent },
-      { path: 'myFriends', component: ChatComponent },
+      {
+        path: 'myFriends',
+        component: ChatComponent,
+        resolve: {
+          chat: ChatResolver
+        }
+      },
     ]
   },
 ]

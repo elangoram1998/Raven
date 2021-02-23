@@ -5,6 +5,11 @@
             <mat-list-option *ngFor="let friend of myFriends$ | async" (click)="goToChat(friend.room_id)">
                 <img matListAvatar class="avatar-img" [src]="friend.user_id.avatar" alt="">
                 <p matLine><b>{{friend.user_id.username}}</b></p>
+                <div *ngIf="friend.unseenMsg > 0 ">
+                    <p matLine>
+                        <span [matBadge]="friend.unseenMsg" matBadgeOverlap="false"></span>
+                    </p>
+                </div>
                 <mat-divider></mat-divider>
             </mat-list-option>
         </mat-selection-list>

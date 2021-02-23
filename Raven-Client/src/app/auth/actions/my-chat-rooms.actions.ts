@@ -15,6 +15,11 @@ export const addNewChatRoom = createAction(
 export const updateChatRoom = createAction(
   '[Update ChatRoom] Increment Count',
   props<{ update: Update<MyChatRoom> }>()
+);
+
+export const updateAllChatRooms = createAction(
+  '[Update All] ChatRooms Update',
+  props<{ update: Update<MyChatRoom>[] }>()
 )
 
 

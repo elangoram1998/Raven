@@ -21,4 +21,9 @@ export const selectSeenMsgCount = createSelector(
             return room.total_seen_messages;
         }
     })
-)
+);
+
+export const areChatRoomsLoaded = createSelector(
+    selectMyChatRooms,
+    (state) => state.areChatRoomsLoaded
+);
