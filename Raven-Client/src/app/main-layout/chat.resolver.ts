@@ -24,7 +24,11 @@ export class ChatResolver implements Resolve<any>{
                 if (loaded) {
                     this.chatService.getUpdatedChatRooms().subscribe(
                         chatRooms => {
-                            let updates = chatRooms.map(room => Object.assign({}, { id: room.user_id._id, changes: room }))
+                            console.log("chat rooms: " + chatRooms);
+                            let updates = chatRooms.map(room => {
+                                console.log(room)
+                                return Object.assign({}, { id: room.user_id._id, changes: room })
+                            })
                             this.store.dispatch(updateAllChatRooms({ update: updates }));
                         },
                         error => {

@@ -35,8 +35,12 @@ export class MyChatRoomEffects {
     this.actions$.pipe(
       ofType(updateAllChatRooms),
       tap(action => {
+        const updatedArray: any[] = [];
+        action.update.forEach(room => {
+          updatedArray.push(room.changes);
+        });
         localStorage.removeItem('myChatRooms');
-        localStorage.setItem('myChatRooms', JSON.stringify(action.update));
+        localStorage.setItem('myChatRooms', JSON.stringify(updatedArray));
       })
     ), { dispatch: false }
   )

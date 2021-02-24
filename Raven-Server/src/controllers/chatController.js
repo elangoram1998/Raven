@@ -52,19 +52,18 @@ const getChatRoomCount = async (req, res) => {
 
 const getUpdatedChatRooms = async (req, res) => {
     try {
-        console.log("user data: " + req.userData);
         req.userData.my_chat_rooms.forEach(async (room) => {
             const totalCount = await getMessageCount(room.room_id);
-            console.log("minus: " + (totalCount) - (room.total_seen_messages))
-            room.unseenMsg = (totalCount) - (room.total_seen_messages)
+            console.log("minus: " + (totalCount - room.total_seen_messages))
+            room.unseenMsg = (totalCount- room.total_seen_messages)
         });
+        await req.userData.save();
         await req.userData.save();
         const userData = await UserData.findOne({ user_id: req.user._id }).populate({
             path: 'my_chat_rooms.user_id',
             select: '_id username avatar',
             model: 'User'
         });
-        console.log("User Data: " + userData);
         res.status(200).send(userData.my_chat_rooms);
     }
     catch (e) {

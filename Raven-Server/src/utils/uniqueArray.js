@@ -21,7 +21,6 @@ const excludeMyFriends = (myFriends, allUsers) => {
 
 const getMessageCount = async (roomId) => {
     const count = await ChatRoom.findById({ _id: roomId });
-    console.log(count.messages);
     return count.messages.length
 }
 

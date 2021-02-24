@@ -26,6 +26,8 @@ export class MessageComponent implements OnInit, OnDestroy {
   @ViewChild(FormGroupDirective)
   formGroupDirective!: FormGroupDirective;
   changes!: MyChatRoom;
+  isMessageSend: boolean = false;
+  receiveMessage: boolean = true;
 
   constructor(private route: ActivatedRoute,
     private store: Store<AppState>,
@@ -68,9 +70,19 @@ export class MessageComponent implements OnInit, OnDestroy {
 
     this.chatService.getMessages().subscribe(
       (res: any) => {
-        console.log(res);
-        this.msgArray.push(res);
-        this.updateChatRoom(1, "type2");
+        if (this.isMessageSend) {
+          console.log(res);
+          this.msgArray.push(res);
+          this.updateChatRoom(1, "type2");
+          this.isMessageSend = false;
+          this.receiveMessage = true;
+        }
+        else if (this.receiveMessage) {
+          console.log(res);
+          this.msgArray.push(res);
+          this.updateChatRoom(1, "type2");
+          //this.isMessageSend = false;
+        }
       },
       (error: any) => {
         console.log(error);
@@ -85,8 +97,10 @@ export class MessageComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    console.log(this.msgForm.get('message')?.value)
+    console.log(this.msgForm.get('message')?.value);
     this.chatService.sendMessage(this.roomId, this.msgForm.get('message')?.value, this.username);
+    this.isMessageSend = true;
+    this.receiveMessage = false;
     if (this.msgForm.valid) {
       setTimeout(() => this.formGroupDirective.resetForm(), 0)
     }
@@ -108,16 +122,22 @@ export class MessageComponent implements OnInit, OnDestroy {
       changes: updatedChatRoom
     }
     this.store.dispatch(updateChatRoom({ update }));
-  }
-
-  ngOnDestroy(): void {
-    console.log("component destroyed");
     this.chatService.updateMsgCount(this.myChatRoom.total_seen_messages, this.roomId).subscribe(
       noop,
       error => {
         console.log(error);
       }
     )
+  }
+
+  ngOnDestroy(): void {
+    console.log("component destroyed");
+    // this.chatService.updateMsgCount(this.myChatRoom.total_seen_messages, this.roomId).subscribe(
+    //   noop,
+    //   error => {
+    //     console.log(error);
+    //   }
+    // )
   }
 
 }
