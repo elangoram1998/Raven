@@ -11,9 +11,11 @@ class WebSocket {
         console.log(success("Web Socket new connection has been occured"));
 
         socket.on('join', ({ roomId }) => {
+            console.log("join event")
             socket.join(roomId);
+            console.log(socket.adapter.rooms);
             /*global.io.to(roomId).emit('message', `welcome to my chat ${roomId}`);*/
-        })
+        });
 
         socket.on('sendMessage', async ({ room, message, userId }, callback) => {
             const messageCollection = new Message({
@@ -28,8 +30,20 @@ class WebSocket {
                 path: 'user_id',
                 select: '_id username avatar'
             });
-            global.io.to(room).emit('message', response);
+            //global.io.to(room).emit('message', response);
+            socket.emit('message', response);
+            socket.broadcast.to(room).emit('receive', response);
             callback("message send successfully");
+        });
+
+        socket.on('leave', ({ roomId }) => {
+            console.log("room id to leave : " + roomId)
+            // socket.disconnect();
+            console.log(socket.adapter.rooms);
+            socket.leave(roomId, function (err) {
+                console.log(err);
+            });
+            console.log(socket.adapter.rooms);
         })
 
         socket.on('disconnect', () => {

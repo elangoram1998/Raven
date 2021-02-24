@@ -52,7 +52,7 @@ export class MessageComponent implements OnInit, OnDestroy {
     );
     console.log(this.myChatRoom);
 
-    this.chatService.joinRoom(this.roomId);
+    //this.chatService.joinRoom(this.roomId);
 
     this.chatService.getStoredMsg(this.roomId).subscribe(
       res => {
@@ -70,24 +70,25 @@ export class MessageComponent implements OnInit, OnDestroy {
 
     this.chatService.getMessages().subscribe(
       (res: any) => {
-        if (this.isMessageSend) {
-          console.log(res);
-          this.msgArray.push(res);
-          this.updateChatRoom(1, "type2");
-          this.isMessageSend = false;
-          this.receiveMessage = true;
-        }
-        else if (this.receiveMessage) {
-          console.log(res);
-          this.msgArray.push(res);
-          this.updateChatRoom(1, "type2");
-          //this.isMessageSend = false;
-        }
+        console.log(res);
+        this.msgArray.push(res);
+        this.updateChatRoom(1, "type2");
       },
       (error: any) => {
         console.log(error);
       }
     );
+
+    this.chatService.receiveMessage().subscribe(
+      (res: any) => {
+        console.log(res);
+        this.msgArray.push(res);
+        this.updateChatRoom(1, "type2");
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
 
     this.store.pipe(select(selectUserID)).subscribe(
       username => {
@@ -132,12 +133,7 @@ export class MessageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     console.log("component destroyed");
-    // this.chatService.updateMsgCount(this.myChatRoom.total_seen_messages, this.roomId).subscribe(
-    //   noop,
-    //   error => {
-    //     console.log(error);
-    //   }
-    // )
+    this.chatService.leaveRoom(this.roomId);
   }
 
 }

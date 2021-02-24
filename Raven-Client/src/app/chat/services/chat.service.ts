@@ -41,11 +41,6 @@ export class ChatService extends WenSocketService {
     return this.http.get<string>(environment.getChatRoomCount, { headers, params });
   }
 
-  getUpdatedChatRooms(): Observable<MyChatRoom[]> {
-    const headers = this.common.headers;
-    return this.http.get<MyChatRoom[]>(environment.getAllUpdatedChatRooms, { headers });
-  }
-
   joinRoom(roomId: string) {
     this.socket.emit('join', { roomId });
   }
@@ -57,6 +52,19 @@ export class ChatService extends WenSocketService {
         observer.next(message);
       })
     });
+  }
+
+  receiveMessage() {
+    return Observable.create((observer: any) => {
+      this.socket.on('receive', (message: Message) => {
+        console.log(message);
+        observer.next(message);
+      })
+    })
+  }
+
+  leaveRoom(roomId: string) {
+    this.socket.emit('leave', { roomId });
   }
 
   public sendMessage(room: string, message: string, userId: string) {

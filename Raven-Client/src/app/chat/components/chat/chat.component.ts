@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { selectAllMyChatRooms } from 'src/app/auth/selectors/my-chat-room.selectors';
 import { MyChatRoom } from 'src/app/model/my-chat-room';
 import { AppState } from 'src/app/reducers';
-import { ChatService } from '../../services/chat.service';
 
 
 @Component({
@@ -17,45 +16,13 @@ import { ChatService } from '../../services/chat.service';
 export class ChatComponent implements OnInit {
 
   myFriends$ !: Observable<MyChatRoom[]>;
-  friendsArray: MyChatRoom[]=[];
+  friendsArray: MyChatRoom[] = [];
 
   constructor(private store: Store<AppState>,
-    private router: Router,
-    private route: ActivatedRoute,
-    private chatService: ChatService) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     this.myFriends$ = this.store.pipe(select(selectAllMyChatRooms));
-  }
-
-  getMsgCount(roomId: string, msgCount: number) {
-    let count = 0;
-    this.chatService.chatRoomCount(roomId).subscribe(
-      res => {
-        console.log(res);
-        count = parseInt(res);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    if (count > msgCount) {
-      return true;
-    }
-    return false;
-  }
-
-  msgCount(roomId: string, msgCount: number) {
-    let count = 0;
-    this.chatService.chatRoomCount(roomId).subscribe(
-      res => {
-        count = parseInt(res);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    return count - msgCount;
   }
 
   goToChat(roomId: string) {
