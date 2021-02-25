@@ -42,6 +42,7 @@ export class ChatService extends WenSocketService {
   }
 
   joinRoom(roomId: string) {
+    console.log("join event");
     this.socket.emit('join', { roomId });
   }
 

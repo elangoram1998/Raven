@@ -13,7 +13,7 @@ class WebSocket {
         socket.on('join', ({ roomId }) => {
             console.log("join event")
             socket.join(roomId);
-            console.log(socket.adapter.rooms);
+            //console.log(socket.adapter.rooms);
             /*global.io.to(roomId).emit('message', `welcome to my chat ${roomId}`);*/
         });
 
@@ -39,7 +39,7 @@ class WebSocket {
         socket.on('leave', ({ roomId }) => {
             console.log("room id to leave : " + roomId)
             // socket.disconnect();
-            console.log(socket.adapter.rooms);
+            //console.log(socket.adapter.rooms);
             socket.leave(roomId, function (err) {
                 console.log(err);
             });

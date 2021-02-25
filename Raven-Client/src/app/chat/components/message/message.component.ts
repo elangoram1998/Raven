@@ -52,7 +52,7 @@ export class MessageComponent implements OnInit, OnDestroy {
     );
     console.log(this.myChatRoom);
 
-    //this.chatService.joinRoom(this.roomId);
+    this.chatService.joinRoom(this.roomId);
 
     this.chatService.getStoredMsg(this.roomId).subscribe(
       res => {
@@ -72,7 +72,7 @@ export class MessageComponent implements OnInit, OnDestroy {
       (res: any) => {
         console.log(res);
         this.msgArray.push(res);
-        this.updateChatRoom(1, "type2");
+        //this.updateChatRoom(1, "type2");
       },
       (error: any) => {
         console.log(error);
@@ -99,9 +99,8 @@ export class MessageComponent implements OnInit, OnDestroy {
 
   sendMessage() {
     console.log(this.msgForm.get('message')?.value);
+    this.updateChatRoom(1, "type2");
     this.chatService.sendMessage(this.roomId, this.msgForm.get('message')?.value, this.username);
-    this.isMessageSend = true;
-    this.receiveMessage = false;
     if (this.msgForm.valid) {
       setTimeout(() => this.formGroupDirective.resetForm(), 0)
     }
