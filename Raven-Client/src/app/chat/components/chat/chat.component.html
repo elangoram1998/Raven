@@ -1,18 +1,23 @@
-<div class="row">
-    <div class="col-sm-4"></div>
-    <div class="col-sm-4">
-        <mat-selection-list class="mt-4" [multiple]="false">
-            <mat-list-option *ngFor="let friend of myFriends$ | async" (click)="goToChat(friend.room_id)">
-                <img matListAvatar class="avatar-img" [src]="friend.user_id.avatar" alt="">
-                <p matLine><b>{{friend.user_id.username}}</b></p>
-                <div *ngIf="friend.unseenMsg > 0 ">
-                    <!-- <p matLine> -->
+<div id="chat-page">
+    <div class="row">
+        <div class="col-sm-4 dummy"></div>
+        <div class="col-sm-4" id="my-list">
+            <mat-toolbar class="chat-header">
+                My Friends
+            </mat-toolbar>
+            <mat-selection-list class="mt-4" [multiple]="false">
+                <mat-list-option *ngFor="let friend of myFriends$ | async" (click)="goToChat(friend.room_id)">
+                    <img matListAvatar class="avatar-img" [src]="friend.user_id.avatar" alt="">
+                    <p matLine><b>{{friend.user_id.username}}</b></p>
+                    <div *ngIf="friend.unseenMsg > 0 ">
+                        <!-- <p matLine> -->
                         <span class="badge badge-success">{{friend.unseenMsg}}</span>
-                    <!-- </p> -->
-                </div>
-                <mat-divider></mat-divider>
-            </mat-list-option>
-        </mat-selection-list>
+                        <!-- </p> -->
+                    </div>
+                    <mat-divider></mat-divider>
+                </mat-list-option>
+            </mat-selection-list>
+        </div>
+        <div class="col-sm-4 dummy"></div>
     </div>
-    <div class="col-sm-4"></div>
 </div>

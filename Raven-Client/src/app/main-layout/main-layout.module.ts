@@ -29,13 +29,13 @@ export const homeRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'myFeed', pathMatch: 'full' },
       { path: 'myFeed', component: MyFeedComponent },
-      {
-        path: 'myFriends',
-        component: ChatComponent,
-        resolve: {
-          chat: ChatResolver
-        }
-      },
+      // {
+      //   path: 'myFriends',
+      //   component: ChatComponent,
+      //   resolve: {
+      //     chat: ChatResolver
+      //   }
+      // },
     ]
   },
 ]

@@ -3,32 +3,42 @@
         <mat-card-title class="friend-suggestion-title">People you may know...</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <div id="arrow-btn" style="float: left">
-            <button id="pn-btn" mat-icon-button style="background-color: #8b00dd;color: white;" (click)="scrollLeft()">
-                <mat-icon id="arrow-icon">arrow_back_ios</mat-icon>
-            </button>
-        </div>
-        <div #widgetsContent class="middle">
-            <div *ngFor="let user of friendSuggestions$ | async" class="info-widget">
-                <div class="card">
-                    <img class="card" [src]="user.avatar" height="130" alt="Avatar">
-                    <div class="card-body">
-                        <h4 class="friend-suggestion-name"><b>{{user.username}}</b></h4>
-                        <!-- <button (click)="addFriend(user._id)" mat-raised-button color="warn">Follow
-                            <mat-icon>person_add_alt_1</mat-icon>
-                        </button> -->
-                        <button (click)="addFriend(user._id)" type="button" [rounded]="true" mdbBtn size="sm" color="success"
-                            mdbWavesEffect>
-                            Follow
-                        </button>
+        <div class="row">
+            <div class="col-1">
+                <div id="arrow-btn" style="float: left">
+                    <button id="pn-btn" mat-icon-button style="background-color: #8b00dd;color: white;"
+                        (click)="scrollLeft()">
+                        <mat-icon id="arrow-icon">arrow_back_ios</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="col-10">
+                <div #widgetsContent class="middle">
+                    <div *ngFor="let user of friendSuggestions$ | async" class="info-widget">
+                        <div class="card">
+                            <img class="card" [src]="user.avatar" height="130" alt="Avatar">
+                            <div class="card-body">
+                                <h4 class="friend-suggestion-name"><b>{{user.username}}</b></h4>
+                                <!-- <button (click)="addFriend(user._id)" mat-raised-button color="warn">Follow
+                                    <mat-icon>person_add_alt_1</mat-icon>
+                                </button> -->
+                                <button (click)="addFriend(user._id)" type="button" [rounded]="true" mdbBtn size="sm"
+                                    color="success" mdbWavesEffect>
+                                    Follow
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="arrow-btn" style="float: right">
-            <button id="pn-btn" mat-icon-button style="background-color: #8b00dd;color: white;" (click)="scrollRight()">
-                <mat-icon id="arrow-icon">arrow_forward_ios</mat-icon>
-            </button>
+            <div class="col-1">
+                <div id="arrow-btn" style="float: right">
+                    <button id="pn-btn" mat-icon-button style="background-color: #8b00dd;color: white;"
+                        (click)="scrollRight()">
+                        <mat-icon id="arrow-icon">arrow_forward_ios</mat-icon>
+                    </button>
+                </div>
+            </div>
         </div>
     </mat-card-content>
 </mat-card>

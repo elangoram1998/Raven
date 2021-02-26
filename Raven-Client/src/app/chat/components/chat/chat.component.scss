@@ -1,3 +1,28 @@
 mat-list-option {
-    margin-top: 10px;
+  margin-top: 10px;
 }
+
+#chat-page {
+  height: 100%;
+  top: 0;
+  background-image: linear-gradient(to top, #b3ffab 0%, #12fff7 100%);
+}
+
+#my-list {
+  background-color: #f0f2f5;
+}
+.row{
+    height: 100%;
+    position: relative;
+}
+.chat-header {
+  background-color: #8b00dd;
+  color: white;
+  width: 100%;
+  margin-bottom: 0;
+}
+@media(max-width:600px) {
+    .dummy{
+        display: none;
+    }
+  }

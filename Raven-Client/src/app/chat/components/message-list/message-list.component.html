@@ -1,8 +1,19 @@
 <div class="frame" (scroll)="scrolled($event)" #scrollframe>
     <div *ngFor="let message of messageList" #item class="item">
-        <p><b>{{message.user_id.username}}</b></p>
-        <p class="letters">
-            {{message.text}}
-        </p>
+        <div class="friend-message" *ngIf="message.user_id._id!==myUserId;else myMessage">
+            <p><b>{{message.user_id.username}}</b></p>
+            <p class="letters">
+                {{message.text}}
+            </p>
+            <p class="msg-time"><small>{{message.createdAt | date:'h:mm a'}}</small></p>
+        </div>
+        <ng-template #myMessage>
+            <div class="my-message">
+                <p class="letters">
+                    {{message.text}}
+                </p>
+                <p class="msg-time"><small>{{message.createdAt | date:'h:mm a'}}</small></p>
+            </div>
+        </ng-template>
     </div>
 </div>

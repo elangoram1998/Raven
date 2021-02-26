@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
   }
 
   goToChat() {
-    this.router.navigate(['myFriends'], { relativeTo: this.route });
+    this.router.navigate(['myFriends']);
   }
 
   signOut() {

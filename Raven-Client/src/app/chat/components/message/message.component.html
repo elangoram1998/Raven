@@ -2,7 +2,7 @@
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
         <div>
-            <mat-toolbar class=" toolbar">
+            <mat-toolbar class="chat-header">
                 <img [src]="myChatRoom.user_id.avatar" width="50" height="50" class="avatar-img" alt="">
                 <p class="ml-4"><b>{{myChatRoom.user_id.username}}</b></p>
             </mat-toolbar>
@@ -10,22 +10,32 @@
         <div>
             <app-message-list [messageList]="msgArray"></app-message-list>
         </div>
-        <div>
-            <form [formGroup]="msgForm" (ngSubmit)="sendMessage()">
-                <div class="row">
-                    <div class="col-10">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Message</mat-label>
-                            <input type="text" matInput formControlName="message">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-2 send-btn">
-                        <button type="submit" class="toolbar" mat-icon-button>
-                            <mat-icon>send</mat-icon>
+        <div class="msg-form">
+                <form [formGroup]="msgForm" (ngSubmit)="sendMessage()">
+                    <!-- <div class="row">
+                        <div class="col-10">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Message</mat-label>
+                                <input type="text" matInput formControlName="message">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-2 send-btn">
+                            <button type="submit" class="toolbar" mat-icon-button>
+                                <mat-icon>send</mat-icon>
+                            </button>
+                        </div>
+                    </div> -->
+
+                    <mat-form-field>
+                        <!-- <mat-label>Type a message</mat-label> -->
+                        <input matInput formControlName="message" type="text" placeholder="Type a message">
+                        <button [disabled]="msgForm.invalid" mdbBtn matSuffix type="submit" gradient="purple"
+                            [rounded]="true" size="sm" mdbWavesEffect>
+                            <mdb-icon fas icon="paper-plane"></mdb-icon>
                         </button>
-                    </div>
-                </div>
-            </form>
+                    </mat-form-field>
+
+                </form>
         </div>
     </div>
     <div class="col-sm-4"></div>

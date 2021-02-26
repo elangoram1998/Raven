@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { selectUserID } from 'src/app/auth/selectors/user.selectors';
 import { Message } from 'src/app/model/message';
+import { AppState } from 'src/app/reducers';
 
 @Component({
   selector: 'app-message-list',
@@ -12,13 +15,20 @@ export class MessageListComponent implements AfterViewInit {
   @ViewChild('scrollframe', { static: false })
   scrollFrame!: ElementRef;
   @ViewChildren('item') itemElements!: QueryList<any>;
+  myUserId!: String;
 
   private scrollContainer: any;
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     console.log("message list count: " + this.messageList);
+    this.store.pipe(select(selectUserID)).subscribe(
+      user_id => {
+        this.myUserId = user_id || "";
+      }
+    );
+    console.log("my user Id: " + this.myUserId);
   }
 
   ngAfterViewInit() {
