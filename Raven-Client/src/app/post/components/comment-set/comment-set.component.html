@@ -1,4 +1,4 @@
-<mat-card class="mb-3">
+<!-- <mat-card class="mb-3">
     <mat-card-header>
         <img [src]="commentSet.comment.user_id.avatar" mat-card-avatar alt="">
         <mat-card-title>{{commentSet.comment.user_id.username}}</mat-card-title>
@@ -15,8 +15,81 @@
         </button>
         <a class="ml-3" (click)="addReply()">reply</a>
     </mat-card-actions>
-</mat-card>
-<div *ngIf="commentSet.replys">
+</mat-card> -->
+<div class="comment-card">
+    <div class="row">
+        <div class="col-2">
+            <img [src]="commentSet.comment.user_id.avatar" class="rounded-circle z-depth-1-half" width="35" height="35"
+                alt="">
+        </div>
+        <div class="col-10">
+            <div class="d-flex flex-row">
+                <div>
+                    <h3><b>{{commentSet.comment.user_id.username}}</b></h3>
+                </div>
+                <div class="ml-4 py-1">
+                    <p class="font-weight-light">{{commentSet.comment.createdAt | fromNow}}</p>
+                </div>
+            </div>
+            <p>{{commentSet.comment.text}}</p>
+            <div class="d-flex flex-row">
+                <div class="mt-0">
+                    <button mat-icon-button (click)="likeComment()">
+                        <mat-icon class="heard-icon mr-2"
+                            [ngStyle]="commentSet.comment.isMyLikedComment?{'color':'red'}:{}">
+                            {{commentSet.comment.isMyLikedComment?'favorite':'favorite_border'}}
+                        </mat-icon>
+                    </button>
+                </div>
+                <div class="py-2">
+                    <p class="comment-like-count"> {{commentSet.comment.total_likes}} Likes</p>
+                </div>
+                <div class="py-2">
+                    <a class="ml-3 text-primary" (click)="addReply()">reply</a>
+                </div>
+            </div>
+
+            <div *ngIf="commentSet.replys">
+                <div class="row mt-3" *ngFor="let reply of commentSet.replys">
+                    <div class="col-2">
+                        <img [src]="reply.user_id.avatar" class="rounded-circle z-depth-1-half" width="35" height="35"
+                            alt="">
+                    </div>
+                    <div class="col-10">
+                        <div class="d-flex flex-row">
+                            <div>
+                                <h3><b>{{reply.user_id.username}}</b></h3>
+                            </div>
+                            <div class="ml-4 py-1">
+                                <p class="font-weight-light">{{reply.createdAt | fromNow}} </p>
+                            </div>
+                        </div>
+                        <p>{{reply.text}}</p>
+                        <div class="d-flex flex-row">
+                            <div>
+                                <button mat-icon-button (click)="likeReply(reply._id)">
+                                    <mat-icon class="heard-icon mr-2"
+                                        [ngStyle]="reply.isMyLikedComment?{'color':'red'}:{}">
+                                        {{reply.isMyLikedComment?'favorite':'favorite_border'}}
+                                    </mat-icon>
+                                </button>
+                            </div>
+                            <div class="py-2">
+                                <p class="comment-like-count"> {{reply.total_likes}} Likes</p>
+                            </div>
+                            <div class="py-2">
+                                <a class="ml-3 text-primary" (click)="addReply()">reply</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div *ngIf="commentSet.replys">
     <mat-card class="ml-3 mb-3" *ngFor="let reply of commentSet.replys">
         <mat-card-header>
             <img [src]="reply.user_id.avatar" mat-card-avatar alt="">
@@ -35,8 +108,8 @@
             <a class="ml-3" (click)="addReply()">reply</a>
         </mat-card-actions>
     </mat-card>
-</div>
-<mat-card class="mb-3" *ngIf="replyAdded">
+</div> -->
+<!-- <mat-card class="mb-3" *ngIf="replyAdded">
     <form [formGroup]="replyForm" (ngSubmit)="addReplyComment()">
         <mat-form-field>
             <textarea placeholder="write a reply.." matInput formControlName="text" required></textarea>
@@ -44,4 +117,21 @@
         <button [disabled]="replyForm.invalid" mat-raised-button color="warn">Post</button>
         <a (click)="cancelReply()">cancel</a>
     </form>
-</mat-card>
+</mat-card> -->
+
+<form *ngIf="replyAdded" [formGroup]="replyForm" (ngSubmit)="addReplyComment()">
+    <mat-form-field>
+
+        <input matInput formControlName="text" placeholder="write a reply.." required>
+        <button [disabled]="replyForm.invalid" mdbBtn matSuffix type="submit" gradient="peach" [rounded]="true"
+            size="sm" mdbWavesEffect>
+            <mdb-icon fas icon="paper-plane"></mdb-icon>
+        </button>
+
+        <!-- <textarea placeholder="write a reply.." matInput formControlName="text" required></textarea> -->
+    </mat-form-field>
+    <!-- <button [disabled]="replyForm.invalid" mat-raised-button color="warn">Post</button> -->
+    <a (click)="cancelReply()">
+        <p class="text-danger">cancel</p>
+    </a>
+</form>

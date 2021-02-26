@@ -5,15 +5,15 @@
         <mat-card-subtitle>{{post.createdAt | fromNow}}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="post.storage_url" alt="Photo of a Shiba Inu">
-    <mat-card-content>
+    <mat-card-content class="caption">
         {{post.caption}}
     </mat-card-content>
     <mat-card-actions>
-        <mat-card-subtitle>
+        <mat-card-subtitle class="like-count">
             {{post.total_likes}} Likes
         </mat-card-subtitle>
         <mat-divider></mat-divider>
-        <button class="ml-5 mr-3" mat-icon-button (click)="likeImage()">
+        <button class="ml-5 mr-3 mt-2" mat-icon-button (click)="likeImage()">
             <mat-icon class="icon-size mr-2" [ngStyle]="post.isMyLikedPost?{'color':'red'}:{}">
                 {{post.isMyLikedPost?'favorite':'favorite_border'}}
             </mat-icon> Like
@@ -23,14 +23,13 @@
                 {{post.isMySavedPost?'bookmark':'bookmark_border'}}
             </mat-icon> Save
         </button>
-        <mat-divider></mat-divider>
     </mat-card-actions>
 </mat-card>
-<mat-accordion class="mb-0">
+<mat-accordion>
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <b>{{post.total_comments}} Comments</b>
+                <b>{{post.total_comments}} <mdb-icon class="ml-1" fas icon="comments"></mdb-icon>  comments</b>
             </mat-panel-title>
         </mat-expansion-panel-header>
         <div *ngFor="let commentSet of comments">
@@ -48,12 +47,15 @@
     </div>
 </mat-card> -->
 
-<mat-card class="mb-4">
-    <form [formGroup]="commentForm" (ngSubmit)="addComment()" class="form-inline">
-        <mat-form-field appearance="outline">
-            <mat-label>Add Comment</mat-label>
-            <textarea matInput formControlName="text" placeholder="Add a comment.."></textarea>
+<mat-card class="mb-4 item-card">
+    <form [formGroup]="commentForm" (ngSubmit)="addComment()" class="input-group">
+        <mat-form-field>
+            <mat-label>Add a comment...</mat-label>
+            <input matInput formControlName="text" placeholder="Add a comment..">
+            <button [disabled]="commentForm.invalid" mdbBtn matSuffix type="submit" gradient="peach" [rounded]="true"
+                size="sm" mdbWavesEffect>
+                <mdb-icon fas icon="paper-plane"></mdb-icon>
+            </button>
         </mat-form-field>
-        <button type="submit" [disabled]="commentForm.invalid" mat-raised-button color="warn">Send</button>
     </form>
 </mat-card>

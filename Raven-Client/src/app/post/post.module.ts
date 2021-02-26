@@ -10,11 +10,18 @@ import { MaterialModule } from '../material/material/material.module';
 import { FromNowPipe } from '../pipes/from-now.pipe';
 import { CommentSetComponent } from './components/comment-set/comment-set.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+// MDB Angular Pro
+import { ButtonsModule, WavesModule, CollapseModule, InputsModule } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [PostComponent, ImageCardComponent, FromNowPipe, CommentSetComponent],
   imports: [
+    MDBBootstrapModule.forRoot(),
+    ButtonsModule,
+    InputsModule,
+    WavesModule,
+    CollapseModule,
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
