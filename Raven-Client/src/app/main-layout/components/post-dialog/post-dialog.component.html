@@ -21,7 +21,7 @@
             <img src="../../../../assets/video.png" width="30" height="30" alt="">
             Select Video
         </button>
-        <img *ngIf="isImage && imageUrl" [src]="imageUrl" alt="post image">
+        <img *ngIf="isImage && imageUrl" class="img-fluid" [src]="imageUrl" alt="post image">
         <video width="440" height="340" *ngIf="!isImage && imageUrl" controls>
             <source [src]="imageUrl">
         </video>
@@ -33,6 +33,8 @@
     </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button [disabled]="postForm.invalid" (click)="postMedia()" type="submit" mat-raised-button id="post-btn"
-        class="btn btn-block">Post</button>
+    <!-- <button [disabled]="postForm.invalid" (click)="postMedia()" type="submit" mat-raised-button id="post-btn"
+        class="btn btn-block">Post</button> -->
+    <button (click)="postMedia()" [disabled]="postForm.invalid" mdbBtn type="submit" [block]="true" class="mb-3" gradient="purple"
+        [rounded]="true" mdbWavesEffect>Post</button>
 </mat-dialog-actions>

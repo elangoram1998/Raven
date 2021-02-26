@@ -28,8 +28,10 @@
                             Password is required
                         </mat-error>
                     </mat-form-field>
-                    <button [disabled]="signInForm.invalid" type="submit" mat-raised-button
-                        class="btn btn-block form-button">Submit</button>
+                    <!-- <button [disabled]="signInForm.invalid" type="submit" mat-raised-button
+                        class="btn btn-block form-button">Submit</button> -->
+                    <button [disabled]="signInForm.invalid" class="form-button" mdbBtn type="submit" [block]="true"
+                        mdbWavesEffect>Submit</button>
                 </form>
                 <div class="mt-4 text-center">
                     <p>Don't have an account? <a routerLink="/SignUp">Sign Up</a></p>

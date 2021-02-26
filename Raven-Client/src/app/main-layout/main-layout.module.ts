@@ -17,6 +17,7 @@ import { ChatModule } from '../chat/chat.module';
 import { ChatComponent } from '../chat/components/chat/chat.component';
 import { MessageComponent } from '../chat/components/message/message.component';
 import { ChatResolver } from './chat.resolver';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 export const homeRoutes: Routes = [
   {
@@ -42,6 +43,7 @@ export const homeRoutes: Routes = [
 @NgModule({
   declarations: [MainLayoutComponent, MyFeedComponent, NewPostComponent, PostDialogComponent],
   imports: [
+    MDBBootstrapModule.forRoot(),
     ReactiveFormsModule,
     FriendSuggestionModule,
     PostModule,

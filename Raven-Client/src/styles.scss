@@ -3,6 +3,9 @@
 @import '~@angular/material/theming';
 @import '~bootstrap/scss/bootstrap.scss';
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
 @import '~ngx-toastr/toastr';
 // Plus imports for other components in your app.
 
@@ -50,6 +53,18 @@ body {
   font-size: 30px;
 }
 
+.friend-suggestion-name {
+  font-family: 'Arimo', sans-serif;
+}
+
+.friend-suggestion-title {
+  font-family: 'Fredoka One', cursive;
+}
+
+.post-card-name {
+  font-family: 'Bungee', cursive;
+}
+
 .card-header {
   background-color: white;
   margin-top: 20px;
@@ -87,12 +102,14 @@ mat-form-field {
 .form-button {
   background-color: #8b00dd;
   color: white;
+  margin-bottom: 20px;
 }
 
 .avatar-img {
   border-radius: 50%;
 }
-.icon-size{
+
+.icon-size {
   font-size: 32px;
 }
 

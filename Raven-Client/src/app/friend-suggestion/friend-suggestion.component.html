@@ -1,6 +1,6 @@
 <mat-card class="item-card">
     <mat-card-header>
-        <mat-card-title>People you may know</mat-card-title>
+        <mat-card-title class="friend-suggestion-title">People you may know...</mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <div id="arrow-btn" style="float: left">
@@ -11,11 +11,15 @@
         <div #widgetsContent class="middle">
             <div *ngFor="let user of friendSuggestions$ | async" class="info-widget">
                 <div class="card">
-                    <img [src]="user.avatar" height="130" alt="Avatar">
+                    <img class="card" [src]="user.avatar" height="130" alt="Avatar">
                     <div class="card-body">
-                        <h5 class="card-title">{{user.username}}</h5>
-                        <button (click)="addFriend(user._id)" mat-raised-button color="warn">Follow
+                        <h4 class="friend-suggestion-name"><b>{{user.username}}</b></h4>
+                        <!-- <button (click)="addFriend(user._id)" mat-raised-button color="warn">Follow
                             <mat-icon>person_add_alt_1</mat-icon>
+                        </button> -->
+                        <button (click)="addFriend(user._id)" type="button" [rounded]="true" mdbBtn size="sm" color="success"
+                            mdbWavesEffect>
+                            Follow
                         </button>
                     </div>
                 </div>

@@ -7,7 +7,8 @@
 }
 
 #pn-btn{
-    background-image: linear-gradient(to top, #b3ffab 0%, #12fff7 100%);
+    //background-image: linear-gradient(to top, #b3ffab 0%, #12fff7 100%);
+    background-image: linear-gradient(to top, #b224ef 0%, #7579ff 100%);
 }
 
 #arrow-icon{
@@ -28,4 +29,8 @@
     margin: 0 5px 0 5px;
     // border: 1px solid black;
     display: inline-block;
+  }
+
+  .card{
+    border-radius: 8%;
   }

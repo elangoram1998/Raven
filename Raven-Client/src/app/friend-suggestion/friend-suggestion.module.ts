@@ -6,6 +6,7 @@ import * as fromFriendSuggestion from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { FriendSuggestionEffects } from './store/friend-suggestion.effects';
 import { MaterialModule } from '../material/material/material.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 
@@ -16,6 +17,7 @@ import { MaterialModule } from '../material/material/material.module';
   imports: [
     CommonModule,
     MaterialModule,
+    MDBBootstrapModule.forRoot(),
     StoreModule.forFeature(fromFriendSuggestion.friendSuggestionFeatureKey, fromFriendSuggestion.friendSuggestionReducer, { metaReducers: fromFriendSuggestion.metaReducers }),
     EffectsModule.forFeature([FriendSuggestionEffects])
   ],

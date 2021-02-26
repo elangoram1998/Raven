@@ -4,8 +4,10 @@
             <img [src]="myAvatar$ | async" width="45" height="45" class="avatar-img" alt="my avatar">
         </div>
         <input (click)="openDialog()" type="text" class="input-box" placeholder="What's on your mind..">
-        <button  id="post-btn" class="ml-4" mat-raised-button>
+        <!-- <button (click)="openDialog()" id="post-btn" class="ml-4" mat-raised-button>
             New Post
-        </button>
+        </button> -->
+        <button (click)="openDialog()" mdbBtn type="button" size="sm" class="ml-4" gradient="purple" [rounded]="true"
+            mdbWavesEffect>Post</button>
     </mat-card-header>
 </mat-card>

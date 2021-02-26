@@ -38,8 +38,10 @@
                             a mixture of uppercase and lowercase letters.
                         </mat-error>
                     </mat-form-field>
-                    <button [disabled]="signUpForm.invalid" type="submit" mat-raised-button
-                        class="btn btn-block mt-4 form-button mb-4">Submit</button>
+                    <!-- <button [disabled]="signUpForm.invalid" type="submit" mat-raised-button
+                        class="btn btn-block mt-4 form-button mb-4">Submit</button> -->
+                    <button [disabled]="signUpForm.invalid" class="form-button" mdbBtn type="submit" [block]="true"
+                        mdbWavesEffect>Submit</button>
                 </form>
             </mat-card>
         </div>
