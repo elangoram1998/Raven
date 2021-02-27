@@ -1,4 +1,4 @@
-
+const { Post } = require('../model/post_collection');
 
 const updateUserData = async (req, res) => {
     try {
@@ -17,6 +17,18 @@ const updateUserData = async (req, res) => {
     }
 }
 
+const getMyPosts = async (req, res) => {
+    try {
+        const posts = await Post.find({ user_id: req.user._id });
+        res.status(200).send(posts);
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).send(e);
+    }
+}
+
 module.exports = {
-    updateUserData
+    updateUserData,
+    getMyPosts
 }

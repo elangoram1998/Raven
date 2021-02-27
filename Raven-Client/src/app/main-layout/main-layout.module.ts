@@ -18,6 +18,8 @@ import { ChatComponent } from '../chat/components/chat/chat.component';
 import { MessageComponent } from '../chat/components/message/message.component';
 import { ChatResolver } from './chat.resolver';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ProfileModule } from '../profile/profile.module';
+import { ProfileComponent } from '../profile/profile.component';
 
 export const homeRoutes: Routes = [
   {
@@ -36,6 +38,7 @@ export const homeRoutes: Routes = [
       //     chat: ChatResolver
       //   }
       // },
+      { path: ':username', component: ProfileComponent }
     ]
   },
 ]
@@ -47,6 +50,7 @@ export const homeRoutes: Routes = [
     ReactiveFormsModule,
     FriendSuggestionModule,
     PostModule,
+    ProfileModule,
     CommentModule,
     CommonModule,
     SharedModule,

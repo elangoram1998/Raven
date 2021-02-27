@@ -23,7 +23,8 @@ export const environment = {
   loadMessages: 'api/chat/loadMessages',
   updateMsgSeenCount: 'api/chat/updateMsgCount',
   getChatRoomCount: 'api/chat/getChatRoomCount',
-  getAllUpdatedChatRooms: 'api/chat/allUpdatedChatRooms'
+  getAllUpdatedChatRooms: 'api/chat/allUpdatedChatRooms',
+  getMyPosts: 'api/user/getMyPosts',
 };
 
 /*

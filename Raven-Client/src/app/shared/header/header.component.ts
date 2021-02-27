@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { logout } from 'src/app/auth/actions/auth.actions';
-import { selectAvatar } from 'src/app/auth/selectors/user.selectors';
+import { selectAvatar, selectUsername } from 'src/app/auth/selectors/user.selectors';
 import { NotificationModel } from 'src/app/model/notification';
 import { selectAllNotification } from 'src/app/notification/store/notification.selectors';
 import { AppState } from 'src/app/reducers';
@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
 
   avatarUrl!: Observable<string | undefined>;
   myNotifications$!: Observable<NotificationModel[]>;
+  myUsername!: string | undefined;
 
   constructor(private store: Store<AppState>,
     private router: Router,
@@ -24,11 +25,23 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.avatarUrl = this.store.pipe(select(selectAvatar));
+    this.store.pipe(select(selectUsername)).subscribe(
+      username => {
+        this.myUsername = username;
+      }
+    )
     this.myNotifications$ = this.store.pipe(select(selectAllNotification));
   }
 
   goToChat() {
     this.router.navigate(['myFriends']);
+  }
+
+  goToMyProfile() {
+    this.router.navigate(['/home', this.myUsername]);
+  }
+  goToDashboard() {
+
   }
 
   signOut() {
