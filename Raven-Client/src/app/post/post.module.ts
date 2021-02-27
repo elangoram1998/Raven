@@ -28,6 +28,6 @@ import { ButtonsModule, WavesModule, CollapseModule, InputsModule } from 'angula
     StoreModule.forFeature(fromPost.postFeatureKey, fromPost.postReducer, { metaReducers: fromPost.metaReducers }),
     EffectsModule.forFeature([PostEffects]),
   ],
-  exports: [PostComponent]
+  exports: [PostComponent,CommentSetComponent,FromNowPipe]
 })
 export class PostModule { }

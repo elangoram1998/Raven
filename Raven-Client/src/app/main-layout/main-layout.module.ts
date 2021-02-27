@@ -20,6 +20,7 @@ import { ChatResolver } from './chat.resolver';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ProfileModule } from '../profile/profile.module';
 import { ProfileComponent } from '../profile/profile.component';
+import { ProfileResolver } from '../profile/profile.resolver';
 
 export const homeRoutes: Routes = [
   {
@@ -38,7 +39,11 @@ export const homeRoutes: Routes = [
       //     chat: ChatResolver
       //   }
       // },
-      { path: ':username', component: ProfileComponent }
+      {
+        path: ':username', component: ProfileComponent, resolve: {
+          profile: ProfileResolver
+        }
+      }
     ]
   },
 ]
