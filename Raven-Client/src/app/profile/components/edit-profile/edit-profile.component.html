@@ -1,1 +1,58 @@
-<p>edit-profile works!</p>
+<div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <mat-card class="mt-5">
+            <form>
+                <div class="row">
+                    <label class="col-2 py-4">
+                        <img [src]="myAvatar" class="avatar-img" width="60" height="60" alt="">
+                    </label>
+                    <div class="col-10">
+                        <input type="file" style="display: none;" #selectImg name="post"
+                            accept="image/.jpg,image/.jpeg,image/.png" (change)="onChange($event)">
+                        <div class="btn-group py-4" role="group">
+                            <button mdbBtn type="button" (click)="selectImg.click()" color="info" class="waves-light"
+                                mdbWavesEffect>Change
+                                Picture</button>
+                            <button mdbBtn type="button" color="info" class="waves-light" mdbWavesEffect>Remove
+                                Picture</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-2 py-4">Username</label>
+                    <div class="col-10">
+                        <mat-form-field appearance="outline">
+                            <input matInput type="text">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-2 py-4">Bio</label>
+                    <div class="col-10">
+                        <mat-form-field appearance="outline">
+                            <textarea matInput type="text"></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-2 py-4">Email</label>
+                    <div class="col-10">
+                        <mat-form-field appearance="outline">
+                            <input matInput type="email">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <label class="col-2 ">Public</label>
+                    <div class="col-10">
+                        <mat-slide-toggle>Make your profile public</mat-slide-toggle>
+                    </div>
+                </div>
+                <button mdbBtn type="submit" [block]="true" class="mb-3" gradient="purple" [rounded]="true"
+                    mdbWavesEffect>Submit</button>
+            </form>
+        </mat-card>
+    </div>
+    <div class="col-sm-4"></div>
+</div>

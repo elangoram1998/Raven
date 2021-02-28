@@ -8,7 +8,12 @@ export const login = createAction(
 
 export const logout = createAction(
   '[Top Menu] Logout',
-)
+);
+
+export const updateUser = createAction(
+  '[Update User] Data Update',
+  props<{ user: User }>()
+);
 
 
 

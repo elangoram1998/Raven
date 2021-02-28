@@ -9,7 +9,7 @@ import {
 } from '@ngrx/store';
 import { User } from 'src/app/model/user';
 import { environment } from '../../../environments/environment';
-import { login, logout } from '../actions/auth.actions';
+import { login, logout, updateUser } from '../actions/auth.actions';
 
 export interface AuthState {
   user?: User
@@ -29,6 +29,11 @@ export const authReducers = createReducer(
   on(logout, (state, action) => {
     return {
       user: undefined
+    }
+  }),
+  on(updateUser, (state, action) => {
+    return {
+      user: action.user
     }
   })
 )

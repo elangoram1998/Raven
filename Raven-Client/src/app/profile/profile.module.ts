@@ -8,15 +8,17 @@ import { CarouselModule, ModalModule, WavesModule } from 'angular-bootstrap-md'
 import { MyPostsModule } from '../my-posts/my-posts.module';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [ProfileComponent, EditProfileComponent, ChangePasswordComponent],
   imports: [
     MyPostsModule,
+    ReactiveFormsModule,
     CommonModule,
     MyPostsModule,
-    // MDBBootstrapModule.forRoot(),
+    MDBBootstrapModule.forRoot(),
     MaterialModule,
     // CarouselModule,
     // ModalModule,

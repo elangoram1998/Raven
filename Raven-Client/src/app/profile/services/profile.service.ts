@@ -31,4 +31,12 @@ export class ProfileService {
     const headers = this.common.headers;
     return this.http.get<Post[]>(environment.getSavedPosts, { headers });
   }
+
+  changeProfilePic(fd: FormData) {
+    const headers = this.common.headers;
+  }
+  removeProfilePic() {
+    const headers = this.common.headers;
+
+  }
 }

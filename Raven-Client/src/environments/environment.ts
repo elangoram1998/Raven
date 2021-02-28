@@ -25,7 +25,10 @@ export const environment = {
   getChatRoomCount: 'api/chat/getChatRoomCount',
   getAllUpdatedChatRooms: 'api/chat/allUpdatedChatRooms',
   getMyPosts: 'api/user/getMyPosts',
-  getSavedPosts:'api/user/getMySavedPosts'
+  getSavedPosts: 'api/user/getMySavedPosts',
+  removeProfilePic: 'api/user/removeProfilePic',
+  changeProfilePic: 'api/user/changeProfilePic',
+  editProfile: 'api/user/editProfile'
 };
 
 /*

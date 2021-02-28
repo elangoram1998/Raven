@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { noop } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { login, logout } from '../actions/auth.actions';
+import { login, logout, updateUser } from '../actions/auth.actions';
 import { AuthService } from '../auth.service';
 
 
@@ -36,6 +36,16 @@ export class AuthEffects {
       })
     ),
     { dispatch: false }
+  )
+
+  update$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateUser),
+      tap(action => {
+        localStorage.removeItem('user');
+        localStorage.setItem('user', JSON.stringify(action.user));
+      })
+    ), { dispatch: false }
   )
 
   constructor(private actions$: Actions,
