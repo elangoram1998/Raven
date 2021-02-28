@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-sm-4 d-flex justify-content-center">
                     <div>
-                        <img [src]="myAvatar" width="130" height="130" alt="">
+                        <img class="avatar-img" [src]="myAvatar" width="130" height="130" alt="">
                     </div>
                 </div>
                 <div class="col-sm-6 name-card">
@@ -30,21 +30,32 @@
                         <img class="tab-icon" src="../../assets/image-icon.png" width="30" height="30" alt="">
                         POSTS
                     </ng-template>
-                    Content 1
+                    <app-my-posts></app-my-posts>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <img class="tab-icon" src="../../assets/video.png" width="30" height="30" alt="">
                         VIDEOS
                     </ng-template>
-                    Content 2
+                    <app-my-videos></app-my-videos>
                 </mat-tab>
                 <mat-tab>
                     <ng-template mat-tab-label>
                         <img class="tab-icon" src="../../assets/bookmark.png" width="30" height="30" alt="">
                         SAVED
                     </ng-template>
-                    Content 3
+                    <div *ngIf="noOfPosts>0;else noPic" class="card-columns">
+                        <div class="card" *ngFor="let post of mySavedPosts$ | async">
+                            <img [src]="post.storage_url" class="card-img-top" alt="my posts">
+                        </div>
+                    </div>
+                    
+                    <ng-template #noPic>
+                        <div class="text-center mt-5">
+                            <mat-icon class="material-icons-two-tone icon-size">bookmark</mat-icon>
+                            <h1>No Photos</h1>
+                        </div>
+                    </ng-template>
                 </mat-tab>
             </mat-tab-group>
         </div>

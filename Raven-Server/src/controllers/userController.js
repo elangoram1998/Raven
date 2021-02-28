@@ -19,7 +19,10 @@ const updateUserData = async (req, res) => {
 
 const getMyPosts = async (req, res) => {
     try {
-        const posts = await Post.find({ user_id: req.user._id });
+        const posts = await Post.find({ user_id: req.user._id }).populate({
+            path: 'user_id',
+            select: '_id username avatar'
+        }).select('-aws_key_name').sort({ createdAt: -1 });
         res.status(200).send(posts);
     }
     catch (e) {
@@ -28,7 +31,27 @@ const getMyPosts = async (req, res) => {
     }
 }
 
+const getMySavedPosts = async (req, res) => {
+    try {
+        const mySaved = req.userData.saved_post;
+        const posts = await Post.find({
+            '_id': {
+                $in: mySaved
+            }
+        }).populate({
+            path: 'user_id',
+            select: '_id username avatar'
+        }).select('-aws_key_name').sort({ createdAt: -1 });
+        res.status(200).send(posts);
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).send();
+    }
+}
+
 module.exports = {
     updateUserData,
-    getMyPosts
+    getMyPosts,
+    getMySavedPosts
 }

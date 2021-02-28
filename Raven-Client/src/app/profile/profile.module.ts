@@ -11,6 +11,7 @@ import { MyPostsModule } from '../my-posts/my-posts.module';
 @NgModule({
   declarations: [ProfileComponent],
   imports: [
+    MyPostsModule,
     CommonModule,
     MyPostsModule,
     // MDBBootstrapModule.forRoot(),

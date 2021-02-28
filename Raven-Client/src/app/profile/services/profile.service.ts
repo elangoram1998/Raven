@@ -26,4 +26,9 @@ export class ProfileService {
       })
     )
   }
+
+  getSavedPosts(): Observable<Post[]> {
+    const headers = this.common.headers;
+    return this.http.get<Post[]>(environment.getSavedPosts, { headers });
+  }
 }

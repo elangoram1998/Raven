@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroupDirective, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { noop } from 'rxjs';
@@ -23,7 +24,8 @@ import { selectMyPostById } from '../../store/my-post.selectors';
 })
 export class MyPostDialogComponent implements OnInit {
 
-  @Input() post!: Post;
+  //@Input() post!: Post;
+  post!: Post;
   @ViewChild(FormGroupDirective)
   formGroupDirective!: FormGroupDirective;
   userData!: UserData;
@@ -34,7 +36,11 @@ export class MyPostDialogComponent implements OnInit {
 
   constructor(private store: Store<AppState>,
     private commentService: CommentService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) data: { post: Post },
+    private dialogRef: MatDialogRef<MyPostDialogComponent>,) {
+    this.post = data.post;
+  }
 
   commentForm = this.fb.group({
     text: ['', Validators.required]
@@ -117,6 +123,7 @@ export class MyPostDialogComponent implements OnInit {
     }
     this.store.dispatch(myPostUpdated({ update }));
     this.store.dispatch(updateMyUserData({ userData: this.userData }));
+    this.dialogRef.close();
   }
 
   saveImage() {
@@ -139,6 +146,7 @@ export class MyPostDialogComponent implements OnInit {
     }
     this.store.dispatch(myPostUpdated({ update }));
     this.store.dispatch(updateMyUserData({ userData: this.userData }));
+    this.dialogRef.close();
   }
 
   addComment() {
@@ -149,12 +157,13 @@ export class MyPostDialogComponent implements OnInit {
         this.updateTotalComment();
         this.store.dispatch(insertComment({ commentSet }));
       })
-    ).subscribe(
+    ).subscribe(  
       noop,
       error => {
         console.log(error);
       }
     )
+    this.dialogRef.close();
     if (this.commentForm.valid) {
       setTimeout(() => this.formGroupDirective.resetForm(), 0)
     }

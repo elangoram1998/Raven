@@ -1,0 +1,12 @@
+<div *ngIf="noOfVideos>0;else noVideos" class="card-columns">
+    <div class="card" *ngFor="let post of myVideos$ | async">
+        <img [src]="post.storage_url" (click)="viewPost(post)" class="card-img-top" alt="my posts">
+    </div>
+</div>
+
+<ng-template #noVideos>
+    <div class="text-center mt-5">
+        <mat-icon class="material-icons-two-tone icon-size">videocam</mat-icon>
+        <h1>No Videos</h1>
+    </div>
+</ng-template>

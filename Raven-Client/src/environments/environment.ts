@@ -25,6 +25,7 @@ export const environment = {
   getChatRoomCount: 'api/chat/getChatRoomCount',
   getAllUpdatedChatRooms: 'api/chat/allUpdatedChatRooms',
   getMyPosts: 'api/user/getMyPosts',
+  getSavedPosts:'api/user/getMySavedPosts'
 };
 
 /*

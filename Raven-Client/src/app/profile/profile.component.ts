@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { selectUserData } from '../auth/selectors/user-data.selectors';
 import { selectAvatar, selectUser, selectUsername } from '../auth/selectors/user.selectors';
 import { Post } from '../model/post';
@@ -21,6 +22,8 @@ export class ProfileComponent implements OnInit {
   followingsArray!: string[];
   userData!: UserData | undefined;
   myPosts: Post[] = [];
+  mySavedPosts$!: Observable<Post[]>;
+  noOfPosts: number = 0;
 
   constructor(private store: Store<AppState>,
     private profileService: ProfileService) { }
@@ -50,6 +53,12 @@ export class ProfileComponent implements OnInit {
       },
       error => {
         console.log(error);
+      }
+    );
+    this.mySavedPosts$ = this.profileService.getSavedPosts();
+    this.mySavedPosts$.subscribe(
+      posts => {
+        this.noOfPosts = posts.length;
       }
     )
   }

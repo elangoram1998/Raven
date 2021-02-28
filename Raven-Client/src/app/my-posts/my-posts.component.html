@@ -1,1 +1,12 @@
-<p>my-posts works!</p>
+<div *ngIf="noOfPics>0;else noPic" class="card-columns">
+    <div class="card" *ngFor="let post of myPhotos$ | async">
+        <img [src]="post.storage_url" (click)="viewPost(post)" class="card-img-top" alt="my posts">
+    </div>
+</div>
+
+<ng-template #noPic>
+    <div class="text-center mt-5">
+        <mat-icon class="material-icons-two-tone icon-size">insert_photo</mat-icon>
+        <h1>No Photos</h1>
+    </div>
+</ng-template>

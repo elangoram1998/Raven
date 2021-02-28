@@ -13,6 +13,16 @@ export const selectAllMyPost = createSelector(
     selectAll
 );
 
+export const selectAllMyPhotos = createSelector(
+    selectAllMyPost,
+    (posts) => posts.filter(post => post.media_type === 'jpg' || post.media_type === 'png' || post.media_type === 'jpeg')
+);
+
+export const selectAllMyVideos = createSelector(
+    selectAllMyPost,
+    (posts) => posts.filter(post => post.media_type === 'mp4')
+);
+
 export const selectMyPostById = createSelector(
     selectAllMyPost,
     (posts: any[], props: { id: string; }) => posts.find(post => post._id === props.id)

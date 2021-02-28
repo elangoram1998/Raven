@@ -13,10 +13,11 @@ import { ButtonsModule, WavesModule, CollapseModule, InputsModule } from 'angula
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommentSetComponent } from '../post/components/comment-set/comment-set.component';
 import { PostModule } from '../post/post.module';
+import { MyVideosComponent } from './components/my-videos/my-videos.component';
 
 
 @NgModule({
-  declarations: [MyPostsComponent, MyPostDialogComponent],
+  declarations: [MyPostsComponent, MyPostDialogComponent, MyVideosComponent],
   imports: [
     PostModule,
     MDBBootstrapModule.forRoot(),
@@ -29,6 +30,7 @@ import { PostModule } from '../post/post.module';
     ReactiveFormsModule,
     StoreModule.forFeature(fromMyPost.myPostFeatureKey, fromMyPost.myPostReducer, { metaReducers: fromMyPost.metaReducers }),
     EffectsModule.forFeature([MyPostEffects])
-  ]
+  ],
+  exports: [MyPostsComponent, MyVideosComponent]
 })
 export class MyPostsModule { }
