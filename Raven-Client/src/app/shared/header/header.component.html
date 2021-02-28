@@ -12,9 +12,12 @@
             <button mat-menu-item>
                 <img class="img-icon" src="../../../assets/dashboard.png" width="30" height="30" alt="">
                 Dashboard</button>
-            <button mat-menu-item>
-                <img class="img-icon" src="../../../assets/settings.png" width="30" height="30" alt="">
-                Settings</button>
+            <button mat-menu-item (click)="goToEditProfile()">
+                <img class="img-icon" src="../../../assets/edit profile.png" width="30" height="30" alt="">
+                Edit Profile</button>
+            <button mat-menu-item (click)="goToChangePassword()">
+                <img class="img-icon" src="../../../assets/password-reset.png" width="30" height="30" alt="">
+                Change Password</button>
             <button mat-menu-item (click)="signOut()">
                 <img class="img-icon" src="../../../assets/signout.png" width="30" height="30" alt="">
                 Logout</button>

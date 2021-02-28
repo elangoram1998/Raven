@@ -38,10 +38,16 @@ export class HeaderComponent implements OnInit {
   }
 
   goToMyProfile() {
-    this.router.navigate(['/home', this.myUsername]);
+    this.router.navigate(['my-profile'], { relativeTo: this.route });
   }
   goToDashboard() {
 
+  }
+  goToEditProfile() {
+    this.router.navigate(['edit-profile'], { relativeTo: this.route });
+  }
+  goToChangePassword() {
+    this.router.navigate(['change-password'], { relativeTo: this.route });
   }
 
   signOut() {

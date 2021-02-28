@@ -21,6 +21,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ProfileModule } from '../profile/profile.module';
 import { ProfileComponent } from '../profile/profile.component';
 import { ProfileResolver } from '../profile/profile.resolver';
+import { EditProfileComponent } from '../profile/components/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from '../profile/components/change-password/change-password.component';
 
 export const homeRoutes: Routes = [
   {
@@ -32,18 +34,14 @@ export const homeRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'myFeed', pathMatch: 'full' },
       { path: 'myFeed', component: MyFeedComponent },
-      // {
-      //   path: 'myFriends',
-      //   component: ChatComponent,
-      //   resolve: {
-      //     chat: ChatResolver
-      //   }
-      // },
       {
-        path: ':username', component: ProfileComponent, resolve: {
+        path: 'my-profile', component: ProfileComponent,
+        resolve: {
           profile: ProfileResolver
         }
-      }
+      },
+      { path: 'edit-profile', component: EditProfileComponent },
+      { path: 'change-password', component: ChangePasswordComponent }
     ]
   },
 ]
