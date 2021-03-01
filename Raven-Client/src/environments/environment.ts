@@ -29,7 +29,8 @@ export const environment = {
   removeProfilePic: 'api/user/removeProfilePic',
   changeProfilePic: 'api/user/changeProfilePic',
   editProfile: 'api/user/editProfile',
-  changePassword: 'api/user/changePassword'
+  changePassword: 'api/user/changePassword',
+  updateNotificationStatus: 'api/notification/updateStatus'
 };
 
 /*

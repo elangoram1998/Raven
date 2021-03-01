@@ -11,4 +11,14 @@ export const selectAllNotification = createSelector(
 export const areNotificationsLoaded = createSelector(
     selectNotificationState,
     state => state.isNotificationsLoaded
-)
+);
+
+export const selectUnSeenNotifications = createSelector(
+    selectAllNotification,
+    (notifications) => notifications.filter(notification => notification.status === false)
+);
+
+export const selectUnSeenNotificationsCount = createSelector(
+    selectUnSeenNotifications,
+    (notifications) => notifications.length
+);

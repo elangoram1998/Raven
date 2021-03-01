@@ -1,3 +1,4 @@
+import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
 import { NotificationModel } from 'src/app/model/notification';
 
@@ -14,6 +15,12 @@ export const addNewNotification = createAction(
   '[Add Notification] Add One',
   props<{ notification: NotificationModel }>()
 );
+
+export const updateAllNotifications = createAction(
+  '[Update All] Notifications Update',
+  props<{ update: Update<NotificationModel>[] }>()
+)
+
 
 
 

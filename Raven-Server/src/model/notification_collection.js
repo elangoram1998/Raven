@@ -16,6 +16,10 @@ const notificationSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
+    status: {
+        type: Boolean,
+        default: false
+    }
 }, { timestamps: true });
 
 notificationSchema.statics.getMyNotifications = async function (user_id) {

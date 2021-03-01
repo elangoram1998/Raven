@@ -10,7 +10,7 @@ import {
 } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 import { NotificationModel } from '../../model/notification';
-import { addNewNotification, allNotificationsLoaded } from '../store/notification.actions';
+import { addNewNotification, allNotificationsLoaded, updateAllNotifications } from '../store/notification.actions';
 
 export const notificationFeatureKey = 'notification';
 
@@ -29,7 +29,8 @@ export const initialState = adapter.getInitialState({
 export const notifyReducer = createReducer(
   initialState,
   on(allNotificationsLoaded, (state, action) => adapter.addMany(action.notifications, { ...state, isNotificationsLoaded: true })),
-  on(addNewNotification, (state, action) => adapter.addOne(action.notification, state))
+  on(addNewNotification, (state, action) => adapter.addOne(action.notification, state)),
+  on(updateAllNotifications, (state, action) => adapter.updateMany(action.update, state))
 )
 
 export const { selectAll } = adapter.getSelectors();

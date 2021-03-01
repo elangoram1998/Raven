@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { concatMap, map } from 'rxjs/operators';
+import { concatMap, map, tap } from 'rxjs/operators';
+import { NotificationModel } from 'src/app/model/notification';
 import { NotificationService } from '../services/notification.service';
-import { allNotificationsLoaded, loadNotifications } from './notification.actions';
+import { allNotificationsLoaded, loadNotifications, updateAllNotifications } from './notification.actions';
 
 
 
@@ -14,6 +15,20 @@ export class NotificationEffects {
       ofType(loadNotifications),
       concatMap(action => this.notifyService.getMyNotifications()),
       map(notifications => allNotificationsLoaded({ notifications }))
+    )
+  );
+
+  updateNotifications$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateAllNotifications),
+      tap(action => {
+        let update: any[] = []
+        action.update.forEach(notification => {
+          update.push(notification.changes._id);
+        });
+        console.log("updated array: " + update);
+        this.notifyService.updateNotificationStatus(update)
+      }),
     )
   )
 

@@ -7,7 +7,8 @@ import { removeFriendSuggestion } from '../friend-suggestion/store/friend-sugges
 import { NotificationModel } from '../model/notification';
 import { UserData } from '../model/user-data';
 import { AppState } from '../reducers';
-import { selectAllNotification } from './store/notification.selectors';
+import { updateAllNotifications } from './store/notification.actions';
+import { selectAllNotification, selectUnSeenNotifications } from './store/notification.selectors';
 
 @Component({
   selector: 'app-notification',
@@ -18,17 +19,27 @@ export class NotificationComponent implements OnInit {
 
   notifications$!: Observable<NotificationModel[]>;
   userData!: UserData;
+  unSeenNotifications: NotificationModel[] = [];
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.notifications$ = this.store.pipe(select(selectAllNotification));
+    this.store.pipe(select(selectUnSeenNotifications)).subscribe(
+      notifications => {
+        this.unSeenNotifications = notifications;
+      }
+    )
     this.store.pipe(select(selectUserData)).subscribe(
       userData => {
         this.userData = { ...userData };
         console.log(userData)
       }
     );
+    let update = this.unSeenNotifications.map(notification => {
+      return Object.assign({}, { id: notification._id, changes: notification });
+    });
+    this.store.dispatch(updateAllNotifications({ update }))
   }
 
   addFriend(userId: string) {

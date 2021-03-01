@@ -6,5 +6,6 @@ export interface NotificationModel {
         username: string,
         avatar: string
     },
+    status: boolean,
     createdAt: Date
 }

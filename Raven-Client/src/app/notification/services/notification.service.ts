@@ -39,4 +39,9 @@ export class NotificationService extends WenSocketService {
     const headers = this.common.headers;
     return this.http.get<NotificationModel[]>(environment.loadMyNotifications, { headers });
   }
+
+  updateNotificationStatus(notifications: NotificationModel[]) {
+    const headers = this.common.headers;
+    return this.http.put(environment.updateNotificationStatus, notifications, { headers });
+  }
 }
