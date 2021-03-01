@@ -9,6 +9,7 @@ import { MyPostsModule } from '../my-posts/my-posts.module';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MyPostsModule,
     MDBBootstrapModule.forRoot(),
     MaterialModule,
+    SharedModule
     // CarouselModule,
     // ModalModule,
     // WavesModule

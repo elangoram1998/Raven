@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Post } from 'src/app/model/post';
+import { User } from 'src/app/model/user';
 import { CommonUtils } from 'src/app/utils/common';
 import { environment } from 'src/environments/environment';
 
@@ -32,11 +33,23 @@ export class ProfileService {
     return this.http.get<Post[]>(environment.getSavedPosts, { headers });
   }
 
-  changeProfilePic(fd: FormData) {
+  changeProfilePic(fd: FormData): Observable<User> {
     const headers = this.common.headers;
+    return this.http.post<User>(environment.changeProfilePic, fd, { headers });
   }
-  removeProfilePic() {
+  removeProfilePic(): Observable<User> {
     const headers = this.common.headers;
+    return this.http.post<User>(environment.removeProfilePic, {}, { headers });
+  }
 
+  editProfile(formValue: any) {
+    const headers = this.common.headers;
+    return this.http.put(environment.editProfile, formValue, { headers });
+  }
+
+  changePassword(password: string): Observable<boolean> {
+    console.log(password)
+    const headers = this.common.headers;
+    return this.http.put<boolean>(environment.changePassword, {password}, { headers });
   }
 }

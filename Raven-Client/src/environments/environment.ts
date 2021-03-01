@@ -28,7 +28,8 @@ export const environment = {
   getSavedPosts: 'api/user/getMySavedPosts',
   removeProfilePic: 'api/user/removeProfilePic',
   changeProfilePic: 'api/user/changeProfilePic',
-  editProfile: 'api/user/editProfile'
+  editProfile: 'api/user/editProfile',
+  changePassword: 'api/user/changePassword'
 };
 
 /*
