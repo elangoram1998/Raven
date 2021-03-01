@@ -1,0 +1,24 @@
+<div class="notify-bubble">
+    <div class="row">
+        <div class="col-2">
+            <div class="py-2">
+                <img class="rounded-circle z-depth-1-half" width="45" height="45" [src]="notification.sender.avatar"
+                    alt="">
+            </div>
+        </div>
+        <div class="col-10 py-2 ">
+            <div class="d-flex flex-row">
+                <div class="mr-2 py-1">
+                    <p><b>{{notification.sender.username}}</b></p>
+                </div>
+                <div [ngSwitch]="notification.notification_type">
+                    <div *ngSwitchCase="'started_following'">started following you.
+                        <button (click)="newFriend()" class="form-button ml-2" mat-raised-button *ngIf="!isFollowing">follow back</button>
+                    </div>
+                    <div *ngSwitchCase="'liked'">liked your post.</div>
+                </div>
+            </div>
+            <small>{{notification.createdAt | fromNow}}</small>
+        </div>
+    </div>
+</div>

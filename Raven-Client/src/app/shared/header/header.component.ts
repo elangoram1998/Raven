@@ -32,9 +32,16 @@ export class HeaderComponent implements OnInit {
     )
     this.myNotifications$ = this.store.pipe(select(selectAllNotification));
   }
+  goToHome() {
+    this.router.navigate(['/home']);
+  }
 
   goToChat() {
     this.router.navigate(['myFriends']);
+  }
+
+  goToNotification() {
+    this.router.navigate(['notifications'], { relativeTo: this.route });
   }
 
   goToMyProfile() {

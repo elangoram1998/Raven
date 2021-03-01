@@ -1,6 +1,12 @@
 <mat-toolbar style="background-color: #8b00dd;">
-    <img src="../../../assets/Raven-logo-1.png" width="130" height="50" alt="">
+    <img (click)="goToHome()" src="../../../assets/Raven-logo-1.png" width="130" height="50" alt="">
     <div class="ml-auto">
+        <button mat-icon-button (click)="goToHome()">
+            <mat-icon style="color: white;">home</mat-icon>
+        </button>
+        <button mat-icon-button (click)="goToNotification()">
+            <mat-icon style="color: white;">notifications</mat-icon>
+        </button>
         <button mat-icon-button class="mr-3" (click)="goToChat()">
             <mat-icon style="color: white;">chat</mat-icon>
         </button>

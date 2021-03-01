@@ -1,0 +1,15 @@
+.row{
+    height: 100%;
+}
+
+.notify{
+    background-color: white;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+@media(max-width:600px) {
+    .dummy{
+        display: none;
+    }
+  }

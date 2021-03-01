@@ -23,6 +23,8 @@ import { ProfileComponent } from '../profile/profile.component';
 import { ProfileResolver } from '../profile/profile.resolver';
 import { EditProfileComponent } from '../profile/components/edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from '../profile/components/change-password/change-password.component';
+import { NotificationModule } from '../notification/notification.module';
+import { NotificationComponent } from '../notification/notification.component';
 
 export const homeRoutes: Routes = [
   {
@@ -41,7 +43,8 @@ export const homeRoutes: Routes = [
         }
       },
       { path: 'edit-profile', component: EditProfileComponent },
-      { path: 'change-password', component: ChangePasswordComponent }
+      { path: 'change-password', component: ChangePasswordComponent },
+      { path: 'notifications', component: NotificationComponent }
     ]
   },
 ]
@@ -54,6 +57,7 @@ export const homeRoutes: Routes = [
     FriendSuggestionModule,
     PostModule,
     ProfileModule,
+    NotificationModule,
     CommentModule,
     CommonModule,
     SharedModule,

@@ -1,0 +1,9 @@
+<div class="row">
+    <div class="col-sm-4 dummy"></div>
+    <div class="col-sm-4 notify">
+        <div class="" *ngFor="let notification of notifications$ | async">
+            <app-notify-bubble (addFrind)="addFriend($event)" [notification]="notification"></app-notify-bubble>
+        </div>
+    </div>
+    <div class="col-sm-4 dummy"></div>
+</div>
