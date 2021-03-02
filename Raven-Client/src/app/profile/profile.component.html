@@ -15,10 +15,12 @@
                             <p class="friend-suggestion-title">{{myPosts.length}} posts</p>
                         </div>
                         <div class="mr-5">
-                            <p class="friend-suggestion-title">{{followersArray.length}} followers</p>
+                            <p (click)="viewFollowers()" class="friend-suggestion-title">{{followersArray.length}}
+                                followers</p>
                         </div>
                         <div class="mr-5">
-                            <p class="friend-suggestion-title">{{followingsArray.length}} followings</p>
+                            <p (click)="viewFollowings()" class="friend-suggestion-title">{{followingsArray.length}}
+                                followings</p>
                         </div>
                     </div>
                     <p class="caption mt-2" *ngIf="userData?.bio"><b>{{userData?.bio}}</b></p>
@@ -49,7 +51,7 @@
                             <img [src]="post.storage_url" class="card-img-top" alt="my posts">
                         </div>
                     </div>
-                    
+
                     <ng-template #noPic>
                         <div class="text-center mt-5">
                             <mat-icon class="material-icons-two-tone icon-size">bookmark</mat-icon>

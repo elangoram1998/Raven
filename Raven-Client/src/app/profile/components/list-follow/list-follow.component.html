@@ -1,0 +1,16 @@
+<div>
+    <p class="form-title mb-4 text-center">{{type}}</p>
+    <mat-divider class="mb-2"></mat-divider>
+    <div class="user-item mt-2" *ngFor="let user of usersData">
+        <div class="row">
+            <div class="col-2">
+                <img class="rounded-circle z-depth-1-half" [src]="user.avatar" width="40" height="40" alt="">
+            </div>
+            <div class="col-10 d-flex flex-row">
+                <p class="py-2">{{user.username}}</p>
+                <button (click)="unFollow(user._id)" class="ml-auto" *ngIf="type==='followings'" mdbBtn type="button"
+                    gradient="purple" size="sm" mdbWavesEffect>Unfollow</button>
+            </div>
+        </div>
+    </div>
+</div>

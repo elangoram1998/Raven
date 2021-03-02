@@ -2,6 +2,10 @@ const { Post } = require('../model/post_collection');
 const { v4: uuid } = require('uuid');
 const { uploadImage } = require('../utils/aws');
 const config = require('config');
+const { User } = require('../model/user_collection');
+const { UserData } = require('../model/user_data_collection');
+const { removeFollower, removeChatRoom } = require('../utils/realTimeData');
+const { ChatRoom } = require('../model/chat_room');
 
 const updateUserData = async (req, res) => {
     try {
@@ -12,6 +16,48 @@ const updateUserData = async (req, res) => {
         await req.userData.save();
         res.status(200).json({
             'success': 'UserData Successfully Upadted'
+        });
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).send(e);
+    }
+}
+
+const updateUserFollowings = async (req, res) => {
+    try {
+        const updatedFollowings = req.userData.followings.filter(id => id !== req.body.id);
+        req.userData.followings = updatedFollowings;
+        await req.userData.save();
+        const myFollowing = await UserData.findOne({ user_id: req.body.id });
+        const oppUpdated = myFollowing.followers.filter(id => id !== req.user._id);
+        myFollowing.followers = oppUpdated;
+        await myFollowing.save();
+        removeFollower(req.body.id, req.user._id);
+        res.status(200).json({
+            'success': 'UserData Successfully Upadted'
+        });
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).send(e);
+    }
+}
+
+const updateUserChatRooms = async (req, res) => {
+    try {
+        const updateChatRooms = req.userData.my_chat_rooms.filter(chatRoom => chatRoom.user_id !== req.body.userId);
+        req.userData.my_chat_rooms = updateChatRooms;
+        await req.userData.save();
+        const myFollowing = await UserData.findOne({ user_id: req.body.userId });
+        const oppUpdated = myFollowing.my_chat_rooms.filter(chatRoom => chatRoom.user_id !== req.user._id);
+        myFollowing.my_chat_rooms = oppUpdated;
+        await myFollowing.save();
+        removeChatRoom(req.body.userId, req.body.userId);
+        //const deleteRoom = await ChatRoom.findByIdAndDelete({ _id: req.body.roomId });
+        //console.log(deleteRoom);
+        res.status(200).json({
+            'success': 'ChatRoom Successfully Upadted'
         });
     }
     catch (e) {
@@ -120,6 +166,22 @@ const changePassword = async (req, res) => {
     }
 }
 
+const getUsersData = async (req, res) => {
+    try {
+        const users = req.body.users;
+        const response = await User.find({
+            _id: {
+                $in: users
+            }
+        }).select('_id username avatar');
+        res.status(200).send(response);
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).send(e);
+    }
+}
+
 module.exports = {
     updateUserData,
     getMyPosts,
@@ -127,5 +189,8 @@ module.exports = {
     changeProfilePic,
     removeProfilePic,
     editProfile,
-    changePassword
+    changePassword,
+    getUsersData,
+    updateUserFollowings,
+    updateUserChatRooms
 }

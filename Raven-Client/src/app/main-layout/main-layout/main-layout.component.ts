@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { filter, first, tap } from 'rxjs/operators';
-import { addNewChatRoom } from 'src/app/auth/actions/my-chat-rooms.actions';
+import { addNewChatRoom, deleteChatRoom } from 'src/app/auth/actions/my-chat-rooms.actions';
 import { updateUserData } from 'src/app/auth/actions/user-data.actions';
 import { selectUserData } from 'src/app/auth/selectors/user-data.selectors';
 import { loadFriendSuggestions } from 'src/app/friend-suggestion/store/friend-suggestion.actions';
@@ -106,6 +106,31 @@ export class MainLayoutComponent implements OnInit {
           changes: updatedPost
         }
         this.store.dispatch(updateClientPost({ update }));
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+
+    this.realTimeService.removeFollower().subscribe(
+      (userId: string) => {
+        this.userData.followers = Object.assign([], this.userData.followers);
+        const index = this.userData.followers.indexOf(userId);
+        this.userData.followers.splice(index, 1);
+        this.store.dispatch(updateUserData({ userData: this.userData }));
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
+
+    this.realTimeService.removeChatRoom().subscribe(
+      (userId: string) => {
+        this.userData.my_chat_rooms = Object.assign([], this.userData.my_chat_rooms);
+        const index = this.userData.my_chat_rooms.findIndex(chatRoom => chatRoom.user_id._id === userId);
+        this.userData.my_chat_rooms.splice(index, 1);
+        this.store.dispatch(updateUserData({ userData: this.userData }));
+        this.store.dispatch(deleteChatRoom({ id: userId }));
       },
       (error: any) => {
         console.log(error);

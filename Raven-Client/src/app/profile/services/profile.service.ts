@@ -48,8 +48,22 @@ export class ProfileService {
   }
 
   changePassword(password: string): Observable<boolean> {
-    console.log(password)
     const headers = this.common.headers;
-    return this.http.put<boolean>(environment.changePassword, {password}, { headers });
+    return this.http.put<boolean>(environment.changePassword, { password }, { headers });
+  }
+
+  getUsersData(users: string[]): Observable<any[]> {
+    const headers = this.common.headers;
+    return this.http.post<any[]>(environment.getUsersData, { users }, { headers });
+  }
+
+  updateFollowData(id: string) {
+    const headers = this.common.headers;
+    return this.http.put(environment.updateFollowings, { id }, { headers });
+  }
+
+  updateChatRoom(userId: string) {
+    const headers = this.common.headers;
+    return this.http.put(environment.updateChatRoom, { userId }, { headers });
   }
 }

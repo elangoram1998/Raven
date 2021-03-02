@@ -15,8 +15,7 @@ export const updateUserData = createAction(
 export const updateMyUserData = createAction(
   '[Update UserData] Update',
   props<{ userData: UserData }>()
-)
-
+);
 
 
 

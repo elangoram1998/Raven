@@ -61,4 +61,32 @@ export class RealTimeService extends WenSocketService {
       })
     })
   }
+
+  removeFollower() {
+    this.store.pipe(select(selectUserID)).subscribe(
+      id => {
+        this.myUserID = id;
+      }
+    )
+    return Observable.create((observer: any) => {
+      this.socket.on(`${this.myUserID}-removeFollower`, (payload: string) => {
+        console.log(payload);
+        observer.next(payload);
+      })
+    })
+  }
+
+  removeChatRoom() {
+    this.store.pipe(select(selectUserID)).subscribe(
+      id => {
+        this.myUserID = id;
+      }
+    )
+    return Observable.create((observer: any) => {
+      this.socket.on(`${this.myUserID}-removeChatRoom`, (payload: string) => {
+        console.log(payload);
+        observer.next(payload);
+      })
+    })
+  }
 }

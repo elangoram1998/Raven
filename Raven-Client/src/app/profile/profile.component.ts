@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectUserData } from '../auth/selectors/user-data.selectors';
@@ -7,6 +8,7 @@ import { Post } from '../model/post';
 import { User } from '../model/user';
 import { UserData } from '../model/user-data';
 import { AppState } from '../reducers';
+import { ListFollowComponent } from './components/list-follow/list-follow.component';
 import { ProfileService } from './services/profile.service';
 
 @Component({
@@ -18,15 +20,18 @@ export class ProfileComponent implements OnInit {
 
   myAvatar!: string;
   username!: string;
-  followersArray!: string[];
+  followersArray!: any[];
   followingsArray!: string[];
+  followersData!: any[];
+  followingsData!: any[];
   userData!: UserData | undefined;
   myPosts: Post[] = [];
   mySavedPosts$!: Observable<Post[]>;
   noOfPosts: number = 0;
 
   constructor(private store: Store<AppState>,
-    private profileService: ProfileService) { }
+    private profileService: ProfileService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.store.pipe(select(selectAvatar)).subscribe(
@@ -60,7 +65,42 @@ export class ProfileComponent implements OnInit {
       posts => {
         this.noOfPosts = posts.length;
       }
+    );
+    this.profileService.getUsersData(this.followersArray).subscribe(
+      res => {
+        this.followersData = res;
+      },
+      error => {
+        console.log(error);
+      }
     )
+    this.profileService.getUsersData(this.followingsArray).subscribe(
+      res => {
+        this.followingsData = res;
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
+  viewFollowers() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "400px";
+    dialogConfig.data = {
+      type: 'followers',
+      follow: this.followersData
+    };
+    this.dialog.open(ListFollowComponent, dialogConfig);
+  }
+  viewFollowings() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "400px";
+    dialogConfig.data = {
+      type: 'followings',
+      follow: this.followingsData
+    };
+    this.dialog.open(ListFollowComponent, dialogConfig);
   }
 
 }

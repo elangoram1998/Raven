@@ -15,9 +15,19 @@ const likeCount = (to, data) => {
     global.io.emit(`${to}-likeNotification`, data);
 }
 
+const removeFollower = (to, data) => {
+    global.io.emit(`${to}-removeFollower`, data);
+}
+
+const removeChatRoom = (to, data) => {
+    global.io.emit(`${to}-removeChatRoom`, data);
+}
+
 module.exports = {
     sendNotification,
     sendChatRoom,
     sendFollow,
-    likeCount
+    likeCount,
+    removeFollower,
+    removeChatRoom
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
 import { MyChatRoom } from 'src/app/model/my-chat-room';
-import { addNewChatRoom, loadMyChatRoomss, updateAllChatRooms, updateChatRoom } from '../actions/my-chat-rooms.actions';
+import { addNewChatRoom, deleteChatRoom, loadMyChatRoomss, updateAllChatRooms, updateChatRoom } from '../actions/my-chat-rooms.actions';
 
 
 
@@ -57,6 +57,17 @@ export class MyChatRoomEffects {
           }
         });
         localStorage.setItem('myChatRooms', JSON.stringify(update));
+      })
+    ), { dispatch: false }
+  );
+
+  deleteChatRoom$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteChatRoom),
+      tap(action => {
+        const update = JSON.parse(localStorage.getItem('myChatRooms') || "");
+        const store = update.filter((room: MyChatRoom) => room.user_id._id !== action.id);
+        localStorage.setItem('myChatRooms', JSON.stringify(store));
       })
     ), { dispatch: false }
   )

@@ -26,7 +26,17 @@ export const initialState: UserDataState = {
         followings: [""],
         liked_post: [""],
         saved_post: [""],
-        liked_comments:[""]
+        liked_comments: [""],
+        my_chat_rooms: [{
+            room_id: "",
+            total_seen_messages: 0,
+            unseenMsg: 0,
+            user_id: {
+                _id: "",
+                avatar: "",
+                username: ""
+            }
+        }]
     }
 }
 
@@ -46,7 +56,17 @@ export const userDataReducers = createReducer(
                 followings: [""],
                 liked_post: [""],
                 saved_post: [""],
-                liked_comments:[""]
+                liked_comments: [""],
+                my_chat_rooms: [{
+                    room_id: "",
+                    total_seen_messages: 0,
+                    unseenMsg: 0,
+                    user_id: {
+                        _id: "",
+                        avatar: "",
+                        username: ""
+                    }
+                }]
             }
         }
     }),

@@ -12,7 +12,7 @@ import { MyChatRoom } from 'src/app/model/my-chat-room';
 import { UserData } from 'src/app/model/user-data';
 import { environment } from '../../../environments/environment';
 import { logout } from '../actions/auth.actions';
-import { addNewChatRoom, loadMyChatRoomss, updateAllChatRooms, updateChatRoom } from '../actions/my-chat-rooms.actions';
+import { addNewChatRoom, deleteChatRoom, loadMyChatRoomss, updateAllChatRooms, updateChatRoom } from '../actions/my-chat-rooms.actions';
 import { loadUserData } from '../actions/user-data.actions';
 
 
@@ -34,7 +34,8 @@ export const myChatRoomReducers = createReducer(
     on(logout, (state, action) => adapter.removeAll(state)),
     on(addNewChatRoom, (state, action) => adapter.addOne(action.newRoom, state)),
     on(updateChatRoom, (state, action) => adapter.updateOne(action.update, state)),
-    on(updateAllChatRooms, (state, action) => adapter.updateMany(action.update, state))
+    on(updateAllChatRooms, (state, action) => adapter.updateMany(action.update, state)),
+    on(deleteChatRoom, (state, action) => adapter.removeOne(action.id, state))
 );
 
 export const { selectAll } = adapter.getSelectors();

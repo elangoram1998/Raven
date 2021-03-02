@@ -6,7 +6,10 @@ const {
     changeProfilePic,
     removeProfilePic,
     editProfile,
-    changePassword } = require('../controllers/userController');
+    changePassword,
+    getUsersData,
+    updateUserFollowings,
+    updateUserChatRooms } = require('../controllers/userController');
 const auth = require('../middlewares/auth');
 const upload = require('../middlewares/multer');
 
@@ -20,5 +23,8 @@ router
     .post('/removeProfilePic', auth, removeProfilePic)
     .put('/editProfile', auth, editProfile)
     .put('/changePassword', auth, changePassword)
+    .post('/getUsersData', auth, getUsersData)
+    .put('/updateFollowings', auth, updateUserFollowings)
+    .put('/updateChatRooms', auth, updateUserChatRooms)
 
 module.exports = router;

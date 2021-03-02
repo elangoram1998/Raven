@@ -30,7 +30,10 @@ export const environment = {
   changeProfilePic: 'api/user/changeProfilePic',
   editProfile: 'api/user/editProfile',
   changePassword: 'api/user/changePassword',
-  updateNotificationStatus: 'api/notification/updateStatus'
+  updateNotificationStatus: 'api/notification/updateStatus',
+  getUsersData: 'api/user/getUsersData',
+  updateFollowings: 'api/user/updateFollowings',
+  updateChatRoom: 'api/user/updateChatRooms',
 };
 
 /*

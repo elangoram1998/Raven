@@ -10,10 +10,11 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { ListFollowComponent } from './components/list-follow/list-follow.component';
 
 
 @NgModule({
-  declarations: [ProfileComponent, EditProfileComponent, ChangePasswordComponent],
+  declarations: [ProfileComponent, EditProfileComponent, ChangePasswordComponent, ListFollowComponent],
   imports: [
     MyPostsModule,
     ReactiveFormsModule,

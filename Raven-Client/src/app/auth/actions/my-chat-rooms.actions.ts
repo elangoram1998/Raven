@@ -20,6 +20,11 @@ export const updateChatRoom = createAction(
 export const updateAllChatRooms = createAction(
   '[Update All] ChatRooms Update',
   props<{ update: Update<MyChatRoom>[] }>()
+);
+
+export const deleteChatRoom = createAction(
+  '[ChatRoom] Remove ChatRoom',
+  props<{ id: string }>()
 )
 
 
