@@ -11,8 +11,13 @@ const sendFollow = (to, data) => {
     global.io.emit(`${to}-newFollower`, data);
 }
 
+const likeCount = (to, data) => {
+    global.io.emit(`${to}-likeNotification`, data);
+}
+
 module.exports = {
     sendNotification,
     sendChatRoom,
-    sendFollow
+    sendFollow,
+    likeCount
 }

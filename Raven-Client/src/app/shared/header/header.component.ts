@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { logout } from 'src/app/auth/actions/auth.actions';
 import { selectAvatar, selectUsername } from 'src/app/auth/selectors/user.selectors';
 import { NotificationModel } from 'src/app/model/notification';
-import { selectAllNotification } from 'src/app/notification/store/notification.selectors';
+import { selectAllNotification, selectUnSeenNotificationsCount } from 'src/app/notification/store/notification.selectors';
 import { AppState } from 'src/app/reducers';
 
 @Component({
@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   avatarUrl!: Observable<string | undefined>;
   myNotifications$!: Observable<NotificationModel[]>;
   myUsername!: string | undefined;
+  notificationCount: number = 0;
 
   constructor(private store: Store<AppState>,
     private router: Router,
@@ -31,6 +32,11 @@ export class HeaderComponent implements OnInit {
       }
     )
     this.myNotifications$ = this.store.pipe(select(selectAllNotification));
+    this.store.pipe(select(selectUnSeenNotificationsCount)).subscribe(
+      count => {
+        this.notificationCount = count;
+      }
+    )
   }
   goToHome() {
     this.router.navigate(['/home']);

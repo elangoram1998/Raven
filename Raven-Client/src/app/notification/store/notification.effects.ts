@@ -26,10 +26,9 @@ export class NotificationEffects {
         action.update.forEach(notification => {
           update.push(notification.changes._id);
         });
-        console.log("updated array: " + update);
-        this.notifyService.updateNotificationStatus(update)
+        this.notifyService.updateNotificationStatus(update).subscribe(console.log);
       }),
-    )
+    ), { dispatch: false }
   )
 
   constructor(private actions$: Actions, private notifyService: NotificationService) { }

@@ -14,9 +14,8 @@ const loadNotifications = async (req, res) => {
 
 const updateNotificationStatus = async (req, res) => {
     try {
-        console.log(req.body);
         const notifyArray = req.body;
-        const res = await Notification.updateMany(
+        const response = await Notification.updateMany(
             {
                 _id: {
                     $in: notifyArray,
@@ -28,8 +27,8 @@ const updateNotificationStatus = async (req, res) => {
                 }
             }
         );
-        console.log(res);
-        res.status(200).send(res);
+        console.log(response);
+        res.status(200).send(response);
     }
     catch (e) {
         console.log(e);

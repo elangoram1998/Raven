@@ -3,6 +3,8 @@ const { User } = require('../model/user_collection');
 const { uniqueArray } = require('../utils/uniqueArray');
 const { uploadImage } = require('../utils/aws');
 const { v4: uuid } = require('uuid');
+const { sendNotification, likeCount } = require('../utils/realTimeData');
+const { Notification } = require('../model/notification_collection');
 
 const getMyFeed = async (req, res) => {
     try {
@@ -50,8 +52,24 @@ const updatePost = async (req, res) => {
     try {
         const changes = req.body.changes;
         const post = await Post.findById({ _id: req.body._id });
+        if (post.total_likes < changes.total_likes && !post.user_id.equals(req.user._id)) {
+            const notification = new Notification({
+                notification_type: 'liked',
+                sender: req.user._id,
+                receiver: post.user_id
+            });
+            await notification.save();
+            const myNotification = await Notification.findById({ _id: notification._id }).populate({
+                path: 'sender',
+                select: '_id username avatar'
+            });
+            sendNotification(post.user_id, myNotification);
+        }
         post.total_likes = changes.total_likes;
         await post.save();
+        if (!post.user_id.equals(req.user._id)) {
+            likeCount(post.user_id, post);
+        }
         res.status(200).json({
             success: "post updated successfully"
         });

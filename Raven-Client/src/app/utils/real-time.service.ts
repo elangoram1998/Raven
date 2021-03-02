@@ -4,6 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectUserID } from '../auth/selectors/user.selectors';
 import { MyChatRoom } from '../model/my-chat-room';
+import { Post } from '../model/post';
 import { AppState } from '../reducers';
 import { CommonUtils } from './common';
 import { WenSocketService } from './wen-socket.service';
@@ -42,6 +43,20 @@ export class RealTimeService extends WenSocketService {
     return Observable.create((observer: any) => {
       this.socket.on(`${this.myUserID}-newChatRoom`, (payload: MyChatRoom) => {
         console.log(payload)
+        observer.next(payload);
+      })
+    })
+  }
+
+  getLikeNotification() {
+    this.store.pipe(select(selectUserID)).subscribe(
+      id => {
+        this.myUserID = id;
+      }
+    )
+    return Observable.create((observer: any) => {
+      this.socket.on(`${this.myUserID}-likeNotification`, (payload: Post) => {
+        console.log(payload);
         observer.next(payload);
       })
     })

@@ -33,13 +33,16 @@ export class NotificationComponent implements OnInit {
     this.store.pipe(select(selectUserData)).subscribe(
       userData => {
         this.userData = { ...userData };
-        console.log(userData)
       }
     );
-    let update = this.unSeenNotifications.map(notification => {
-      return Object.assign({}, { id: notification._id, changes: notification });
-    });
-    this.store.dispatch(updateAllNotifications({ update }))
+    if (this.unSeenNotifications.length > 0) {
+      let update = this.unSeenNotifications.map(notification => {
+        let change = { ...notification };
+        change.status = true;
+        return Object.assign({}, { id: notification._id, changes: change });
+      });
+      this.store.dispatch(updateAllNotifications({ update }));
+    }
   }
 
   addFriend(userId: string) {
