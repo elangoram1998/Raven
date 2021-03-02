@@ -24,6 +24,7 @@ export class ListFollowComponent implements OnInit {
   type!: string;
   room!: MyChatRoom;
   userData!: UserData;
+  isEmpty: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: { follow: any[], type: string },
     private profileService: ProfileService,
@@ -31,6 +32,7 @@ export class ListFollowComponent implements OnInit {
     private dialogRef: MatDialogRef<ListFollowComponent>) {
     this.usersData = data.follow;
     this.type = data.type;
+
   }
 
   ngOnInit(): void {
@@ -39,17 +41,30 @@ export class ListFollowComponent implements OnInit {
         this.userData = { ...data };
         console.log(data)
       }
-    )
+    );
+    if (this.usersData.length > 0) {
+      this.isEmpty = true;
+      
+    }
+    console.log(this.isEmpty)
   }
 
   unFollow(id: string) {
 
+    this.store.pipe(select(selectRoomById, { id })).subscribe(
+      room => {
+        this.room = room;
+      });
+
     this.profileService.updateFollowData(id).pipe(
       tap(res => {
-        this.userData.followers = Object.assign([], this.userData.followers);
-        const index = this.userData.followers.indexOf(id);
-        this.userData.followers.splice(index, 1);
+        this.userData.followings = Object.assign([], this.userData.followings);
+        const index = this.userData.followings.indexOf(id);
+        this.userData.followings.splice(index, 1);
         this.store.dispatch(updateUserData({ userData: this.userData }));
+        if (this.room) {
+          this.store.dispatch(deleteChatRoom({ id: this.room.user_id._id }));
+        }
       })
     ).subscribe(
       res => {
@@ -59,24 +74,6 @@ export class ListFollowComponent implements OnInit {
         console.log(error);
       });
 
-
-    this.store.pipe(select(selectRoomById, { id })).subscribe(
-      room => {
-        this.room = room;
-      });
-    if (this.room) {
-      this.profileService.updateChatRoom(id).pipe(
-        tap(res => {
-          this.store.dispatch(deleteChatRoom({ id: this.room.user_id._id }));
-        })
-      ).subscribe(
-        res => {
-          console.log(res);
-        },
-        error => {
-          console.log(error);
-        });
-    }
     this.dialogRef.close();
   }
 

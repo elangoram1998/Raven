@@ -13,6 +13,9 @@
                 </div>
             </div>
             <div class="col-10">
+                <div *ngIf="suggestionSize==0">
+                    <h3 class="text-center mt-5"><b>No Suggestion</b></h3>
+                </div>
                 <div #widgetsContent class="middle">
                     <div *ngFor="let user of friendSuggestions$ | async" class="info-widget">
                         <div class="card">

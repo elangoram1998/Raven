@@ -49,7 +49,24 @@ export class ProfileComponent implements OnInit {
         this.userData = userData;
         this.followersArray = this.userData.followers;
         this.followingsArray = this.userData.followings;
+        this.profileService.getUsersData(this.followersArray).subscribe(
+          res => {
+            this.followersData = res;
+          },
+          error => {
+            console.log(error);
+          }
+        );
+        this.profileService.getUsersData(this.followingsArray).subscribe(
+          res => {
+            this.followingsData = res;
+          },
+          error => {
+            console.log(error);
+          }
+        )
       }
+
     );
     this.profileService.getMyPosts().subscribe(
       posts => {
@@ -66,22 +83,6 @@ export class ProfileComponent implements OnInit {
         this.noOfPosts = posts.length;
       }
     );
-    this.profileService.getUsersData(this.followersArray).subscribe(
-      res => {
-        this.followersData = res;
-      },
-      error => {
-        console.log(error);
-      }
-    )
-    this.profileService.getUsersData(this.followingsArray).subscribe(
-      res => {
-        this.followingsData = res;
-      },
-      error => {
-        console.log(error);
-      }
-    )
   }
 
   viewFollowers() {

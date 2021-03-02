@@ -20,11 +20,16 @@ export class FriendSuggestionComponent implements OnInit {
   public widgetsContent!: ElementRef<any>;
   friendSuggestions$!: Observable<FriendSuggestion[]>;
   userData!: UserData;
+  suggestionSize: number = 0;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.friendSuggestions$ = this.store.pipe(select(selectAllFS));
+    this.friendSuggestions$.subscribe(
+      size => {
+        this.suggestionSize = size.length;
+      })
     this.store.pipe(select(selectUserData)).subscribe(
       data => {
         this.userData = { ...data };

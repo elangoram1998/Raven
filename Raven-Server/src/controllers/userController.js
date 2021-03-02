@@ -26,14 +26,36 @@ const updateUserData = async (req, res) => {
 
 const updateUserFollowings = async (req, res) => {
     try {
-        const updatedFollowings = req.userData.followings.filter(id => id !== req.body.id);
-        req.userData.followings = updatedFollowings;
+        //const updatedFollowings = req.userData.followings.filter(id => id !== req.body.id);
+        console.log("unfollow: " + req.body.id);
+        const index = req.userData.followings.indexOf(req.body.id);
+        req.userData.followings.splice(index, 1);
+        //req.userData.followings = updatedFollowings;
         await req.userData.save();
         const myFollowing = await UserData.findOne({ user_id: req.body.id });
-        const oppUpdated = myFollowing.followers.filter(id => id !== req.user._id);
-        myFollowing.followers = oppUpdated;
+        //const oppUpdated = myFollowing.followers.filter(id => id !== req.user._id);
+        const oppoIndex = myFollowing.followers.indexOf(req.user._id);
+        myFollowing.followers.splice(oppoIndex, 1);
+        // myFollowing.followers = oppUpdated;
         await myFollowing.save();
+
+        console.log(req.userData.my_chat_rooms);
+        const indexNext = req.userData.my_chat_rooms.findIndex(chatRoom => chatRoom.user_id.equals(req.body.id));
+        console.log("index: " + indexNext);
+        if (indexNext > -1) {
+            req.userData.my_chat_rooms.splice(indexNext, 1);
+            await req.userData.save();
+
+            const oppoIndexNext = myFollowing.my_chat_rooms.findIndex(chatRoom => chatRoom.user_id.equals(req.user._id));
+            myFollowing.my_chat_rooms.splice(oppoIndexNext, 1);
+            await myFollowing.save();
+            console.log("after")
+            removeChatRoom(req.body.id, req.user._id);
+        }
+
         removeFollower(req.body.id, req.user._id);
+
+
         res.status(200).json({
             'success': 'UserData Successfully Upadted'
         });
@@ -46,16 +68,15 @@ const updateUserFollowings = async (req, res) => {
 
 const updateUserChatRooms = async (req, res) => {
     try {
-        const updateChatRooms = req.userData.my_chat_rooms.filter(chatRoom => chatRoom.user_id !== req.body.userId);
-        req.userData.my_chat_rooms = updateChatRooms;
+        console.log(req.userData);
+        const index = req.userData.my_chat_rooms.findIndex(chatRoom => chatRoom.user_id === req.body.userId);
+        req.userData.my_chat_rooms.splice(index, 1);
         await req.userData.save();
         const myFollowing = await UserData.findOne({ user_id: req.body.userId });
-        const oppUpdated = myFollowing.my_chat_rooms.filter(chatRoom => chatRoom.user_id !== req.user._id);
-        myFollowing.my_chat_rooms = oppUpdated;
+        const oppoIndex = myFollowing.my_chat_rooms.findIndex(chatRoom => chatRoom.user_id === req.user._id);
+        myFollowing.my_chat_rooms.splice(oppoIndex, 1);
         await myFollowing.save();
-        removeChatRoom(req.body.userId, req.body.userId);
-        //const deleteRoom = await ChatRoom.findByIdAndDelete({ _id: req.body.roomId });
-        //console.log(deleteRoom);
+        removeChatRoom(req.body.userId, req.user._id);
         res.status(200).json({
             'success': 'ChatRoom Successfully Upadted'
         });

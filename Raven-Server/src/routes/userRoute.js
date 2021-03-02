@@ -25,6 +25,6 @@ router
     .put('/changePassword', auth, changePassword)
     .post('/getUsersData', auth, getUsersData)
     .put('/updateFollowings', auth, updateUserFollowings)
-    .put('/updateChatRooms', auth, updateUserChatRooms)
+    //.put('/updateChatRooms', auth, updateUserChatRooms)
 
 module.exports = router;
