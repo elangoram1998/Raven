@@ -14,7 +14,7 @@ import { UserData } from 'src/app/model/user-data';
 import { NotificationService } from 'src/app/notification/services/notification.service';
 import { addNewNotification, loadNotifications } from 'src/app/notification/store/notification.actions';
 import { areNotificationsLoaded } from 'src/app/notification/store/notification.selectors';
-import { updateClientPost } from 'src/app/post/store/post.actions';
+import { deletePost, updateClientPost } from 'src/app/post/store/post.actions';
 import { selectPostById } from 'src/app/post/store/post.selectors';
 import { AppState } from 'src/app/reducers';
 import { RealTimeService } from 'src/app/utils/real-time.service';
@@ -131,6 +131,21 @@ export class MainLayoutComponent implements OnInit {
         this.userData.my_chat_rooms.splice(index, 1);
         this.store.dispatch(updateUserData({ userData: this.userData }));
         this.store.dispatch(deleteChatRoom({ id: userId }));
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    )
+
+    this.realTimeService.deletePost().subscribe(
+      (postId: string) => {
+        this.store.pipe(select(selectPostById, { id: postId })).subscribe(
+          post => {
+            if (post) {
+              this.store.dispatch(deletePost({ id: postId }));
+            }
+          }
+        )
       },
       (error: any) => {
         console.log(error);

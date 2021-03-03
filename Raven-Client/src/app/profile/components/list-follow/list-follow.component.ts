@@ -1,6 +1,7 @@
 import { Inject } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { noop } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -29,7 +30,9 @@ export class ListFollowComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) data: { follow: any[], type: string },
     private profileService: ProfileService,
     private store: Store<AppState>,
-    private dialogRef: MatDialogRef<ListFollowComponent>) {
+    private dialogRef: MatDialogRef<ListFollowComponent>,
+    private router: Router,
+    private route: ActivatedRoute) {
     this.usersData = data.follow;
     this.type = data.type;
 
@@ -44,7 +47,7 @@ export class ListFollowComponent implements OnInit {
     );
     if (this.usersData.length > 0) {
       this.isEmpty = true;
-      
+
     }
     console.log(this.isEmpty)
   }
@@ -74,6 +77,11 @@ export class ListFollowComponent implements OnInit {
         console.log(error);
       });
 
+    this.dialogRef.close();
+  }
+
+  viewProfile(id: string) {
+    this.router.navigate(['home/view-profile/', id]);
     this.dialogRef.close();
   }
 

@@ -1,8 +1,19 @@
 <mat-card class="item-card mt-4">
     <mat-card-header>
-        <img [src]="post.user_id.avatar" mat-card-avatar alt="">
-        <mat-card-title class="post-card-name">{{post.user_id.username}}</mat-card-title>
+        <img (click)="viewProfile(post.user_id._id)" [src]="post.user_id.avatar" mat-card-avatar alt="">
+        <mat-card-title (click)="viewProfile(post.user_id._id)" class="post-card-name">{{post.user_id.username}}
+        </mat-card-title>
         <mat-card-subtitle>{{post.createdAt | fromNow}}</mat-card-subtitle>
+        <button *ngIf="userData.user_id === post.user_id._id" class="ml-auto" mat-icon-button [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button (click)="deletePost()" mat-menu-item>
+                <mat-icon style="color: red;">delete</mat-icon>
+                <span style="color: red;">Delete</span>
+            </button>
+        </mat-menu>
     </mat-card-header>
     <img mat-card-image [src]="post.storage_url" alt="Photo of a Shiba Inu">
     <mat-card-content class="caption">
@@ -29,7 +40,7 @@
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <b>{{post.total_comments}} <mdb-icon class="ml-1" fas icon="comments"></mdb-icon>  comments</b>
+                <b>{{post.total_comments}} <mdb-icon class="ml-1" fas icon="comments"></mdb-icon> comments</b>
             </mat-panel-title>
         </mat-expansion-panel-header>
         <div *ngFor="let commentSet of comments">

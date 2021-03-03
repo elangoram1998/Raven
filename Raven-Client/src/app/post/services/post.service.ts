@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -42,6 +42,14 @@ export class PostService {
   updatePost(id: any, update: any) {
     const headers = this.common.headers;
     return this.http.post<Post>(environment.updatePost, { _id: id, changes: update }, { headers });
+  }
+
+  deletePost(id: string) {
+    const headers = this.common.headers;
+    const params = new HttpParams({
+      fromString: `pId=${id}`
+    });
+    return this.http.delete(environment.deletePost, { headers, params });
   }
 
 }

@@ -9,7 +9,7 @@ const {
     changePassword,
     getUsersData,
     updateUserFollowings,
-    updateUserChatRooms } = require('../controllers/userController');
+    viewProfile } = require('../controllers/userController');
 const auth = require('../middlewares/auth');
 const upload = require('../middlewares/multer');
 
@@ -25,6 +25,6 @@ router
     .put('/changePassword', auth, changePassword)
     .post('/getUsersData', auth, getUsersData)
     .put('/updateFollowings', auth, updateUserFollowings)
-    //.put('/updateChatRooms', auth, updateUserChatRooms)
+    .get('/viewProfile', auth, viewProfile)
 
 module.exports = router;

@@ -24,7 +24,12 @@ export const postUpdated = createAction(
 export const updateClientPost = createAction(
   '[Post Update] Comment Status Updated',
   props<{ update: Update<Post> }>()
-)
+);
+
+export const deletePost = createAction(
+  '[Delete Post] Delete One',
+  props<{ id: string }>()
+);
 
 
 

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -65,5 +65,13 @@ export class ProfileService {
   updateChatRoom(userId: string) {
     const headers = this.common.headers;
     return this.http.put(environment.updateChatRoom, { userId }, { headers });
+  }
+
+  viewProfile(userId: string): Observable<any> {
+    const headers = this.common.headers;
+    const params = new HttpParams({
+      fromString: `uId=${userId}`
+    });
+    return this.http.get<any>(environment.viewProfile, { headers, params });
   }
 }

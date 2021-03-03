@@ -89,4 +89,13 @@ export class RealTimeService extends WenSocketService {
       })
     })
   }
+
+  deletePost() {
+    return Observable.create((observer: any) => {
+      this.socket.on('deletePost', (payload: string) => {
+        console.log(payload);
+        observer.next(payload);
+      })
+    })
+  }
 }

@@ -4,10 +4,11 @@
     <div class="user-item mt-2" *ngFor="let user of usersData">
         <div class="row">
             <div class="col-2">
-                <img class="rounded-circle z-depth-1-half" [src]="user.avatar" width="40" height="40" alt="">
+                <img (click)="viewProfile(user._id)" class="rounded-circle z-depth-1-half" [src]="user.avatar"
+                    width="40" height="40" alt="">
             </div>
             <div class="col-10 d-flex flex-row">
-                <p class="py-2">{{user.username}}</p>
+                <p (click)="viewProfile(user._id)" class="py-2">{{user.username}}</p>
                 <button (click)="unFollow(user._id)" class="ml-auto" *ngIf="type==='followings'" mdbBtn type="button"
                     gradient="purple" size="sm" mdbWavesEffect>Unfollow</button>
             </div>

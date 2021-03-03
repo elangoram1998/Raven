@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroupDirective, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { noop, Observable } from 'rxjs';
@@ -13,7 +14,8 @@ import { CommentSet } from 'src/app/model/comment-set';
 import { Post } from 'src/app/model/post';
 import { UserData } from 'src/app/model/user-data';
 import { AppState } from 'src/app/reducers';
-import { postUpdated, updateClientPost } from '../../store/post.actions';
+import { PostService } from '../../services/post.service';
+import { deletePost, postUpdated, updateClientPost } from '../../store/post.actions';
 import { selectPostById } from '../../store/post.selectors';
 
 @Component({
@@ -29,12 +31,14 @@ export class ImageCardComponent implements OnInit {
   userData!: UserData;
   changes!: Post;
   userDataChanges!: UserData;
-  comments: CommentSet[]=[];
+  comments: CommentSet[] = [];
   showComments: boolean = false;
 
   constructor(private store: Store<AppState>,
     private commentService: CommentService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private router: Router,
+    private postService: PostService) { }
 
   ngOnInit(): void {
     this.store.pipe(select(selectPostById, { id: this.post._id })).subscribe(
@@ -172,6 +176,23 @@ export class ImageCardComponent implements OnInit {
         }
       )
     }
+  }
+
+  viewProfile(id: string) {
+    this.router.navigate(['home/view-profile/', id]);
+  }
+
+  deletePost() {
+    this.postService.deletePost(this.post._id).pipe(
+      tap(res => {
+        this.store.dispatch(deletePost({ id: this.post._id }));
+      })
+    ).subscribe(
+      noop,
+      error => {
+        console.log(error);
+      }
+    )
   }
 
 }

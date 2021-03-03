@@ -34,6 +34,8 @@ export const environment = {
   getUsersData: 'api/user/getUsersData',
   updateFollowings: 'api/user/updateFollowings',
   updateChatRoom: 'api/user/updateChatRooms',
+  viewProfile: 'api/user/viewProfile',
+  deletePost: 'api/post/deletePost'
 };
 
 /*

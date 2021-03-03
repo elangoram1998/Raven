@@ -23,11 +23,16 @@ const removeChatRoom = (to, data) => {
     global.io.emit(`${to}-removeChatRoom`, data);
 }
 
+const sendDeletePost = (to, data) => {
+    global.io.emit('deletePost', data);
+}
+
 module.exports = {
     sendNotification,
     sendChatRoom,
     sendFollow,
     likeCount,
     removeFollower,
-    removeChatRoom
+    removeChatRoom,
+    sendDeletePost
 }

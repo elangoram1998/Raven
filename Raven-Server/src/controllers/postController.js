@@ -3,7 +3,7 @@ const { User } = require('../model/user_collection');
 const { uniqueArray } = require('../utils/uniqueArray');
 const { uploadImage } = require('../utils/aws');
 const { v4: uuid } = require('uuid');
-const { sendNotification, likeCount } = require('../utils/realTimeData');
+const { sendNotification, likeCount, sendDeletePost } = require('../utils/realTimeData');
 const { Notification } = require('../model/notification_collection');
 
 const getMyFeed = async (req, res) => {
@@ -80,8 +80,23 @@ const updatePost = async (req, res) => {
     }
 }
 
+const deletePost = async (req, res) => {
+    try {
+        const postId = req.query.pId;
+        console.log("postid: " + postId);
+        const response = await Post.findByIdAndRemove({ _id: postId });
+        sendDeletePost('', postId);
+        res.status(200).send(response);
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).send();
+    }
+}
+
 module.exports = {
     getMyFeed,
     newPost,
-    updatePost
+    updatePost,
+    deletePost
 }

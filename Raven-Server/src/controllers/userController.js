@@ -203,6 +203,30 @@ const getUsersData = async (req, res) => {
     }
 }
 
+const viewProfile = async (req, res) => {
+    try {
+        const userId = req.query.uId;
+        const profileData = await User.findById({ _id: userId }).select('-user_type')
+        const userData = await UserData.findOne({ user_id: userId }).populate({
+            path: 'followers',
+            select: '_id username avatar'
+        }).populate({
+            path: 'followings',
+            select: '_id username avatar'
+        }).select('user_id bio followers followings');
+        const post = await Post.find({ user_id: userId }).select('-aws_key_name');
+        res.status(200).send({
+            profileData,
+            userData,
+            post
+        });
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).send(e);
+    }
+}
+
 module.exports = {
     updateUserData,
     getMyPosts,
@@ -213,5 +237,6 @@ module.exports = {
     changePassword,
     getUsersData,
     updateUserFollowings,
-    updateUserChatRooms
+    updateUserChatRooms,
+    viewProfile
 }
