@@ -36,7 +36,12 @@ export class SignUpComponent implements OnInit {
       },
       error => {
         console.log(error);
-        this.toastr.error('SignUp Error', 'Unable to create a new account');
+        if (error.error) {
+          this.toastr.error('SignUp Error', error.error)
+        }
+        else {
+          this.toastr.error('SignUp Error', 'Unable to create a new account')
+        }
       }
     )
   }

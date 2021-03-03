@@ -77,6 +77,14 @@ userSchema.statics.findUserByCredentials = async function (username, password) {
     return user;
 }
 
+userSchema.statics.isUsernameExist = async (username) => {
+    const user = await User.findOne({ username });
+    if (user) {
+        return true;
+    }
+    return false;
+}
+
 userSchema.methods.generateToken = async function () {
     const user = this;
     const token = await jwt.sign({ _id: user._id.toString() }, config.get('tokenKey'));
