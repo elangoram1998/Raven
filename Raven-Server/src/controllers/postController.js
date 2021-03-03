@@ -5,6 +5,7 @@ const { uploadImage } = require('../utils/aws');
 const { v4: uuid } = require('uuid');
 const { sendNotification, likeCount, sendDeletePost } = require('../utils/realTimeData');
 const { Notification } = require('../model/notification_collection');
+Caman = require('caman').Caman;
 
 const getMyFeed = async (req, res) => {
     try {
@@ -26,21 +27,33 @@ const newPost = async (req, res) => {
         let myFile = req.file.originalname.split(".");
         const fileType = myFile[myFile.length - 1];
         const filename = `${uuid()}.${fileType}`;
-        const data = await uploadImage(filename, req.file.buffer);
-        const post = new Post({
-            user_id: req.user._id,
-            original_name: req.file.originalname,
-            caption: req.body.caption,
-            media_type: fileType,
-            aws_key_name: filename,
-            storage_url: data.Location,
-        });
-        await post.save();
-        const response = await Post.findById({ _id: post._id }).populate({
-            path: 'user_id',
-            select: '_id username avatar'
-        });
-        res.status(200).send(response);
+        if (req.body.effect) {
+            console.log("effect: " + req.body.effect);
+            Caman('src/assets/IMG_20200408_181727_416.jpg-1614784172931.png', function () {
+                this.greyscale().render(function () {
+                    this.save(`src/assets/${filename}`);
+                });
+            });
+        }
+        // let myFile = req.file.originalname.split(".");
+        // const fileType = myFile[myFile.length - 1];
+        // const filename = `${uuid()}.${fileType}`;
+        // const data = await uploadImage(filename, req.file.buffer);
+        // const post = new Post({
+        //     user_id: req.user._id,
+        //     original_name: req.file.originalname,
+        //     caption: req.body.caption,
+        //     media_type: fileType,
+        //     aws_key_name: filename,
+        //     storage_url: data.Location,
+        // });
+        // await post.save();
+        // const response = await Post.findById({ _id: post._id }).populate({
+        //     path: 'user_id',
+        //     select: '_id username avatar'
+        // });
+        // res.status(200).send(response);
+        res.status(200).send("");
     }
     catch (e) {
         console.log(e);

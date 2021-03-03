@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -6,6 +6,8 @@ import { tap } from 'rxjs/operators';
 import { PostService } from 'src/app/post/services/post.service';
 import { addNewPost } from 'src/app/post/store/post.actions';
 import { AppState } from 'src/app/reducers';
+
+declare var Caman: any;
 
 @Component({
   selector: 'app-post-dialog',
@@ -17,6 +19,8 @@ export class PostDialogComponent implements OnInit {
   selectedFile!: File;
   imageUrl!: any;
   isImage: boolean = true;
+  @ViewChild('myImg') myImg!: ElementRef;
+  selectedEffect!: string;
 
   constructor(private fb: FormBuilder,
     private postService: PostService,
@@ -47,10 +51,27 @@ export class PostDialogComponent implements OnInit {
     }
   }
 
+  imageEffect() {
+    if (this.imageUrl) {
+      this.selectedEffect = "black&white";
+      Caman(this.myImg.nativeElement, function (this: any) {
+        // this.brightness(10);
+        // this.contrast(30);
+        // this.sepia(60);
+        // this.saturation(-30);
+        // this.render();
+        this.greyscale().render();
+      });
+    }
+  }
+
   postMedia() {
     const formData = new FormData();
     if (this.postForm.get('caption')?.value) {
       formData.append('caption', this.postForm.get('caption')?.value);
+    }
+    if (this.selectedEffect) {
+      formData.append('effect', this.selectedEffect);
     }
     formData.append('post', this.postForm.get('image')?.value);
     this.postService.newPost(formData).pipe(
