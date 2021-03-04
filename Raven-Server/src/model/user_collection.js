@@ -47,6 +47,14 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
+    resetPassword: {
+        code: {
+            type: String
+        },
+        token: {
+            type: String
+        }
+    },
     tokens: [{
         token: {
             type: String,
@@ -89,6 +97,14 @@ userSchema.methods.generateToken = async function () {
     const user = this;
     const token = await jwt.sign({ _id: user._id.toString() }, config.get('tokenKey'));
     user.tokens = user.tokens.concat({ token });
+    await user.save();
+    return token;
+}
+
+userSchema.methods.generateResetToken = async function () {
+    const user = this;
+    const token = await jwt.sign({ _id: user._id.toString() }, config.get('resetKey'));
+    user.resetPassword.token = token;
     await user.save();
     return token;
 }

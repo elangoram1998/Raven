@@ -111,9 +111,60 @@ const logout = async (req, res) => {
     }
 }
 
-const test = async (req, res) => {
+const sendVerificationCode = async (req, res) => {
     try {
+        console.log(req.body)
+        const username = req.body.username;
+        const user = await User.findOne({ username });
+        if (!user) {
+            throw new Error('User not found with this email ID');
+        }
+        const code = (Math.floor(1000 + Math.random() * 9000)).toString();
+        console.log("Generated code: " + code);
+        var toAdress = user.email;
+        var subject = "Password Reset";
+        var text = `Sorry to hear you're having trouble logging into the Application. 
+        Please enter this (${code}) code to get into the application`;
+        var html = `<p>Sorry to hear you're having trouble logging into the Application. P
+        lease enter this <b>(${code})</b> code to get into the application. And don't forgot to change your password</p>`;
+        const messageId = sendEmail(toAdress, subject, text, html);
+        if (!messageId) {
+            throw new Error('Failed to send email');
+        }
+        // const users = await User.findOne({ email });
+        user.resetPassword.code = code;
+        await user.save();
+        res.status(200).send(true);
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).send(e.message);
+    }
+}
 
+const verifyCode = async (req, res) => {
+    try {
+        const code = req.body.code;
+        const username = req.body.username;
+        const isMatch = await User.findOne({ username, 'resetPassword.code': code });
+        if (!isMatch) {
+            throw new Error('Code did not match');
+        }
+        const token = await isMatch.generateResetToken();
+        res.status(200).send(token);
+    }
+    catch (e) {
+        console.log(e);
+        res.status(500).send(e.message);
+    }
+}
+
+const resetPassword = async (req, res) => {
+    try {
+        req.user.password = req.body.password;
+        req.user.resetPassword = "";
+        await req.user.save();
+        res.status(200).send(true);
     }
     catch (e) {
         console.log(e);
@@ -124,5 +175,8 @@ const test = async (req, res) => {
 module.exports = {
     register,
     login,
-    logout
+    logout,
+    sendVerificationCode,
+    verifyCode,
+    resetPassword
 }

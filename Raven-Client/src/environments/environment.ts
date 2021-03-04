@@ -35,7 +35,10 @@ export const environment = {
   updateFollowings: 'api/user/updateFollowings',
   updateChatRoom: 'api/user/updateChatRooms',
   viewProfile: 'api/user/viewProfile',
-  deletePost: 'api/post/deletePost'
+  deletePost: 'api/post/deletePost',
+  sendCode: 'api/auth/sendCode',
+  verifyCode: 'api/auth/verifyCode',
+  resetPassword: 'api/auth/resetPassword'
 };
 
 /*

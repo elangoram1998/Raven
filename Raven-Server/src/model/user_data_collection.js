@@ -47,7 +47,7 @@ const userDataSchema = new mongoose.Schema({
             type: Number,
             default: 0
         }
-    }]
+    }],
 }, { timestamps: true });
 
 const UserData = mongoose.model('UserData', userDataSchema);

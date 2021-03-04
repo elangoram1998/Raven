@@ -5,6 +5,7 @@
         "dbname": "raven-db"
     },
     "tokenKey": "r4v4n-App:-K4y$",
+    "resetKey": "r4v4n-r4s4t-p4ss",
     "server": {
         "port": "3000"
     },
@@ -13,5 +14,15 @@
     },
     "s3": {
         "defaultProfilePic": "https://raven-md-store.s3.ap-south-1.amazonaws.com/profile.png"
+    },
+    "nodeMailer": {
+        "transport": {
+            "service": "gmail",
+            "user": "receiveyourraven@gmail.com",
+            "pass": "H4ll0Raven@"
+        },
+        "info": {
+            "from": "receiveyourraven@gmail.com"
+        }
     }
 }

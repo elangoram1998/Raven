@@ -24,6 +24,8 @@ import { UserDataEffects } from './auth/effects/user-data.effects';
 import { MyChatRoomEffects } from './auth/effects/my-chat-room.effects';
 import { NotificationModule } from './notification/notification.module';
 import { ChatModule } from './chat/chat.module';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -32,6 +34,8 @@ import { ChatModule } from './chat/chat.module';
     PageNotFoundComponent,
     SignInComponent,
     SignUpComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
