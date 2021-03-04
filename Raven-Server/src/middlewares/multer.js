@@ -10,7 +10,7 @@ var storage = multer.diskStorage({
 })
 
 const upload = multer({
-    storage: storage,
+    //storage: storage,
     fileFilter(req, file, cb) {
         if (!file.originalname.match(/\.(jpg|jpeg|png|mp4)$/)) {
             return cb(new Error('Media format is not valid'));

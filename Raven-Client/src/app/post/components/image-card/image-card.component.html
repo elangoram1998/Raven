@@ -15,7 +15,10 @@
             </button>
         </mat-menu>
     </mat-card-header>
-    <img mat-card-image [src]="post.storage_url" alt="Photo of a Shiba Inu">
+    <img *ngIf="post.media_type!='mp4'" mat-card-image [src]="post.storage_url" alt="Photo">
+    <video *ngIf="post.media_type=='mp4'" mat-card-image controlsList="nodownload" controls>
+        <source [src]="post.storage_url">
+    </video>
     <mat-card-content class="caption">
         {{post.caption}}
     </mat-card-content>

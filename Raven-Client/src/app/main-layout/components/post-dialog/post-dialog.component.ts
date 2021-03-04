@@ -21,6 +21,8 @@ export class PostDialogComponent implements OnInit {
   isImage: boolean = true;
   @ViewChild('myImg') myImg!: ElementRef;
   selectedEffect!: string;
+  showUploading: boolean = false;
+  fileSizeError: boolean = false;
 
   constructor(private fb: FormBuilder,
     private postService: PostService,
@@ -38,15 +40,22 @@ export class PostDialogComponent implements OnInit {
   onChange(event: any) {
     if (event.target.files && event.target.files[0]) {
       this.selectedFile = <File>event.target.files[0];
-      console.log(this.selectedFile);
-      if (this.selectedFile.type === 'video/mp4') {
-        this.isImage = false;
+      console.log(this.selectedFile.size);
+      const fileSize = this.selectedFile.size / 1024 / 1024;
+      if (fileSize < 15) {
+        this.fileSizeError = false;
+        if (this.selectedFile.type === 'video/mp4') {
+          this.isImage = false;
+        }
+        const reader = new FileReader();
+        reader.readAsDataURL(this.selectedFile);
+        reader.onload = () => {
+          this.postForm.get('image')?.setValue(this.selectedFile);
+          this.imageUrl = reader.result;
+        }
       }
-      const reader = new FileReader();
-      reader.readAsDataURL(this.selectedFile);
-      reader.onload = () => {
-        this.postForm.get('image')?.setValue(this.selectedFile);
-        this.imageUrl = reader.result;
+      else {
+        this.fileSizeError = true;
       }
     }
   }
@@ -66,6 +75,7 @@ export class PostDialogComponent implements OnInit {
   }
 
   postMedia() {
+    this.showUploading = true;
     const formData = new FormData();
     if (this.postForm.get('caption')?.value) {
       formData.append('caption', this.postForm.get('caption')?.value);
@@ -82,6 +92,7 @@ export class PostDialogComponent implements OnInit {
       )
     ).subscribe(
       () => {
+        this.showUploading = false;
         this.dialogRef.close('success');
       },
       error => {
