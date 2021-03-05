@@ -47,7 +47,8 @@
             </mat-accordion>
         </div> -->
         <img #myImg *ngIf="isImage && imageUrl" class="img-fluid" [src]="imageUrl" alt="post image">
-        <video width="440" height="340" class="img-fluid" *ngIf="!isImage && imageUrl" controls>
+        <video width="440" height="340" class="img-fluid" controlsList="nodownload" *ngIf="!isImage && imageUrl"
+            controls>
             <source [src]="imageUrl">
         </video>
         <mat-form-field>

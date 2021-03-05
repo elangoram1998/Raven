@@ -17,6 +17,11 @@
                     <mat-divider></mat-divider>
                 </mat-list-option>
             </mat-selection-list>
+            <mat-card class="item-card" *ngIf="isNoFriends">
+                <div class="text-center">
+                    <p class="friend-suggestion-title deep-orange-text" style="font-size: 20px;">Add friends to chat</p>
+                </div>
+            </mat-card>
         </div>
         <div class="col-sm-4 dummy"></div>
     </div>

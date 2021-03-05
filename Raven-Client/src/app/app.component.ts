@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { State, Store } from '@ngrx/store';
 import { login } from './auth/actions/auth.actions';
 import { loadMyChatRoomss } from './auth/actions/my-chat-rooms.actions';
@@ -13,8 +14,10 @@ import { AppState } from './reducers';
 export class AppComponent implements OnInit {
 
   title = 'Raven-Client';
+  loading: boolean = true;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>,
+    private router: Router) { }
 
   ngOnInit(): void {
     const user = localStorage.getItem('user');
@@ -26,6 +29,28 @@ export class AppComponent implements OnInit {
       this.store.dispatch(loadUserData({ userData: JSON.parse(userData) }));
       this.store.dispatch(loadMyChatRoomss({ myChatRooms: JSON.parse(myChatRoom) }));
     }
+
+    this.router.events.subscribe(event => {
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.loading = true;
+          break;
+        }
+
+        case event instanceof NavigationEnd: {
+          this.loading = false;
+          break;
+        }
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError: {
+          this.loading = false;
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    })
   }
 
 

@@ -1,3 +1,9 @@
 <div *ngFor="let post of loadMyFeeds$ | async">
     <app-image-card [post]="post"></app-image-card>
 </div>
+<mat-card *ngIf="isPostEmpty" class="item-card mt-4">
+        <div class="text-center">
+            <p class="friend-suggestion-title" style="font-size: 20px;">No more posts</p>
+            <p>Add more friends to see more posts in your News Feed.</p>
+        </div>
+</mat-card>

@@ -1,6 +1,9 @@
 <div *ngIf="noOfVideos>0;else noVideos" class="card-columns">
     <div class="card" *ngFor="let post of myVideos$ | async">
-        <img [src]="post.storage_url" (click)="viewPost(post)" class="card-img-top" alt="my posts">
+        <!-- <img [src]="post.storage_url" (click)="viewPost(post)" class="card-img-top" alt="my posts"> -->
+        <video (click)="viewPost(post)" class="card-img-top" mat-card-image controlsList="nodownload" controls>
+            <source [src]="post.storage_url">
+        </video>
     </div>
 </div>
 

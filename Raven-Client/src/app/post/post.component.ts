@@ -13,6 +13,7 @@ import { selectAllPost } from './store/post.selectors';
 export class PostComponent implements OnInit {
 
   loadMyFeeds$!: Observable<Post[]>;
+  isPostEmpty: boolean = true;
 
   constructor(private store: Store<AppState>) { }
 
@@ -20,6 +21,13 @@ export class PostComponent implements OnInit {
     this.loadMyFeeds$ = this.store.pipe(
       select(selectAllPost)
     );
+    this.loadMyFeeds$.subscribe(
+      posts => {
+        if (posts.length > 0) {
+          this.isPostEmpty = false;
+        }
+      }
+    )
   }
 
 }

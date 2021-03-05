@@ -5,7 +5,7 @@ const { uploadImage } = require('../utils/aws');
 const { v4: uuid } = require('uuid');
 const { sendNotification, likeCount, sendDeletePost } = require('../utils/realTimeData');
 const { Notification } = require('../model/notification_collection');
-Caman = require('caman').Caman;
+// Caman = require('caman').Caman;
 
 const getMyFeed = async (req, res) => {
     try {

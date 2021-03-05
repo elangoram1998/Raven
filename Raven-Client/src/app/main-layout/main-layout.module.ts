@@ -26,6 +26,8 @@ import { ChangePasswordComponent } from '../profile/components/change-password/c
 import { NotificationModule } from '../notification/notification.module';
 import { NotificationComponent } from '../notification/notification.component';
 import { ViewProfileComponent } from '../profile/components/view-profile/view-profile.component';
+import { DashboardModule } from '../dashboard/dashboard.module';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 export const homeRoutes: Routes = [
   {
@@ -46,7 +48,8 @@ export const homeRoutes: Routes = [
       { path: 'edit-profile', component: EditProfileComponent },
       { path: 'change-password', component: ChangePasswordComponent },
       { path: 'notifications', component: NotificationComponent },
-      { path: 'view-profile/:id', component: ViewProfileComponent }
+      { path: 'view-profile/:id', component: ViewProfileComponent },
+      { path: 'dashboard', component: DashboardComponent }
     ]
   },
 ]
@@ -59,6 +62,7 @@ export const homeRoutes: Routes = [
     FriendSuggestionModule,
     PostModule,
     ProfileModule,
+    DashboardModule,
     NotificationModule,
     CommentModule,
     CommonModule,

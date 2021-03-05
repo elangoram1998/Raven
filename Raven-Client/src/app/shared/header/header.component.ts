@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['my-profile'], { relativeTo: this.route });
   }
   goToDashboard() {
-
+    this.router.navigate(['dashboard'], { relativeTo: this.route });
   }
   goToEditProfile() {
     this.router.navigate(['edit-profile'], { relativeTo: this.route });

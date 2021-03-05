@@ -17,12 +17,20 @@ export class ChatComponent implements OnInit {
 
   myFriends$ !: Observable<MyChatRoom[]>;
   friendsArray: MyChatRoom[] = [];
+  isNoFriends: boolean = true;
 
   constructor(private store: Store<AppState>,
     private router: Router) { }
 
   ngOnInit(): void {
     this.myFriends$ = this.store.pipe(select(selectAllMyChatRooms));
+    this.myFriends$.subscribe(
+      friend => {
+        if (friend.length > 0) {
+          this.isNoFriends = false;
+        }
+      }
+    )
   }
 
   goToChat(roomId: string) {

@@ -10,7 +10,10 @@
             <mat-card-title class="post-card-name">{{post.user_id.username}}</mat-card-title>
             <mat-card-subtitle>{{post.createdAt | fromNow}}</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image [src]="post.storage_url" alt="Photo of a Shiba Inu">
+        <img *ngIf="post.media_type!='mp4'" mat-card-image [src]="post.storage_url" alt="Photo of a Shiba Inu">
+        <video *ngIf="post.media_type=='mp4'"  mat-card-image controlsList="nodownload" controls>
+            <source [src]="post.storage_url">
+        </video>
         <mat-card-content class="caption">
             {{post.caption}}
         </mat-card-content>
@@ -35,7 +38,7 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <b>{{post.total_comments}} <mdb-icon class="ml-1" fas icon="comments"></mdb-icon>  comments</b>
+                    <b>{{post.total_comments}} <mdb-icon class="ml-1" fas icon="comments"></mdb-icon> comments</b>
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div *ngFor="let commentSet of comments">
@@ -48,12 +51,11 @@
             <mat-form-field>
                 <mat-label>Add a comment...</mat-label>
                 <input matInput formControlName="text" placeholder="Add a comment..">
-                <button [disabled]="commentForm.invalid" mdbBtn matSuffix type="submit" gradient="peach" [rounded]="true"
-                    size="sm" mdbWavesEffect>
+                <button [disabled]="commentForm.invalid" mdbBtn matSuffix type="submit" gradient="peach"
+                    [rounded]="true" size="sm" mdbWavesEffect>
                     <mdb-icon fas icon="paper-plane"></mdb-icon>
                 </button>
             </mat-form-field>
         </form>
     </mat-card>
 </mat-dialog-content>
-
