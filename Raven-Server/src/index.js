@@ -25,10 +25,10 @@ app.use(cors({
 }));
 
 global.io = socketio(server, {
-    cors: {
-        origin: 'http://localhost:4200'
-    }
-})
+    // cors: {
+    //     origin: 'http://localhost:4200'
+    // }
+});
 
 io.on('connection', WebSocket.connection)
 app.use('/api/auth', authRouter);
