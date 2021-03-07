@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
-  ENT_POINT: 'http://localhost:3000',
+  //ENT_POINT: 'http://localhost:3000',
+  ENT_POINT: 'ec2-65-1-109-142.ap-south-1.compute.amazonaws.com:3000',
   signUp: '/api/auth/register',
   signIn: '/api/auth/login',
   friendSuggestion: '/api/friendSuggestion/getFriendSuggestion',
