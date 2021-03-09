@@ -7,8 +7,8 @@ import { environment } from 'src/environments/environment';
 })
 export class WenSocketService {
 
-  socket: Socket = io(environment.ENT_POINT);
-  //socket: Socket = io();
+  //socket: Socket = io(environment.ENT_POINT);
+  socket: Socket = io();
 
   constructor() { }
 }
