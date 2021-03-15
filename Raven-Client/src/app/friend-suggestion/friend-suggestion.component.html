@@ -12,14 +12,14 @@
                     </button>
                 </div>
             </div>
-            <div class="col-10">
+            <div class="col-9">
                 <div *ngIf="suggestionSize==0">
                     <h3 class="text-center mt-5"><b>No Suggestions</b></h3>
                 </div>
                 <div #widgetsContent class="middle">
                     <div *ngFor="let user of friendSuggestions$ | async" class="info-widget">
                         <div class="card">
-                            <img class="card" [src]="user.avatar" height="130" alt="Avatar">
+                            <img class="card-img img-fluid" [src]="user.avatar"  alt="Avatar">
                             <div class="card-body">
                                 <h4 class="friend-suggestion-name"><b>{{user.username}}</b></h4>
                                 <!-- <button (click)="addFriend(user._id)" mat-raised-button color="warn">Follow

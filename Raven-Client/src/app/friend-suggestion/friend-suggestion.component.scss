@@ -1,36 +1,52 @@
-.item-card{
-    height: 23em;
+.item-card {
+  height: 23em;
 }
 
-#arrow-btn{
+#arrow-btn {
   margin-top: 70px;
 }
 
-#pn-btn{
-    //background-image: linear-gradient(to top, #b3ffab 0%, #12fff7 100%);
-    background-image: linear-gradient(to top, #b224ef 0%, #7579ff 100%);
+#pn-btn {
+  //background-image: linear-gradient(to top, #b3ffab 0%, #12fff7 100%);
+  background-image: linear-gradient(to top, #b224ef 0%, #7579ff 100%);
 }
 
-#arrow-icon{
-    color: black;
+#arrow-icon {
+  color: black;
 }
 
 .middle {
-    float: left;
-    width: 100%;
-    // overflow: auto;
-    overflow-x: hidden;
-    /*will change this to hidden later to deny scolling to user*/
-    white-space: nowrap;
-  }
+  float: left;
+  width: 100%;
+  // overflow: auto;
+  overflow-x: hidden;
+  /*will change this to hidden later to deny scolling to user*/
+  white-space: nowrap;
+}
+
 .info-widget {
-    //width: 31.75%;
-    width: 38%;
-    margin: 0 5px 0 5px;
-    // border: 1px solid black;
-    display: inline-block;
+  //width: 31.75%;
+  width: 38%;
+  margin: 0 5px 0 5px;
+  // border: 1px solid black;
+  display: inline-block;
+}
+
+.card {
+  border-radius: 8%;
+  //height: 100px;
+}
+
+.card-img {
+  border-radius: 8%;
+}
+
+@media(max-width:1100px) {
+  .info-widget {
+    width: 75%;
   }
 
-  .card{
-    border-radius: 8%;
+  .item-card {
+    height: 25em;
   }
+}

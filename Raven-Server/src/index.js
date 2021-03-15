@@ -31,13 +31,13 @@ global.io = socketio(server, {
 });
 
 io.on('connection', WebSocket.connection)
-app.use('/auth', authRouter);
-app.use('/post', postRouter);
-app.use('/friendSuggestion', friendSuggestionRouter);
-app.use('/notification', notificationRouter);
-app.use('/user', userRouter);
-app.use('/comment', commentRouter);
-app.use('/chat', chatRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/post', postRouter);
+app.use('/api/friendSuggestion', friendSuggestionRouter);
+app.use('/api/notification', notificationRouter);
+app.use('/api/user', userRouter);
+app.use('/api/comment', commentRouter);
+app.use('/api/chat', chatRouter);
 
 const PORT = process.env.PORT || config.get('server.port');
 
